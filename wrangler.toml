@@ -1,0 +1,5 @@
+name = "cast-x"
+compatibility_date = "2026-09-14"
+
+[assets]
+directory = "./"
