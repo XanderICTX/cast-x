@@ -408,8 +408,12 @@
     .card{padding:12px 10px;}
     h1{font-size:15px;}
     .searchbar input{padding:11px 12px;font-size:15px;}
-    .tab{padding:10px 14px;font-size:12px;}
-    .subtab{padding:9px 14px;font-size:12px;}
+    .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:6px;}
+    .tabs::-webkit-scrollbar{display:none;}
+    .tab{padding:10px 13px;font-size:11.5px;flex-shrink:0;}
+    .subtabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .subtabs::-webkit-scrollbar{display:none;}
+    .subtab{padding:9px 13px;font-size:11.5px;flex-shrink:0;}
     .specrow, .bulletrow{font-size:13.5px;padding-right:66px;}
     table.tbl{font-size:12.5px;}
     table.tbl th{font-size:10.5px;padding:8px 8px;}
@@ -8350,7 +8354,14 @@
   var panels = document.querySelectorAll('.panel');
 
   function activateTab(code){
-    tabs.forEach(function(x){x.classList.toggle('active', x.dataset.tab===code)});
+    tabs.forEach(function(x){
+      var isActive = x.dataset.tab===code;
+      x.classList.toggle('active', isActive);
+      // On phones the tab bar scrolls sideways rather than wrapping into several rows (added
+      // 2026-09-14 — the wrapped version was eating most of the screen on mobile). Scroll the
+      // newly-active tab into view so tapping a tab near the edge doesn't leave it half-hidden.
+      if(isActive) x.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    });
     panels.forEach(function(x){x.classList.toggle('active', x.id==='panel-'+code)});
     document.getElementById('search').value='';
     applyFilter('');
@@ -8621,10 +8632,17 @@
     saveFieldLogRod(log);
   }
 
-  // ---------------- ROTATION ROLLUP (derived from COMBO_KEY + CATCH_KEY + FIELD_LOG_KEY) ----------------
+  // ---------------- ROTATION ROLLUP (derived from COMBO_KEY + FIELD_LOG_KEY) ----------------
+  // NOTE (2026-09-14): this used to also sum fish from CATCH_KEY_RODS/catchLog — crediting a catch
+  // to EVERY rod merely tagged as "compatible" with that lure (often 5-10 rods at once), rather than
+  // the one rod actually used. That silently inflated fish counts on rods that never caught anything
+  // (confirmed: S0 was showing catches from generic soft-plastic taps it was never fished with).
+  // Fish counts now come solely from FIELD_LOG_KEY, which only ever gets set to owner-confirmed
+  // per-rod totals — see the force-correction seed below. Per-lure catch logging (the 🐟 button)
+  // still works exactly as before for that lure's own "Field Proven" status; it just no longer
+  // propagates up into rod-level fish totals.
   function computeRodStats(code){
     var comboLog = loadComboLog();
-    var catchLog = loadCatchLog();
     var trips = 0, lastTrip = null;
     (ROD_COMBO_IDS[code]||[]).forEach(function(id){
       var e = comboLog[id];
@@ -8632,24 +8650,14 @@
       trips += e.count||0;
       if(e.last && (!lastTrip || e.last > lastTrip)) lastTrip = e.last;
     });
-    var fish = 0, lastFish = null;
-    Object.keys(CATCH_KEY_RODS).forEach(function(key){
-      if(CATCH_KEY_RODS[key].indexOf(code)===-1) return;
-      var e = catchLog[key];
-      if(!e) return;
-      fish += e.count||0;
-      if(e.last && (!lastFish || e.last > lastFish)) lastFish = e.last;
-    });
+    var fish = 0;
     var fieldEntry = loadFieldLogRod()[code];
     if(fieldEntry){
       trips += fieldEntry.trips||0;
       fish += fieldEntry.fish||0;
       if(fieldEntry.last && (!lastTrip || fieldEntry.last > lastTrip)) lastTrip = fieldEntry.last;
     }
-    var last = null;
-    if(lastTrip && lastFish) last = lastTrip > lastFish ? lastTrip : lastFish;
-    else last = lastTrip || lastFish;
-    return {trips:trips, fish:fish, last:last};
+    return {trips:trips, fish:fish, last:lastTrip};
   }
   function renderRotationBadge(code){
     var el = document.querySelector('.rotbadge[data-rotcode="'+code+'"]');
@@ -10841,6 +10849,26 @@
   seedFieldLogRodIfNeeded('field_report_zb_lastdate_fix_2026-09-14', {
     'ZB': {trips:0, fish:0, last:'2026-08-30'}
   });
+  // Force-correction (2026-09-14): computeRodStats() used to sum fish from CATCH_KEY_RODS/catchLog,
+  // crediting a catch to every rod merely tagged "compatible" with that lure rather than the one
+  // rod actually used — confirmed wrong (S0 was showing fish it never caught). That mechanism has
+  // been removed from computeRodStats entirely; fish counts now come solely from FIELD_LOG_KEY.
+  // This unconditionally SETS (not adds) the owner-confirmed lifetime fish totals per rod, so it's
+  // safe to leave unconditional rather than one-time-flagged — re-running it can't double-count.
+  // trips/last are read via Object.assign-style merge so existing values aren't disturbed; F1's
+  // last was also missing (same bug class as ZB above) and is backfilled here from note_f1_bugger
+  // (2026-08-10, 3 trout on the All-Black Bugger).
+  (function(){
+    var log = loadFieldLogRod();
+    var fishTotals = {S1:2, S2:3, S3:5, B3:4, B7:7, F1:4, F2:3, ZB:2, ZB2:4};
+    Object.keys(fishTotals).forEach(function(code){
+      var existing = log[code] || {trips:0, fish:0, last:null};
+      existing.fish = fishTotals[code];
+      log[code] = existing;
+    });
+    if(log.F1 && !log.F1.last) log.F1.last = '2026-08-10';
+    saveFieldLogRod(log);
+  })();
 
   reapplyPersistedState();
   document.querySelectorAll('details').forEach(function(d){ d.open = false; });
