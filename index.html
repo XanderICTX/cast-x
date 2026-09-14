@@ -10570,7 +10570,11 @@
         auth: {
           clientId: CLOUD_CLIENT_ID,
           authority: 'https://login.microsoftonline.com/' + CLOUD_TENANT_ID,
-          redirectUri: window.location.origin + window.location.pathname
+          // Hardcoded to the exact URL registered as the redirect URI in Azure — deriving this
+          // from window.location instead would break sign-in the moment someone lands on any
+          // slightly different variant of the URL (with/without index.html, without the trailing
+          // slash, etc.), since Microsoft requires an exact match against what's registered.
+          redirectUri: 'https://cast-x.xander-91a.workers.dev/'
         },
         cache: { cacheLocation: 'localStorage', storeAuthStateInCookie: false }
       });
@@ -10826,6 +10830,17 @@
   // deliberately left unseeded/unchecked — whether a rod is currently spooled and ready changes
   // week to week and isn't knowable from static data, so that one starts blank for the user to set.
   seedOwnedIfNeeded('all_owned_2026-09-14', ['S0','S1','S2','S3','S4','S5','S6','B0','B1','B2','B3','B4','B5','B6','B7','F1','F2','T1','ZB','ZB2','SYS1','SYS2','SYS3']);
+  // Force-correction (2026-09-14): the field_report_2026-09-05 seed above gave ZB 2 trips but never
+  // attached a last-used date, so computeRodStats() found trips with no date and the Dashboard's
+  // "Never logged" filter (which only checks for a missing date) wrongly flagged ZB as never
+  // fished. Backfilling the date here rather than editing that seed directly, since that seed key
+  // has already fired for existing users and won't re-run. 2026-08-30 chosen as the later of ZB's
+  // two documented outings (2026-08-10 per note_zb_baithook, 2026-08-30 per the boat-day gameplan
+  // that also had her along with the Zebco Splash). trips/fish left at 0 so this purely backfills
+  // the date without double-counting anything already seeded.
+  seedFieldLogRodIfNeeded('field_report_zb_lastdate_fix_2026-09-14', {
+    'ZB': {trips:0, fish:0, last:'2026-08-30'}
+  });
 
   reapplyPersistedState();
   document.querySelectorAll('details').forEach(function(d){ d.open = false; });
