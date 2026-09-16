@@ -9937,6 +9937,27 @@
     });
     if(changed) savePlans(plans);
   }
+  // One-time migration: overwrites the lures list for one setup inside an already-seeded
+  // gameplan. Needed because seedGameplanIfNeeded only fires once per browser (flag-gated) and
+  // won't re-apply edits made later to a build*SeedPlan() function's lure text.
+  function updatePlanLuresIfNeeded(migrationKey, planId, setupCode, newLures){
+    var FLAG_KEY = 'gpLuresMigration_' + migrationKey;
+    if(localStorage.getItem(FLAG_KEY)) return;
+    localStorage.setItem(FLAG_KEY, '1');
+    var plans = loadPlans();
+    var changed = false;
+    plans.forEach(function(p){
+      if(p.id === planId && p.setups){
+        p.setups.forEach(function(s){
+          if(s.code === setupCode){
+            s.lures = newLures;
+            changed = true;
+          }
+        });
+      }
+    });
+    if(changed) savePlans(plans);
+  }
   function buildXFactorSeedPlan(){
     var s2Gear = (packDefaults['S2'] || []).map(function(g){ return {text:g, checked:true}; });
     s2Gear = s2Gear.concat([
@@ -10649,6 +10670,15 @@
   removeGameplanIfNeeded('heavy_cover_bigbait_v1_2026-09', 'heavy_cover_bigbait_v1');
   // Aqua Paradiso — S0 Dual-Tip / B6 Curado Test Day, removed 2026-09 at the user's request.
   removeGameplanIfNeeded('s0b6_test_v1_removal_2026-09', 's0b6_test_2026-09-05');
+  // 2026-09-16: B5's baseline lure swapped from Poppin Pad Crasher/Keitech Jig to the BuzzGill +
+  // BKK Heavy Cover Flipping Hook (5/0) / Makisasu (4/0) pairing — already-seeded browsers need
+  // this one-time push since seedGameplanIfNeeded won't re-apply build*SeedPlan() edits.
+  updatePlanLuresIfNeeded('b5_buzzgill_lures_2026-09-16', 'b4b5_heavycover_2026-09-15', 'B5', [
+    "FLOOR TEST — Megabass Mag Draft Head (#6/0, 14.2g / 0.5oz), paired with a glide/swim body — right at B5's 14g (0.49oz) manufacturer floor.",
+    "SWEET-SPOT BASELINE — 6th Sense BuzzGill, Baby Bluegill (22.7g / 0.8oz, field-weighed) rigged weedless on a bare BKK Heavy Cover Flipping, Pitching & Punching Hook (5/0) — already B5's own dedicated punch-rig hook, Box 3700 #2 slot 19 — walked/waked through gaps and heavy cover with some drag resistance for a heavier topwater test than a true floor bait. If it wants a touch less resistance without losing the surface ride, step down to the same BuzzGill on a Decoy Makisasu Weighted Worm Hook, Worm130 (4/0, 2.5g / 0.09oz) instead — untagged for B5 in the catalog for now, worth confirming today.",
+    "ALSO AVAILABLE — Booyah Poppin Pad Crasher (Leopard Frog, 15.5g / 0.55oz) chugged through gaps in cover, or the Keitech Tungsten Jig (X-Heavy, 16.2g / 0.57oz) with a bulky trailer punched through heavier cover — both inside B5's 14-21g (0.49-0.74oz) estimated sweet spot if the BuzzGill combo doesn't produce.",
+    "CEILING-PUSH TEST — Rapala Walk'n Roll 13 (Flake Green, 28.67g / 1.01oz) — roughly two-thirds of the way to B5's 42g (1.48oz) factory ceiling, the best available test of how it handles real weight past the sweet spot."
+  ]);
   (function(){
     var fixed = buildAquaParadisimoSeedPlan();
     fixGameplanIfNeeded('aquaparadisimo_remove_s0_v1', 'aquaparadisimo_2026-08-30', {
