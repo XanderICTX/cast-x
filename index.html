@@ -10200,7 +10200,7 @@
       {text:"Zero field time logged as of 2026-09 — same watchlist status as B4 before today.", checked:true}
     );
     return {
-      id: 'b4b5_heavycover_2026-09-15',
+      id: 'b4b5_heavycover_v3_2026-09-16',
       name: 'Heavy Power Proving Ground — B4 vs B5',
       date: '2026-09-15',
       type: 'Day trip',
@@ -10652,7 +10652,12 @@
   seedGameplanIfNeeded('xfactor_2026-09-12', buildXfactorB3S1SeedPlan());
   seedGameplanIfNeeded('b7s4_boat_2026-09-13', buildB7S4BoatSeedPlan());
   seedGameplanIfNeeded('b1s6_finesse_2026-09-14', buildB1S6SeedPlan());
-  seedGameplanIfNeeded('b4b5_heavycover_2026-09-15', buildB4B5SeedPlan());
+  // 2026-09-16: renamed from 'b4b5_heavycover_2026-09-15' to a fresh id ('...v3_2026-09-16') so
+  // every browser (regardless of which stale localStorage/cache state it's carrying) reliably
+  // gets the corrected lure lists on next load, instead of depending on migration flags firing
+  // correctly. Old id removed below so no duplicate/stale card lingers.
+  removeGameplanIfNeeded('b4b5_heavycover_rename_2026-09-16', 'b4b5_heavycover_2026-09-15');
+  seedGameplanIfNeeded('b4b5_heavycover_v3_2026-09-16', buildB4B5SeedPlan());
   seedGameplanIfNeeded('b6s5_braidtest_2026-09-16', buildB6S5SeedPlan());
   seedGameplanIfNeeded('s0b0_travel_2026-09-17', buildS0B0TravelSeedPlan());
   // 2026-09-14: the 4 earliest gameplans (08-10, 08-30, 09-12, 09-13) are past trips that have
