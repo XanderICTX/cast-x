@@ -10209,12 +10209,11 @@
         { code:'B4', gear:b4Gear, f1spool:'floating', lures: [
           "FLOOR TEST — Mustad Ultrapoint Classic Jig Head (4/0, 20g (0.71oz) bare) plus a bulky trailer to clear the weight the rest of the way — the closest weight-match to B4's 21.3g (0.75oz) floor even before the trailer's added.",
           "SWEET-SPOT BASELINE — Rapala Walk'n Roll 13 (Flake Green, 28.67g / 1.01oz) jointed glide swimbait, slow-rolled — sits at the bottom of B4's estimated 28-56g (0.99-1.98oz) sweet spot, the big-bait platform this rod exists for.",
-          "HONEST GAP — nothing in the box gets remotely close to B4's 85g (3oz) factory ceiling (the highest in the whole fleet), so today's real ceiling read stops around 28-30g (0.99-1.06oz). Worth logging if the Walk'n Roll feels like it's asking for more weight, not less."
+          "TOPWATER FLOOR TEST — 6th Sense BuzzGill, Baby Bluegill (22.7g / 0.8oz, field-weighed) rigged weedless on a bare BKK Heavy Cover Flipping, Pitching & Punching Hook (5/0) — sits right at B4's 21.3g (0.75oz) manufacturer floor, a completely different technique from the glide-swimbait/jig-and-trailer baits above — worth logging as its own data point. Untagged for B4 in the catalog for now, worth confirming today."
         ]},
         { code:'B5', gear:b5Gear, f1spool:'floating', lures: [
-          "FLOOR TEST — Megabass Mag Draft Head (#6/0, 14.2g / 0.5oz), paired with a glide/swim body — right at B5's 14g (0.49oz) manufacturer floor.",
-          "SWEET-SPOT BASELINE — 6th Sense BuzzGill, Baby Bluegill (22.7g / 0.8oz, field-weighed) rigged weedless on a bare BKK Heavy Cover Flipping, Pitching & Punching Hook (5/0) — already B5's own dedicated punch-rig hook, Box 3700 #2 slot 19 — walked/waked through gaps and heavy cover with some drag resistance for a heavier topwater test than a true floor bait. If it wants a touch less resistance without losing the surface ride, step down to the same BuzzGill on a Decoy Makisasu Weighted Worm Hook, Worm130 (4/0, 2.5g / 0.09oz) instead — untagged for B5 in the catalog for now, worth confirming today.",
-          "ALSO AVAILABLE — Booyah Poppin Pad Crasher (Leopard Frog, 15.5g / 0.55oz) chugged through gaps in cover, or the Keitech Tungsten Jig (X-Heavy, 16.2g / 0.57oz) with a bulky trailer punched through heavier cover — both inside B5's 14-21g (0.49-0.74oz) estimated sweet spot if the BuzzGill combo doesn't produce.",
+          "FLOOR TEST — Geecrack Bellows Gill (3.8-inch, Green Pumpkin Chartreuse, 16.8g / 0.59oz, field-weighed), direct-tied on a 3/0 hook — a touch above B5's 14g (0.49oz) manufacturer floor, already tagged to B5 in the catalog.",
+          "SWEET-SPOT BASELINE — Booyah Poppin Pad Crasher (Leopard Frog, 15.5g / 0.55oz) chugged through gaps in cover, or the Keitech Tungsten Jig (X-Heavy, 16.2g / 0.57oz) with a bulky trailer punched through heavier cover — both inside B5's 14-21g (0.49-0.74oz) estimated sweet spot, the punching/flipping technique it was bought for.",
           "CEILING-PUSH TEST — Rapala Walk'n Roll 13 (Flake Green, 28.67g / 1.01oz) — roughly two-thirds of the way to B5's 42g (1.48oz) factory ceiling, the best available test of how it handles real weight past the sweet spot."
         ]}
       ],
@@ -10677,6 +10676,19 @@
     "FLOOR TEST — Megabass Mag Draft Head (#6/0, 14.2g / 0.5oz), paired with a glide/swim body — right at B5's 14g (0.49oz) manufacturer floor.",
     "SWEET-SPOT BASELINE — 6th Sense BuzzGill, Baby Bluegill (22.7g / 0.8oz, field-weighed) rigged weedless on a bare BKK Heavy Cover Flipping, Pitching & Punching Hook (5/0) — already B5's own dedicated punch-rig hook, Box 3700 #2 slot 19 — walked/waked through gaps and heavy cover with some drag resistance for a heavier topwater test than a true floor bait. If it wants a touch less resistance without losing the surface ride, step down to the same BuzzGill on a Decoy Makisasu Weighted Worm Hook, Worm130 (4/0, 2.5g / 0.09oz) instead — untagged for B5 in the catalog for now, worth confirming today.",
     "ALSO AVAILABLE — Booyah Poppin Pad Crasher (Leopard Frog, 15.5g / 0.55oz) chugged through gaps in cover, or the Keitech Tungsten Jig (X-Heavy, 16.2g / 0.57oz) with a bulky trailer punched through heavier cover — both inside B5's 14-21g (0.49-0.74oz) estimated sweet spot if the BuzzGill combo doesn't produce.",
+    "CEILING-PUSH TEST — Rapala Walk'n Roll 13 (Flake Green, 28.67g / 1.01oz) — roughly two-thirds of the way to B5's 42g (1.48oz) factory ceiling, the best available test of how it handles real weight past the sweet spot."
+  ]);
+  // 2026-09-16 (round 2): BuzzGill moved off B5 onto B4 as its own floor-weight topwater test,
+  // B4's HONEST GAP line dropped, and B5's floor test swapped from Mag Draft Head to the Bellows
+  // Gill — already-seeded browsers need both pushed since seedGameplanIfNeeded won't re-fire.
+  updatePlanLuresIfNeeded('b4_buzzgill_lures_2026-09-16b', 'b4b5_heavycover_2026-09-15', 'B4', [
+    "FLOOR TEST — Mustad Ultrapoint Classic Jig Head (4/0, 20g (0.71oz) bare) plus a bulky trailer to clear the weight the rest of the way — the closest weight-match to B4's 21.3g (0.75oz) floor even before the trailer's added.",
+    "SWEET-SPOT BASELINE — Rapala Walk'n Roll 13 (Flake Green, 28.67g / 1.01oz) jointed glide swimbait, slow-rolled — sits at the bottom of B4's estimated 28-56g (0.99-1.98oz) sweet spot, the big-bait platform this rod exists for.",
+    "TOPWATER FLOOR TEST — 6th Sense BuzzGill, Baby Bluegill (22.7g / 0.8oz, field-weighed) rigged weedless on a bare BKK Heavy Cover Flipping, Pitching & Punching Hook (5/0) — sits right at B4's 21.3g (0.75oz) manufacturer floor, a completely different technique from the glide-swimbait/jig-and-trailer baits above — worth logging as its own data point. Untagged for B4 in the catalog for now, worth confirming today."
+  ]);
+  updatePlanLuresIfNeeded('b5_bellowsgill_lures_2026-09-16b', 'b4b5_heavycover_2026-09-15', 'B5', [
+    "FLOOR TEST — Geecrack Bellows Gill (3.8-inch, Green Pumpkin Chartreuse, 16.8g / 0.59oz, field-weighed), direct-tied on a 3/0 hook — a touch above B5's 14g (0.49oz) manufacturer floor, already tagged to B5 in the catalog.",
+    "SWEET-SPOT BASELINE — Booyah Poppin Pad Crasher (Leopard Frog, 15.5g / 0.55oz) chugged through gaps in cover, or the Keitech Tungsten Jig (X-Heavy, 16.2g / 0.57oz) with a bulky trailer punched through heavier cover — both inside B5's 14-21g (0.49-0.74oz) estimated sweet spot, the punching/flipping technique it was bought for.",
     "CEILING-PUSH TEST — Rapala Walk'n Roll 13 (Flake Green, 28.67g / 1.01oz) — roughly two-thirds of the way to B5's 42g (1.48oz) factory ceiling, the best available test of how it handles real weight past the sweet spot."
   ]);
   (function(){
