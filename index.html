@@ -579,7 +579,7 @@
     </div>
     <div class="sectiontitle">Estate &amp; Water Access Permits</div>
     <div class="card searchable">
-      <div class="tagline">Private-water access permits, granted by the estate's property owners' association rather than under the Marine Living Resources Act — keep this in mind separately from the licenses above.</div>
+      <div class="tagline">Private-water access permits, granted by an estate's property owners' association rather than under the Marine Living Resources Act — keep this in mind separately from the licenses above. Tap the + button while on this Dashboard tab to add another permit as you get them.</div>
       <div class="photogrid">
         <div class="photoitem" data-imgkey="permit_serengeti_dam5">
           <div class="imgwrap rodphoto"><img class="hidden" data-imgkey="permit_serengeti_dam5" alt=""><div class="rodphotoplaceholder" data-placeholder="permit_serengeti_dam5">Tap the pencil to add a photo</div><button class="imgEditBtn" data-imgkey="permit_serengeti_dam5" title="Add photo">✎</button><input type="file" accept="image/*" class="imgFileInput" data-imgkey="permit_serengeti_dam5"></div>
@@ -592,6 +592,7 @@
           <div class="rankdesc" style="margin-top:2px;">Sand River Camp / Phase 1 marker is roughly where Dam 5 sits — worth a glance before the drive out.</div>
         </div>
       </div>
+      <div class="photogrid" id="customPermitsGrid"></div>
     </div>
     <div class="sectiontitle">Rotation Alerts</div>
     <div class="card searchable" id="dashboardRotationAlerts">Loading…</div>
@@ -8127,6 +8128,29 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="permitModalOverlay">
+  <div class="modal">
+    <h2>Add a permit</h2>
+    <label>Water / Location</label><input type="text" id="pf_location" placeholder="e.g. Estate Name — Dam / Lake">
+    <div class="row2">
+      <div><label>Permit Holder</label><input type="text" id="pf_holder"></div>
+      <div><label>Permit Nr.</label><input type="text" id="pf_permitnr"></div>
+    </div>
+    <div class="row2">
+      <div><label>Approved By</label><input type="text" id="pf_approvedby"></div>
+      <div><label>Date Approved</label><input type="text" id="pf_dateapproved" placeholder="e.g. 18/09/2026"></div>
+    </div>
+    <label>Validity</label><input type="text" id="pf_validity" placeholder="e.g. 12 months from approval — valid until ...">
+    <label>Rules / Notes</label><textarea id="pf_rules" rows="3" placeholder="Catch-and-release, no fires, etc."></textarea>
+    <label>Permit Scan (optional)</label><input type="file" accept="image/*" id="pf_photo1">
+    <label>Second Photo — map/other (optional)</label><input type="file" accept="image/*" id="pf_photo2">
+    <div class="modalbtns">
+      <button class="btn" id="savePermit">Save permit</button>
+      <button class="btn btnGhost" id="cancelPermit">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="classifyModalOverlay">
   <div class="modal">
     <h2>Add this to your lure inventory?</h2>
@@ -9276,6 +9300,13 @@
       saveCustomLures(items);
       renderCustomLures();
     }
+    if(t.classList.contains('delPermit')){
+      if(!confirm('Remove this permit?')) return;
+      var pid = t.dataset.id;
+      var pitems = loadCustomPermits().filter(function(it){return it.id!==pid;});
+      saveCustomPermits(pitems);
+      renderCustomPermits();
+    }
     if(t.classList.contains('delPlan')){
       if(!confirm('Delete this gameplan?')) return;
       var plans = loadPlans().filter(function(p){return p.id !== t.dataset.id;});
@@ -9507,9 +9538,75 @@
     if(fileInput.files && fileInput.files[0]){ readAndStoreImage(imgKey, fileInput.files[0], finish); } else { finish(); }
   });
 
+  // ---------------- ADD PERMIT (localStorage) ----------------
+  // Same pattern as ADD LURE above: localStorage-backed, so it survives rebuilds, and named with
+  // the 'rodSetup' prefix so it rides along with the existing OneDrive cloud-sync snapshot (see
+  // isSyncableKey below) with no extra sync code needed. Lets more permits (with their own
+  // scan/map photos) be added from the app itself as they're obtained, rather than needing a
+  // rebuild each time — first requested 2026-09-18 after the Serengeti Dam 5 permit was hardcoded.
+  var PERMITS_KEY = 'rodSetupCustomPermits';
+  function loadCustomPermits(){ try{return JSON.parse(localStorage.getItem(PERMITS_KEY))||[];}catch(e){return [];} }
+  function saveCustomPermits(p){ localStorage.setItem(PERMITS_KEY, JSON.stringify(p)); }
+  function customPermitCardHTML(){
+    var items = loadCustomPermits();
+    return items.map(function(p){
+      var meta = 'Permit Nr ' + escHtml(p.permitNr||'—') + (p.holder ? (' — held by ' + escHtml(p.holder)) : '') +
+        (p.approvedBy ? ('<br>Approved ' + escHtml(p.dateApproved||'') + ' by ' + escHtml(p.approvedBy)) : (p.dateApproved ? ('<br>Approved ' + escHtml(p.dateApproved)) : '')) +
+        (p.validity ? ('<br>Valid ' + escHtml(p.validity)) : '') +
+        (p.rules ? ('<br>' + escHtml(p.rules)) : '');
+      var photo1 = '<div class="photoitem" data-imgkey="' + p.photoKey1 + '"><div class="imgwrap"><img class="hidden" data-imgkey="' + p.photoKey1 + '" alt=""><div class="rodphotoplaceholder" data-placeholder="' + p.photoKey1 + '">Tap the pencil to add a photo</div><button class="imgEditBtn" data-imgkey="' + p.photoKey1 + '" title="Add photo">\u270E</button><input type="file" accept="image/*" class="imgFileInput" data-imgkey="' + p.photoKey1 + '"></div>' +
+        '<div class="photolabel">' + escHtml(p.location||'Permit') + '</div>' +
+        '<div class="rankdesc" style="margin-top:2px;">' + meta + '</div>' +
+        '<button class="btn btnGhost delPermit" data-id="' + p.id + '" style="margin-top:6px;font-size:10px;padding:4px 8px;">Remove</button>' +
+        '</div>';
+      var photo2 = '<div class="photoitem" data-imgkey="' + p.photoKey2 + '"><div class="imgwrap"><img class="hidden" data-imgkey="' + p.photoKey2 + '" alt=""><div class="rodphotoplaceholder" data-placeholder="' + p.photoKey2 + '">Tap the pencil to add a photo</div><button class="imgEditBtn" data-imgkey="' + p.photoKey2 + '" title="Add photo">\u270E</button><input type="file" accept="image/*" class="imgFileInput" data-imgkey="' + p.photoKey2 + '"></div>' +
+        '<div class="photolabel">' + escHtml(p.location||'Permit') + ' — second photo</div>' +
+        '</div>';
+      return photo1 + photo2;
+    }).join('');
+  }
+  function renderCustomPermits(){
+    var grid = document.getElementById('customPermitsGrid');
+    if(!grid) return;
+    grid.innerHTML = customPermitCardHTML();
+    applyImageOverrides();
+  }
+  var permitOverlay = document.getElementById('permitModalOverlay');
+  function openPermitModal(){
+    ['pf_location','pf_holder','pf_permitnr','pf_approvedby','pf_dateapproved','pf_validity','pf_rules'].forEach(function(id){ document.getElementById(id).value=''; });
+    document.getElementById('pf_photo1').value='';
+    document.getElementById('pf_photo2').value='';
+    permitOverlay.classList.add('open');
+  }
+  document.getElementById('cancelPermit').addEventListener('click', function(){ permitOverlay.classList.remove('open'); });
+  permitOverlay.addEventListener('click', function(e){ if(e.target === permitOverlay) permitOverlay.classList.remove('open'); });
+  document.getElementById('savePermit').addEventListener('click', function(){
+    var location = document.getElementById('pf_location').value.trim();
+    if(!location){ alert('Give the permit a water/location name.'); return; }
+    var id = Date.now().toString(36);
+    var item = {
+      id: id, location: location,
+      holder: document.getElementById('pf_holder').value.trim(),
+      permitNr: document.getElementById('pf_permitnr').value.trim(),
+      approvedBy: document.getElementById('pf_approvedby').value.trim(),
+      dateApproved: document.getElementById('pf_dateapproved').value.trim(),
+      validity: document.getElementById('pf_validity').value.trim(),
+      rules: document.getElementById('pf_rules').value.trim(),
+      photoKey1: 'custompermit_' + id + '_1',
+      photoKey2: 'custompermit_' + id + '_2',
+    };
+    var items = loadCustomPermits(); items.push(item); saveCustomPermits(items);
+    var f1 = document.getElementById('pf_photo1'), f2 = document.getElementById('pf_photo2');
+    var finish = function(){ renderCustomPermits(); permitOverlay.classList.remove('open'); };
+    var afterFirst = function(){ if(f2.files && f2.files[0]){ readAndStoreImage(item.photoKey2, f2.files[0], finish); } else { finish(); } };
+    if(f1.files && f1.files[0]){ readAndStoreImage(item.photoKey1, f1.files[0], afterFirst); } else { afterFirst(); }
+  });
+
   document.getElementById('fabAdd').addEventListener('click', function(){
     var activePanel = document.querySelector('.panel.active');
-    if(activePanel && activePanel.id === 'panel-lures'){ openLureModal(); } else { openRodModal(); }
+    if(activePanel && activePanel.id === 'panel-lures'){ openLureModal(); }
+    else if(activePanel && activePanel.id === 'panel-dashboard'){ openPermitModal(); }
+    else { openRodModal(); }
   });
 
   // ---------------- COMPARE: ROD/REEL MIX & MATCH ----------------
@@ -10521,6 +10618,7 @@
     renderAllNotes();
     renderAllCustomRods();
     renderCustomLures();
+    renderCustomPermits();
     hydrateBlocks();
     hydrateTables();
     applyImageOverrides();
