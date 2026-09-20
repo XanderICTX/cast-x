@@ -156,8 +156,10 @@
   .checklistItem{flex:0 0 auto;display:flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;color:var(--text-dim);letter-spacing:.3px;cursor:pointer;user-select:none;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--border-strong);white-space:nowrap;}
   .checklistItem input{cursor:pointer;margin:0;}
   .checklistItem:has(input:checked){background:rgba(120,220,150,.12);border-color:rgba(120,220,150,.4);color:#8fe6a8;}
-  .checklistPill{flex:0 0 auto;font-size:10.5px;font-weight:700;letter-spacing:.3px;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--text-dim);white-space:nowrap;}
+  .checklistPillWrap{flex:0 0 auto;display:inline-flex;align-items:center;gap:3px;}
+  .checklistPill{flex:0 0 auto;font:inherit;font-size:10.5px;font-weight:700;letter-spacing:.3px;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--text-dim);white-space:nowrap;cursor:pointer;}
   .checklistPill.pillOn{background:rgba(255,106,26,.14);border-color:rgba(255,106,26,.4);color:var(--accent);}
+  .checklistResetBtn{background:rgba(0,0,0,.4);border:1px solid var(--border-strong);border-radius:4px;color:var(--text-dim);font-size:9px;cursor:pointer;padding:2px 4px;line-height:14px;}
   .packListRow{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);}
   .packListRow:last-child{border-bottom:none;}
   .packListText{flex:1;font-size:12.5px;color:var(--text);}
@@ -435,6 +437,8 @@
     .comboBtn{padding:5px 10px;font-size:14px;}
     .combocount{font-size:13px;}
     .comboResetBtn{padding:4px 6px;font-size:11px;}
+    .checklistPill{padding:5px 9px;font-size:12px;}
+    .checklistResetBtn{padding:4px 6px;font-size:11px;}
     .imgEditBtn{width:32px;height:32px;line-height:30px;font-size:14px;}
     .photogrid{grid-template-columns:repeat(3,1fr);gap:8px;}
     .photolabel{font-size:11px;}
@@ -688,8 +692,8 @@
       <div class="checklistWrap" data-checklistcode="S0">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="S0"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="S0"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="S0" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="S0" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="S0" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="S0" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="S0" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="S0" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -928,8 +932,8 @@
       <div class="checklistWrap" data-checklistcode="S1">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="S1"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="S1"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="S1" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="S1" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="S1" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="S1" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="S1" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="S1" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -1252,8 +1256,8 @@
       <div class="checklistWrap" data-checklistcode="S2">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="S2"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="S2"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="S2" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="S2" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="S2" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="S2" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="S2" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="S2" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -1651,8 +1655,8 @@
       <div class="checklistWrap" data-checklistcode="S3">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="S3"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="S3"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="S3" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="S3" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="S3" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="S3" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="S3" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="S3" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -2017,8 +2021,8 @@
       <div class="checklistWrap" data-checklistcode="S4">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="S4"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="S4"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="S4" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="S4" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="S4" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="S4" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="S4" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="S4" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -2326,8 +2330,8 @@
       <div class="checklistWrap" data-checklistcode="S5">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="S5"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="S5"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="S5" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="S5" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="S5" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="S5" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="S5" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="S5" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -2530,8 +2534,8 @@
       <div class="checklistWrap" data-checklistcode="S6">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="S6"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="S6"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="S6" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="S6" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="S6" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="S6" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="S6" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="S6" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -2842,8 +2846,8 @@
       <div class="checklistWrap" data-checklistcode="B0">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="B0"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="B0"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="B0" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="B0" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="B0" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="B0" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="B0" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="B0" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -3163,8 +3167,8 @@
       <div class="checklistWrap" data-checklistcode="B1">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="B1"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="B1"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="B1" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="B1" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="B1" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="B1" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="B1" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="B1" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -3547,8 +3551,8 @@
       <div class="checklistWrap" data-checklistcode="B2">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="B2"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="B2"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="B2" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="B2" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="B2" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="B2" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="B2" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="B2" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -3886,8 +3890,8 @@
       <div class="checklistWrap" data-checklistcode="B3">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="B3"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="B3"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="B3" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="B3" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="B3" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="B3" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="B3" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="B3" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -4171,8 +4175,8 @@
       <div class="checklistWrap" data-checklistcode="B4">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="B4"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="B4"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="B4" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="B4" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="B4" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="B4" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="B4" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="B4" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -4324,8 +4328,8 @@
       <div class="checklistWrap" data-checklistcode="B5">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="B5"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="B5"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="B5" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="B5" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="B5" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="B5" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="B5" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="B5" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -4540,8 +4544,8 @@
       <div class="checklistWrap" data-checklistcode="B6">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="B6"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="B6"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="B6" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="B6" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="B6" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="B6" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="B6" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="B6" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -4855,8 +4859,8 @@
       <div class="checklistWrap" data-checklistcode="B7">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="B7"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="B7"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="B7" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="B7" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="B7" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="B7" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="B7" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="B7" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -5170,8 +5174,8 @@
       <div class="checklistWrap" data-checklistcode="F1">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="F1"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="F1"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="F1" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="F1" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="F1" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="F1" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="F1" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="F1" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -5212,8 +5216,8 @@
       <div class="checklistWrap" data-checklistcode="F2">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="F2"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="F2"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="F2" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="F2" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="F2" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="F2" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="F2" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="F2" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -5257,8 +5261,8 @@
       <div class="checklistWrap" data-checklistcode="T1">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="T1"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="T1"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="T1" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="T1" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="T1" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="T1" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="T1" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="T1" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -5290,8 +5294,8 @@
       <div class="checklistWrap" data-checklistcode="ZB">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="ZB"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="ZB"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="ZB" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="ZB" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="ZB" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="ZB" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="ZB" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="ZB" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
     </div>
     <div class="imgwrap"><img class="rodphotoimg" data-imgkey="rodphoto_ZB" src="images/rodphoto_ZB.jpg" alt="ZB rod (reference photo)"><button class="imgEditBtn" data-imgkey="rodphoto_ZB" title="Replace photo">✎</button><input type="file" accept="image/*" class="imgFileInput" data-imgkey="rodphoto_ZB"></div>
@@ -5372,8 +5376,8 @@
       <div class="checklistWrap" data-checklistcode="ZB2">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="ZB2"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="ZB2"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="ZB2" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="ZB2" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="ZB2" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="ZB2" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="ZB2" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="ZB2" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
     </div>
     <div class="imgwrap"><img class="rodphotoimg" data-imgkey="rodphoto_ZB2" src="images/rodphoto_ZB2.jpg" alt="ZB2 rod (reference photo)"><button class="imgEditBtn" data-imgkey="rodphoto_ZB2" title="Replace photo">✎</button><input type="file" accept="image/*" class="imgFileInput" data-imgkey="rodphoto_ZB2"></div>
@@ -5406,8 +5410,8 @@
       <div class="checklistWrap" data-checklistcode="TR">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="TR"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="TR"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="TR" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="TR" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="TR" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="TR" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="TR" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="TR" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -5447,8 +5451,8 @@
       <div class="checklistWrap" data-checklistcode="SYS1">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="SYS1"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="SYS1"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="SYS1" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="SYS1" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="SYS1" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="SYS1" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="SYS1" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="SYS1" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -5478,8 +5482,8 @@
       <div class="checklistWrap" data-checklistcode="SYS3">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="SYS3"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="SYS3"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="SYS3" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="SYS3" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="SYS3" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="SYS3" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="SYS3" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="SYS3" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -5509,8 +5513,8 @@
       <div class="checklistWrap" data-checklistcode="SYS2">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="SYS2"> Owned</label>
     <label class="checklistItem" title="Tick while this rod is currently spooled and ready to fish — untick once it's stripped down or swapped out"><input type="checkbox" class="riggedCheckbox" data-riggedcode="SYS2"> Rigged</label>
-    <span class="checklistPill testedPill" data-testedcode="SYS2" title="Auto-filled from logged trips — same data as the 🎣 rotation badge">Tested</span>
-    <span class="checklistPill caughtPill" data-caughtcode="SYS2" title="Auto-filled from logged catches — same data as the 🐟 rotation badge">Fish-Caught</span>
+    <span class="checklistPillWrap"><button class="checklistPill testedPill" data-testedcode="SYS2" title="Tap each time this rod goes out on a trip — also fills in automatically from Grab & Go combo trips">Tested</button><button class="checklistResetBtn hidden" data-testedresetcode="SYS2" title="Clear trips logged directly from this button (combo/field-history trips are unaffected)">✕</button></span>
+    <span class="checklistPillWrap"><button class="checklistPill caughtPill" data-caughtcode="SYS2" title="Tap each time this rod lands a fish">Fish-Caught</button><button class="checklistResetBtn hidden" data-caughtresetcode="SYS2" title="Clear fish logged directly from this button (field-history fish are unaffected)">✕</button></span>
   </div>
       <button class="cardToggleBtn" title="Expand / collapse">&#8964;</button>
     </div>
@@ -8565,12 +8569,36 @@
       cb.checked = !!(log[cb.dataset.riggedcode] && log[cb.dataset.riggedcode].rigged);
     });
   }
+  // Direct trip/fish log (2026-09-20): the Tested/Fish-Caught pills used to be purely read-only,
+  // auto-filled only from Grab & Go combo trip taps or build-time field-history seeds. That left two
+  // gaps: a rod with no comboLibrary entry (e.g. TR, which is a standalone truck-kit rod, never part
+  // of a two-rod combo) had literally no way to ever show as Tested, and even rods that DO have a
+  // combo (e.g. S0+B0's "Travel Spinner Pair") required finding that specific card buried in the
+  // collapsed Grab & Go "Browse More" section. DIRECT_LOG_KEY gives every rod its own always-available
+  // tap-to-log button right on its own card, additive on top of (never overwriting) comboLog/field
+  // history — computeRodStats() sums all three sources together.
+  var DIRECT_LOG_KEY = 'rodSetupDirectLog';
+  function loadDirectLog(){ try { return JSON.parse(localStorage.getItem(DIRECT_LOG_KEY)) || {}; } catch(e){ return {}; } }
+  function saveDirectLog(l){ localStorage.setItem(DIRECT_LOG_KEY, JSON.stringify(l)); }
   function renderTestedCaughtPills(code){
     var stats = computeRodStats(code);
+    var directEntry = loadDirectLog()[code] || {};
     var tp = document.querySelector('.testedPill[data-testedcode="'+code+'"]');
-    if(tp){ tp.classList.toggle('pillOn', stats.trips > 0); tp.title = stats.trips ? ('Tested — ' + stats.trips + ' trip' + (stats.trips===1?'':'s') + ' logged') : 'Not tested yet — no trips logged'; }
+    if(tp){
+      tp.classList.toggle('pillOn', stats.trips > 0);
+      tp.textContent = stats.trips ? ('Tested (' + stats.trips + ')') : 'Tested';
+      tp.title = stats.trips ? ('Tap to log another trip — ' + stats.trips + ' trip' + (stats.trips===1?'':'s') + ' logged so far') : 'Tap each time this rod goes out on a trip';
+    }
+    var tr = document.querySelector('.checklistResetBtn[data-testedresetcode="'+code+'"]');
+    if(tr) tr.classList.toggle('hidden', !(directEntry.trips > 0));
     var cp = document.querySelector('.caughtPill[data-caughtcode="'+code+'"]');
-    if(cp){ cp.classList.toggle('pillOn', stats.fish > 0); cp.title = stats.fish ? ('Fish-Caught — ' + stats.fish + ' logged') : 'No fish logged yet on this rod'; }
+    if(cp){
+      cp.classList.toggle('pillOn', stats.fish > 0);
+      cp.textContent = stats.fish ? ('Fish-Caught (' + stats.fish + ')') : 'Fish-Caught';
+      cp.title = stats.fish ? ('Tap to log another fish — ' + stats.fish + ' logged so far') : 'Tap each time this rod lands a fish';
+    }
+    var cr = document.querySelector('.checklistResetBtn[data-caughtresetcode="'+code+'"]');
+    if(cr) cr.classList.toggle('hidden', !(directEntry.fish > 0));
   }
   function hydrateTestedCaughtPills(){
     document.querySelectorAll('.checklistWrap').forEach(function(w){ renderTestedCaughtPills(w.dataset.checklistcode); });
@@ -8718,15 +8746,15 @@
     saveFieldLogRod(log);
   }
 
-  // ---------------- ROTATION ROLLUP (derived from COMBO_KEY + FIELD_LOG_KEY) ----------------
+  // ---------------- ROTATION ROLLUP (derived from COMBO_KEY + FIELD_LOG_KEY + DIRECT_LOG_KEY) ----------------
   // NOTE (2026-09-14): this used to also sum fish from CATCH_KEY_RODS/catchLog — crediting a catch
   // to EVERY rod merely tagged as "compatible" with that lure (often 5-10 rods at once), rather than
   // the one rod actually used. That silently inflated fish counts on rods that never caught anything
   // (confirmed: S0 was showing catches from generic soft-plastic taps it was never fished with).
-  // Fish counts now come solely from FIELD_LOG_KEY, which only ever gets set to owner-confirmed
-  // per-rod totals — see the force-correction seed below. Per-lure catch logging (the 🐟 button)
-  // still works exactly as before for that lure's own "Field Proven" status; it just no longer
-  // propagates up into rod-level fish totals.
+  // Fish counts now come solely from FIELD_LOG_KEY (build-seeded field history) and DIRECT_LOG_KEY
+  // (the per-rod Tested/Fish-Caught tap buttons) — see the force-correction seed below. Per-lure catch
+  // logging (the 🐟 button on individual lures) still works exactly as before for that lure's own
+  // "Field Proven" status; it just no longer propagates up into rod-level fish totals.
   function computeRodStats(code){
     var comboLog = loadComboLog();
     var trips = 0, lastTrip = null;
@@ -8742,6 +8770,12 @@
       trips += fieldEntry.trips||0;
       fish += fieldEntry.fish||0;
       if(fieldEntry.last && (!lastTrip || fieldEntry.last > lastTrip)) lastTrip = fieldEntry.last;
+    }
+    var directEntry = loadDirectLog()[code];
+    if(directEntry){
+      trips += directEntry.trips||0;
+      fish += directEntry.fish||0;
+      if(directEntry.last && (!lastTrip || directEntry.last > lastTrip)) lastTrip = directEntry.last;
     }
     return {trips:trips, fish:fish, last:lastTrip};
   }
@@ -8794,6 +8828,10 @@
   function refreshRotation(){
     hydrateRotationBadges();
     renderRotationTable();
+    // Fix (2026-09-20): this used to skip the Tested/Fish-Caught pills, so a trip logged via a
+    // Grab & Go combo's 🎣 button updated the Rotation tab but not the rod's own card pill until a
+    // full page reload — easy to read as "the pill doesn't work at all". Now kept in sync live.
+    hydrateTestedCaughtPills();
   }
   // ---------------- DASHBOARD ROTATION ALERTS (client-side, reads same localStorage as Rotation tab) ----------------
   function renderDashboardAlerts(){
@@ -9284,6 +9322,42 @@
         delete cbrlog[cbrkey];
         saveComboLog(cbrlog);
         renderComboBadge(cbrkey);
+        refreshRotation();
+      }
+    }
+    if(t.classList.contains('testedPill')){
+      var tpcode = t.dataset.testedcode;
+      var tplog = loadDirectLog();
+      var tpentry = tplog[tpcode] || {trips:0, fish:0, last:null};
+      tpentry.trips = (tpentry.trips||0) + 1;
+      tpentry.last = new Date().toISOString().slice(0,10);
+      tplog[tpcode] = tpentry;
+      saveDirectLog(tplog);
+      refreshRotation();
+    }
+    if(t.classList.contains('caughtPill')){
+      var cpcode = t.dataset.caughtcode;
+      var cplog = loadDirectLog();
+      var cpentry = cplog[cpcode] || {trips:0, fish:0, last:null};
+      cpentry.fish = (cpentry.fish||0) + 1;
+      cpentry.last = new Date().toISOString().slice(0,10);
+      cplog[cpcode] = cpentry;
+      saveDirectLog(cplog);
+      refreshRotation();
+    }
+    if(t.classList.contains('checklistResetBtn') && t.dataset.testedresetcode){
+      var trcode = t.dataset.testedresetcode;
+      if(confirm('Clear trips logged directly from this button? Trips logged via Grab & Go combos and historical field data are unaffected.')){
+        var trlog = loadDirectLog();
+        if(trlog[trcode]){ trlog[trcode].trips = 0; saveDirectLog(trlog); }
+        refreshRotation();
+      }
+    }
+    if(t.classList.contains('checklistResetBtn') && t.dataset.caughtresetcode){
+      var crcode = t.dataset.caughtresetcode;
+      if(confirm('Clear fish logged directly from this button? Historical field data is unaffected.')){
+        var crlog = loadDirectLog();
+        if(crlog[crcode]){ crlog[crcode].fish = 0; saveDirectLog(crlog); }
         refreshRotation();
       }
     }
