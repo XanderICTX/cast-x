@@ -10991,7 +10991,20 @@
       return r.json();
     }).then(function(data){
       if(!data) return;
+      // Gameplans need a merge, not a blind overwrite: a plan seeded locally on this device
+      // (e.g. by a one-time seedGameplanIfNeeded call in this build) can exist here before the
+      // cloud copy has ever heard of it. Blindly overwriting with the older cloud snapshot would
+      // silently delete it the moment sync completes — which is exactly what happened here.
+      var localPlansBefore = loadPlans();
       Object.keys(data).forEach(function(k){ if(isSyncableKey(k)) localStorage.setItem(k, data[k]); });
+      var cloudPlans = loadPlans();
+      var missingLocal = localPlansBefore.filter(function(p){
+        return !cloudPlans.some(function(cp){ return cp.id === p.id; });
+      });
+      if(missingLocal.length){
+        savePlans(missingLocal.concat(cloudPlans));
+        scheduleCloudPush();
+      }
       reapplyPersistedState();
       setCloudStatus('Synced from OneDrive ✓', false);
       setTimeout(function(){ setCloudStatus('', false); }, 1500);
