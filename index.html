@@ -11085,6 +11085,18 @@
   seedGameplanIfNeeded('b6s5_braidtest_2026-09-16', buildB6S5SeedPlan());
   seedGameplanIfNeeded('s0b0_travel_2026-09-17', buildS0B0TravelSeedPlan());
   seedGameplanIfNeeded('s6_xfactor_2026-09-24', buildS6XFactorSeedPlan());
+  // Force-push (2026-09-24): the original build had an escaping bug (unescaped inch-mark quotes)
+  // that broke the whole page script on load, meaning seedGameplanIfNeeded above never got a
+  // chance to run on any browser that hit that broken build. This unconditionally inserts the
+  // plan if it's still missing, regardless of whether the per-plan seed flag got set without the
+  // data actually landing.
+  (function(){
+    var plans = loadPlans();
+    if(!plans.some(function(p){ return p.id === 's6_xfactor_2026-09-24'; })){
+      plans.unshift(buildS6XFactorSeedPlan());
+      savePlans(plans);
+    }
+  })();
   // 2026-09-14: the 4 earliest gameplans (08-10, 08-30, 09-12, 09-13) are past trips that have
   // already been fished — marked completed at the user's request. The 4 later ones (09-14
   // onward) are still upcoming/untried, so they're left unticked.
