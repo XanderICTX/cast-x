@@ -10610,6 +10610,33 @@
     };
   }
 
+  // Second session of the day, same venue (X-Factor) — afternoon switch to B6 for reaction/power
+  // work after the morning's S6 finesse session. Chatterbaits, jigs-with-trailer (7-10g bait),
+  // and lipless cranks (7-14g) all sit comfortably inside B6's 10-18g sweet spot.
+  function buildB6XFactorAfternoonSeedPlan(){
+    var b6Gear = (packDefaults['B6'] || []).map(function(g){ return {text:g, checked:true}; });
+    b6Gear.push(
+      {text:"Reaction/power session — switching off S6's finesse morning onto B6 for chatterbaits, jigs-with-trailer and lipless cranks.", checked:true},
+      {text:"Curado M 201XG stays mounted (8.5:1) for burning baits back quickly; swap in the Daiwa PR100HL from B0 if a slower, moderate-pace retrieve is wanted on the lipless cranks specifically.", checked:true}
+    );
+    return {
+      id: 'b6_xfactor_pm_2026-09-24',
+      name: 'X-Factor — B6 Afternoon Reaction/Power Session',
+      date: '2026-09-24',
+      type: 'Day trip',
+      conditions: "Second session of the day at X-Factor, same tight willow-lined water — switching from S6's morning finesse work to B6 for chatterbaits, trailered jigs and lipless cranks.",
+      setups: [
+        { code:'B6', gear:b6Gear, f1spool:'floating', lures: [
+          "CHATTERBAIT — Z-Man ChatterBait Jack Hammer, 3/8oz (10.6g, Black/Blue) — steady retrieve or rip-and-fall through cover, the blade thump is the draw. Not yet field-tested on this rod.",
+          "JIGS + TRAILER (7-10g bait) — Keitech Tungsten Jig 1/4oz (7.5g) or Bass Hunter Tungsten Flip Jig 3/8oz (9.5g), paired with a soft plastic trailer (McArthy McCrawley/Tiddler or a Zoom Speed Craw) — hop/drag along bottom, pitched tight to cover.",
+          "LIPLESS (7-14g) — Megabass SV-3 (14.2g) is the best-fit lipless crank for this window, sits almost exactly at the top of the stated range — slow-rolling steady retrieve through open water. 6th Sense Snatch 70X (17.7g) is available as a heavier ceiling-push option if a faster burn/rip retrieve is wanted, just above the stated 7-14g target.",
+          "ORDER OF ATTACK — lead with the ChatterBait through likely cover, drop to the jig+trailer if fish are following but not committing to the blade, and work the SV-3 lipless through any open stretches between willow pockets."
+        ]}
+      ],
+      notes: []
+    };
+  }
+
   // Day 4 of the 6-day rotation series — the user's #2 question: B4 vs B5, both currently flagged
   // "Untested, zero field time" on the watchlist. Whichever earns more real casts/hookups today
   // starts answering which one keeps its slot in the lineup.
@@ -11098,6 +11125,7 @@
   seedGameplanIfNeeded('b6s5_braidtest_2026-09-16', buildB6S5SeedPlan());
   seedGameplanIfNeeded('s0b0_travel_2026-09-17', buildS0B0TravelSeedPlan());
   seedGameplanIfNeeded('s6_xfactor_2026-09-24', buildS6XFactorSeedPlan());
+  seedGameplanIfNeeded('b6_xfactor_pm_2026-09-24', buildB6XFactorAfternoonSeedPlan());
   // Force-push (2026-09-24): the original build had an escaping bug (unescaped inch-mark quotes)
   // that broke the whole page script on load, meaning seedGameplanIfNeeded above never got a
   // chance to run on any browser that hit that broken build. This unconditionally inserts the
