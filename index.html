@@ -11411,6 +11411,17 @@
   ]);
   markGameplansCompletedIfNeeded('s6_xfactor_completed_2026-09-24', ['s6_xfactor_2026-09-24']);
 
+  // Trip debrief: X-Factor afternoon session, 2026-09-24 — B6 + Curado M 201XG combo dialed in.
+  // No fish landed, but confirmed as a great practice session: long, accurate casts with the
+  // chatterbait/jig/lipless rotation. Purely additive/one-time.
+  seedFieldLogRodIfNeeded('field_report_b6_2026-09-24', {
+    'B6': {trips:1, fish:0, last:'2026-09-24'}
+  });
+  seedGameplanNotesIfNeeded('b6_xfactor_pm_debrief_2026-09-24', 'b6_xfactor_pm_2026-09-24', [
+    "DEBRIEF (2026-09-24) — No fish, but great practice. B6 + Curado M 201XG combo confirmed dialed in — long, accurate casts with the chatterbait/jig/lipless rotation. Worth another real crack at this exact setup next reaction-bite window."
+  ]);
+  markGameplansCompletedIfNeeded('b6_xfactor_pm_completed_2026-09-24', ['b6_xfactor_pm_2026-09-24']);
+
   reapplyPersistedState();
   document.querySelectorAll('details').forEach(function(d){ d.open = false; });
   initCloudSync();
