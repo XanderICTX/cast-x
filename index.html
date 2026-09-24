@@ -11004,6 +11004,38 @@
     if(cloudSyncTimer) clearTimeout(cloudSyncTimer);
     cloudSyncTimer = setTimeout(cloudPush, 800);
   }
+  // Generic additive-map merge (2026-09-24): the gameplan merge below only protected
+  // rodSetupGameplans. The exact same blind-overwrite bug hits every other rolled-up JSON blob
+  // synced via isSyncableKey — rodSetupFieldLog, rodSetupDirectLog, rodSetupCatchLog and
+  // rodSetupComboLog are all cumulative, additive logs (trip/fish counts, catch counts) that can
+  // gain new seeded entries locally before the cloud copy has ever heard of them. Confirmed:
+  // today's S6/B6 field-log debrief entries were seeded locally, rendered correctly, then wiped
+  // by cloudPullAndApply overwriting rodSetupFieldLog with a stale pre-debrief cloud snapshot —
+  // the Rotation tab reverted because it reads straight off that blob. Per-entry, per-numeric-field
+  // max() is safe here because these are single-user, monotonically-increasing counters, not
+  // independently-edited records — the higher number is always the more complete one.
+  function mergeAdditiveMap(localMap, cloudMap, numericFields){
+    var changed = false;
+    var keys = {};
+    Object.keys(localMap||{}).forEach(function(k){ keys[k]=1; });
+    Object.keys(cloudMap||{}).forEach(function(k){ keys[k]=1; });
+    var out = {};
+    Object.keys(keys).forEach(function(k){
+      var l = (localMap && localMap[k]) || {};
+      var c = (cloudMap && cloudMap[k]) || {};
+      var merged = {};
+      numericFields.forEach(function(f){
+        var lv = l[f]||0, cv = c[f]||0;
+        merged[f] = Math.max(lv, cv);
+        if(lv > cv) changed = true;
+      });
+      var ll = l.last || null, cl = c.last || null;
+      merged.last = (ll && cl) ? (ll > cl ? ll : cl) : (ll || cl || null);
+      if(ll && (!cl || ll > cl)) changed = true;
+      out[k] = merged;
+    });
+    return { map: out, changed: changed };
+  }
   function cloudPullAndApply(){
     return cloudGetToken().then(function(tokenResp){
       return fetch(CLOUD_GRAPH_URL, { headers: { 'Authorization': 'Bearer ' + tokenResp.accessToken } });
@@ -11023,15 +11055,33 @@
       // cloud copy has ever heard of it. Blindly overwriting with the older cloud snapshot would
       // silently delete it the moment sync completes — which is exactly what happened here.
       var localPlansBefore = loadPlans();
+      var localFieldBefore = loadFieldLogRod();
+      var localDirectBefore = loadDirectLog();
+      var localCatchBefore = loadCatchLog();
+      var localComboBefore = loadComboLog();
       Object.keys(data).forEach(function(k){ if(isSyncableKey(k)) localStorage.setItem(k, data[k]); });
       var cloudPlans = loadPlans();
       var missingLocal = localPlansBefore.filter(function(p){
         return !cloudPlans.some(function(cp){ return cp.id === p.id; });
       });
+      var needsPush = false;
       if(missingLocal.length){
         savePlans(missingLocal.concat(cloudPlans));
-        scheduleCloudPush();
+        needsPush = true;
       }
+      var fieldMerge = mergeAdditiveMap(localFieldBefore, loadFieldLogRod(), ['trips','fish']);
+      saveFieldLogRod(fieldMerge.map);
+      if(fieldMerge.changed) needsPush = true;
+      var directMerge = mergeAdditiveMap(localDirectBefore, loadDirectLog(), ['trips','fish']);
+      saveDirectLog(directMerge.map);
+      if(directMerge.changed) needsPush = true;
+      var catchMerge = mergeAdditiveMap(localCatchBefore, loadCatchLog(), ['count']);
+      saveCatchLog(catchMerge.map);
+      if(catchMerge.changed) needsPush = true;
+      var comboMerge = mergeAdditiveMap(localComboBefore, loadComboLog(), ['count']);
+      saveComboLog(comboMerge.map);
+      if(comboMerge.changed) needsPush = true;
+      if(needsPush) scheduleCloudPush();
       reapplyPersistedState();
       setCloudStatus('Synced from OneDrive ✓', false);
       setTimeout(function(){ setCloudStatus('', false); }, 1500);
