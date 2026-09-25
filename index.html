@@ -10642,7 +10642,7 @@
   // fleet rather than defaulting to the same handful. B1 and S2 have never been on the boat at all
   // until this trip. Real mats/pads confirmed present across the lake this weekend, so B5's punch
   // rig is the genuine primary technique, not a stretch pick like it would've been pre-mat season.
-  function buildAquaWeekendDay1SeedPlan(){
+  function buildAquaWeekendSeedPlan(){
     var b5Gear = (packDefaults['B5'] || []).map(function(g){ return {text:g, checked:true}; });
     var b1Gear = (packDefaults['B1'] || []).map(function(g){ return {text:g, checked:true}; });
     var s2Gear = (packDefaults['S2'] || []).map(function(g){ return {text:g, checked:true}; });
@@ -10654,77 +10654,39 @@
       {text:"Also never been on the boat despite being the #1-ranked rod in the whole fleet — precision BFS pitching to willows/docks should suit this water well.", checked:true}
     );
     return {
-      id: 'aqua_weekend_day1_2026-09-26',
-      name: 'Aqua Paradiso Sleepover — Day 1 (B1/B2/S2/B5)',
+      id: 'aqua_weekend_2026-09-26',
+      name: 'Aqua Paradiso Sleepover Weekend (B1/B2/S2/B5)',
       date: '2026-09-26',
       type: 'Overnight trip',
-      conditions: "First day of an overnight weekend at Aqua Paradiso — confirmed real matted vegetation and pads across the lake this trip, so heavy pitching/flipping into the bank and pads from the boat is the day's main plan. Deliberately running B1, B2, S2 and B5 instead of the usual comfort rods (B6/S6/B7/B3/S3) to build real confidence on more of the fleet.",
+      conditions: "Overnight weekend at Aqua Paradiso (Sat 26th – Sun 27th) — confirmed real matted vegetation and pads across the lake, so heavy pitching/flipping into the bank and pads from the boat is the main plan. Deliberately running B1, B2, S2 and B5 instead of the usual comfort rods (B6/S6/B7/B3/S3) to build real confidence on more of the fleet — B1 and S2 are both making their boat debuts. One combined rig list for the whole trip since all four rods will likely be in rotation both days rather than locked to a specific day.",
       setups: [
         { code:'B5', gear:b5Gear, f1spool:'floating', lures: [
           "PUNCH RIG — STANDARD PROFILE: McArthy Tiddler (8.5g / 0.3oz) — 4/0 flipping hook (heavy wire) + 14g (1/2oz) tungsten, pegged — the everyday punch setup, typical matted vegetation.",
           "PUNCH RIG — BULKY PROFILE: McArthy Stumpi (9.0g / 0.32oz) — 5/0 flipping hook (heavy wire) + 14g tungsten, pegged — thickest mats and heaviest cover, biggest bait/hook gap.",
           "PUNCH RIG — SMALL PROFILE: McArthy McCrawley (6.8g / 0.24oz) — 3/0 flipping hook (heavy wire) + 14g tungsten, pegged — thinner mats and tight reed gaps, smallest silhouette.",
           "FROG CROSSOVER: Sensation Hollow Frog (13.3g / 0.47oz) — built-in weedless double hook, direct tie, no leader — walk across slime mats and pads between punch spots. Sits just under B5's 14g floor but the bulky, air-catching profile should still load the blank.",
-          "ORDER OF ATTACK — start with the Tiddler (Standard Profile) through the general mat cover, step up to the Stumpi (Bulky) for the thickest pads, drop to the McCrawley (Small) for tight reed gaps, and walk the Hollow Frog across open slime/pad tops between punch spots."
+          "ORDER OF ATTACK — start with the Tiddler (Standard Profile) through the general mat cover, step up to the Stumpi (Bulky) for the thickest pads, drop to the McCrawley (Small) for tight reed gaps, and walk the Hollow Frog across open slime/pad tops between punch spots. Once you know which profile's drawing bites, lead with it straight away on the second day."
         ]},
         { code:'B1', gear:b1Gear, f1spool:'floating', lures: [
           "WACKY: Yum 3\" Dinger (2.8-3.0g / 0.1-0.11oz) — BKK Weedless Wacky Hook #1, bare, no weight — pinpoint pitch to docks and pilings.",
           "WACKY (bulkier): McArthy Stumpi (9.0g / 0.32oz) — 3/0 offset hook, no weight — sinks with a subtle wobble down clay drop-offs.",
           "LIGHT CRAW CRAWL: Yum 2.5\" Crawbug (Green Pumpkin) — 1/0 offset hook + 1.5g (0.05oz) split-shot, 4.3g (0.15oz) total — slow-drag presentation.",
           "BAITFINESSE JIGGING: McArthy McCrawley (6.8g / 0.24oz) — 7.5g (0.26oz) Keitech Tungsten Jig, 14.3g (0.5oz) total — hop down vertical reed stalks.",
-          "ORDER OF ATTACK — lead with the wacky Dinger tight to docks/pilings, switch to the Stumpi wacky or Crawbug for a slower, bulkier look, and work the McCrawley/Keitech jig combo down any vertical reed stalks or drop-offs."
+          "ORDER OF ATTACK — lead with the wacky Dinger tight to docks/pilings, switch to the Stumpi wacky or Crawbug for a slower, bulkier look, and work the McCrawley/Keitech jig combo down any vertical reed stalks or drop-offs. Once you've got a read on which presentation it's reading bites best on, lean into that for the rest of the trip."
         ]},
         { code:'S2', gear:s2Gear, f1spool:'floating', lures: [
           "DROP-SHOT: McArthy McCrawley (6.8g / 0.24oz) — 1/0 hook + 1.5g (0.05oz) tag-end split-shot, 8.3g (0.28oz) total, comfortably inside S2's 10.6g ceiling — shake in place over open water/structure edges.",
           "NEKO/WACKY: Yum 3\" Dinger (2.8-3.0g / 0.1-0.11oz) — BKK Weedless Wacky Hook #1, bare, no weight — same small-profile finesse presentation proven on S6.",
           "NED-STYLE: Yum Ned Craw (Green Pumpkin/Red) — Eagle Claw Finesse Weedless Jig (Ned mushroom head), 3.5g — 5.9-6.1g (0.21-0.22oz) total — compact craw alternative.",
           "LIGHT CRAW CRAWL: Yum 2.5\" Crawbug (Green Pumpkin) — bare or light split-shot, 4.3g (0.15oz) — slow drag, defensive-posture look.",
-          "ORDER OF ATTACK — this is the real test: start with the drop-shot over any open structure/edges, work the wacky Dinger and Ned Craw as the Neko-style options, and note honestly whether the rod loads/casts these light rigs as well as S6 does."
+          "ORDER OF ATTACK — this is the real test: start with the drop-shot over any open structure/edges, work the wacky Dinger and Ned Craw as the Neko-style options, and note honestly whether the rod loads/casts these light rigs as well as S6 does. If it's loading well, give it real trust for the rest of the trip rather than treating it as the backup; if the feel is genuinely off, that's useful data too — B2 or S6 can pick up the slack."
         ]},
         { code:'B2', gear:b2Gear, f1spool:'floating', lures: [
           "TOPWATER/REACTION SEARCH: Booyah Buzz — steady retrieve over open pockets and pad edges.",
           "PAD-SPECIFIC TOPWATER: Booyah Poppin Pad Crasher — walk/pop directly across pads.",
           "LIPLESS SEARCH: Megabass SV-3 (14.2g / 0.5oz) — slow-roll through open water between pad clusters.",
           "BACKUP POWER: McArthy Tiddler (8.5g / 0.3oz) — 9.5g (0.34oz) Bass Hunter Tungsten Flip Jig, 18.0g (0.63oz) total — heavy swim-jigging through grass if the reaction bite goes quiet.",
-          "ORDER OF ATTACK — search open water and pad edges with the Buzz/SV-3 first, drop to the Pad Crasher tight over the mats themselves, and fall back to the Tiddler swim-jig combo for a slower, grinding presentation through grass."
-        ]}
-      ],
-      notes: []
-    };
-  }
-
-  // Day 2 of the same overnight trip — same four rods, same boat, one more day to build real
-  // confidence on B1/S2 specifically (both debuting on the boat this weekend) before reverting to
-  // whatever the water's telling us by then.
-  function buildAquaWeekendDay2SeedPlan(){
-    var b5Gear = (packDefaults['B5'] || []).map(function(g){ return {text:g, checked:true}; });
-    var b1Gear = (packDefaults['B1'] || []).map(function(g){ return {text:g, checked:true}; });
-    var s2Gear = (packDefaults['S2'] || []).map(function(g){ return {text:g, checked:true}; });
-    var b2Gear = (packDefaults['B2'] || []).map(function(g){ return {text:g, checked:true}; });
-    s2Gear.push({text:"Day 2 of S2's boat debut — lean on whatever worked (or didn't) from Day 1 to decide how much faith to put in it going forward.", checked:true});
-    b1Gear.push({text:"Day 2 of B1's boat debut.", checked:true});
-    return {
-      id: 'aqua_weekend_day2_2026-09-27',
-      name: 'Aqua Paradiso Sleepover — Day 2 (B1/B2/S2/B5)',
-      date: '2026-09-27',
-      type: 'Overnight trip',
-      conditions: "Second day of the overnight Aqua Paradiso weekend, same boat and same four rods as Day 1 — same mat/pad structure across the lake. Use Day 1's results to lean harder into whatever produced, especially on B1 and S2's boat debuts.",
-      setups: [
-        { code:'B5', gear:b5Gear, f1spool:'floating', lures: [
-          "Same punch rig trio as Day 1 — McArthy Tiddler (Standard), McArthy Stumpi (Bulky), McArthy McCrawley (Small), all 3/0-5/0 flipping hooks + 14g tungsten, pegged — plus the Sensation Hollow Frog for pad crossings.",
-          "ORDER OF ATTACK — lead straight with whichever profile drew the most bites on Day 1 rather than starting light again."
-        ]},
-        { code:'B1', gear:b1Gear, f1spool:'floating', lures: [
-          "Same wacky/light-Texas/baitfinesse lineup as Day 1 — Yum 3\" Dinger (wacky), McArthy Stumpi (wacky), Yum 2.5\" Crawbug (light craw), McArthy McCrawley + Keitech Tungsten Jig (baitfinesse jigging).",
-          "ORDER OF ATTACK — if Day 1 showed B1 reads bites well on the docks/pilings, spend more time there; if it felt better on the reed-stalk jigging, lean into that instead."
-        ]},
-        { code:'S2', gear:s2Gear, f1spool:'floating', lures: [
-          "Same drop-shot/Neko/Ned lineup as Day 1 — McArthy McCrawley drop-shot, Yum 3\" Dinger wacky, Yum Ned Craw, Yum 2.5\" Crawbug.",
-          "ORDER OF ATTACK — by Day 2 you'll know if S2 is loading these light rigs properly. If yes, give it real trust today rather than treating it as the backup; if the feel was genuinely off, that's useful data on its own and B2 or S6 can pick up the slack."
-        ]},
-        { code:'B2', gear:b2Gear, f1spool:'floating', lures: [
-          "Same reaction/topwater/backup-power lineup as Day 1 — Booyah Buzz, Booyah Poppin Pad Crasher, Megabass SV-3, McArthy Tiddler + Bass Hunter Tungsten Flip Jig.",
-          "ORDER OF ATTACK — keep it in the search/reaction role covering water between B5's punch spots, same as Day 1."
+          "ORDER OF ATTACK — search open water and pad edges with the Buzz/SV-3 first, drop to the Pad Crasher tight over the mats themselves, and fall back to the Tiddler swim-jig combo for a slower, grinding presentation through grass. Keep it in this search/reaction role covering water between B5's punch spots throughout the trip."
         ]}
       ],
       notes: []
@@ -11270,8 +11232,12 @@
   seedGameplanIfNeeded('s0b0_travel_2026-09-17', buildS0B0TravelSeedPlan());
   seedGameplanIfNeeded('s6_xfactor_2026-09-24', buildS6XFactorSeedPlan());
   seedGameplanIfNeeded('b6_xfactor_pm_2026-09-24', buildB6XFactorAfternoonSeedPlan());
-  seedGameplanIfNeeded('aqua_weekend_day1_2026-09-26', buildAquaWeekendDay1SeedPlan());
-  seedGameplanIfNeeded('aqua_weekend_day2_2026-09-27', buildAquaWeekendDay2SeedPlan());
+  // Consolidated (2026-09-25) into one combined gameplan since the two rods will be switching
+  // back and forth across both days rather than locked to Day 1/Day 2 — remove the earlier
+  // day-split plans in case they already seeded on this device before the merge.
+  removeGameplanIfNeeded('aqua_weekend_day1_removal_2026-09-25', 'aqua_weekend_day1_2026-09-26');
+  removeGameplanIfNeeded('aqua_weekend_day2_removal_2026-09-25', 'aqua_weekend_day2_2026-09-27');
+  seedGameplanIfNeeded('aqua_weekend_2026-09-26', buildAquaWeekendSeedPlan());
   // Force-push (2026-09-24): the original build had an escaping bug (unescaped inch-mark quotes)
   // that broke the whole page script on load, meaning seedGameplanIfNeeded above never got a
   // chance to run on any browser that hit that broken build. This unconditionally inserts the
