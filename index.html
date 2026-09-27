@@ -508,7 +508,7 @@
     <div>
       <h1>CAST-<span>X</span></h1>
       <div class="subhead">Field reference &middot; Xander</div>
-      <div class="headerstats">21 rods &middot; 21 reels &middot; 48 combos &middot; updated 25 Sept 2026</div>
+      <div class="headerstats">21 rods &middot; 21 reels &middot; 48 combos &middot; updated 27 Sept 2026</div>
     </div>
     <span class="cloudSyncStatus" id="cloudSyncStatus"></span>
     <button class="cloudSignInBtn" id="cloudSignInBtn" type="button" title="Sign in with Microsoft to sync this app's data (gameplans, notes, checklists, catches) to your OneDrive — keeps every device signed in to the same account up to date automatically.">Sign in to sync</button>
@@ -560,7 +560,7 @@
       <div style="font-size:.78em;color:var(--text-dim);margin-top:2px;">Watchlist Items</div>
     </div>
       </div>
-      <div class="tagline" style="margin-top:10px;">Generated 25 Sept 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
+      <div class="tagline" style="margin-top:10px;">Generated 27 Sept 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
     </div>
     <div class="sectiontitle">Fishing Licenses</div>
     <div class="card searchable">
@@ -7424,7 +7424,7 @@
         <div class="rankdesc"><strong>Primary Role:</strong> Light micro-lure technical rod for tight, brush-lined water</div>
         <div class="rankdesc"><strong>Why It Exists:</strong> 5'6" Light-power frame trades length for accuracy in tight cover, with an unusually wide 0.88-10.6g (0.03-0.37oz) window for its class.</div>
         <div class="rankdesc"><strong>Not Replaced By:</strong> S1 is lighter but shorter-ranged; S3 is a size up and loses the tight-water handling this rod is built for.</div>
-        <div class="rankdesc"><strong>Confidence:</strong> Confirmed perfect (2026-09) — balanced rod/reel pairing, nothing the user would change.</div>
+        <div class="rankdesc"><strong>Confidence:</strong> Proven (2026-09-26) — first-ever boat outing produced 19 fish on drop-shot/Neko rigs at Aqua Paradiso, the best single-session result logged for any rod in the fleet. Confirms the 0.88-10.6g window genuinely loads bare finesse rigs the way S6 does — no longer a backup pick, a genuine go-to.</div>
         
         
       </div>
@@ -11553,6 +11553,20 @@
     "DEBRIEF (2026-09-24) — No fish, but great practice. B6 + Curado M 201XG combo confirmed dialed in — long, accurate casts with the chatterbait/jig/lipless rotation. Worth another real crack at this exact setup next reaction-bite window."
   ]);
   markGameplansCompletedIfNeeded('b6_xfactor_pm_completed_2026-09-24', ['b6_xfactor_pm_2026-09-24']);
+
+  // Trip debrief: Aqua Paradiso sleepover weekend, 2026-09-26 — only S2 and B2 actually got fished
+  // (B1 and B5 stayed rigged but unused). S2's boat debut produced 19 fish, easily the standout
+  // result of the whole rotation experiment — the 0.88-10.6g window genuinely loads bare
+  // drop-shot/Neko rigs the way hoped. B2 added 3 more on the reaction/topwater side. Purely
+  // additive/one-time.
+  seedFieldLogRodIfNeeded('field_report_aqua_weekend_2026-09-26', {
+    'S2': {trips:1, fish:19, last:'2026-09-26'},
+    'B2': {trips:1, fish:3, last:'2026-09-26'}
+  });
+  seedGameplanNotesIfNeeded('aqua_weekend_debrief_2026-09-26', 'aqua_weekend_2026-09-26', [
+    "DEBRIEF (2026-09-26) — Amazing weekend. Only S2 and B2 actually got fished (B1 and B5 stayed rigged but unused). S2 was the real story of its boat debut — 19 fish on the drop-shot/Neko lineup, comfortably the best single-session rod performance logged in the app so far. B2 added 3 more on the reaction/topwater side. Genuinely proves S2's 0.88-10.6g window loads these light finesse rigs properly — no reason to treat it as a backup to S6 going forward. B1 and B5 remain untested on this exact trip and are still worth a real crack another day."
+  ]);
+  markGameplansCompletedIfNeeded('aqua_weekend_completed_2026-09-26', ['aqua_weekend_2026-09-26']);
 
   reapplyPersistedState();
   document.querySelectorAll('details').forEach(function(d){ d.open = false; });
