@@ -10800,6 +10800,12 @@
   // one-piece rods (S6, S7, B3, B7 — see the Core Four scouting-kit note) across both boat and bank
   // fishing. S7 is the headline: its actual field debut, first time off dry land, on the brand-new
   // (and still unproven) Loomis & Franklin Reflex 1000 — see the S7 contingency note if it flops.
+  // Updated 2026-09-29 per chat: same 5-technique finesse spread (wacky/Ned/Neko/drop-shot/Texas)
+  // fished on all four rods for a fair side-by-side, PLUS a separate B7-only block testing it
+  // against B6's usual power/reaction job (pitching, jigging, crankbaits, spinnerbaits, frogging) —
+  // the real question there being whether B7's wider casting range and lighter lure options can
+  // outweigh its slower 7.2:1 Bass One XT against B6's purpose-picked 8.5:1 Curado for those
+  // faster-response techniques, discussed at length before this trip.
   function buildCoreFourWeekendSeedPlan(){
     var s6Gear = (packDefaults['S6'] || []).map(function(g){ return {text:g, checked:true}; });
     var s7Gear = (packDefaults['S7'] || []).map(function(g){ return {text:g, checked:true}; });
@@ -10809,39 +10815,45 @@
       {text:"S7's actual field debut — never been on the water. Reflex 1000 is untested too; if it feels bad or fails, the planned swap is a Shimano Miravel 1000 (same 1000 size), not a rethink of the rod.", checked:true}
     );
     b7Gear.push(
-      {text:"Bring a spare rod for the friend if he wants to try something himself — S1 or S2 (bare Trout Magnet / light spinner) is the easiest cast for someone new to handle, no backlash risk.", checked:true}
+      {text:"Bring a spare rod for the friend if he wants to try something himself — S1 or S2 (bare Trout Magnet / light spinner) is the easiest cast for someone new to handle, no backlash risk.", checked:true},
+      {text:"The real comparison test today — B7 taking on B6's usual pitching/jigging/crankbait/spinnerbait/frogging job. B7's Bass One XT (7.2:1) is slower than B6's Curado (8.5:1), and the Curado's already been tried on B7 and felt off-balance/heavy on this blank, so it's staying off the table — this is Bass One XT vs Curado on its own home rod, not a reel swap test. Bring a wide spread of lure weights to see whether lighter baits in each category offset the slower gearing, or whether the speed gap matters regardless of weight.", checked:true}
     );
     return {
       id: 'corefour_weekend_2026-10-03',
       name: 'Aqua Paradiso — Core Four Rod Test (S6/S7/B3/B7)',
       date: '2026-10-03',
       type: 'Weekend trip',
-      conditions: "Back at Aqua Paradiso, boat plus a fair amount of bank fishing. Taking a friend along who's new to bass fishing — this one isn't about optimizing his gear or chasing numbers, mostly just there to help him have a good time on the water. The actual point of the trip, gear-wise, is running the Core Four one-piece rods (S6, S7, B3, B7) through both boat and bank fishing to see how they hold up as the default grab-and-go lineup for a day where you don't know the water yet. S7 gets top billing since it's never been fished — first real read on both the rod and the untested Reflex 1000 reel. No rigid order of attack today; rotate through all four as the mood/water dictates and treat S6/B3/B7 as the known-good baseline to fish against while S7 gets the real scrutiny.",
+      conditions: "Back at Aqua Paradiso, boat plus a fair amount of bank fishing. Taking a friend along who's new to bass fishing — this one isn't about optimizing his gear or chasing numbers, mostly just there to help him have a good time on the water. The actual point of the trip, gear-wise, is two things: (1) running S6, S7, B3 and B7 through the same five finesse techniques — wacky, Ned rig, Neko rig, drop-shot and Texas rig — for a genuine side-by-side read on all four, with S7 the real headline since it's never been fished and the Reflex 1000 is unproven too; and (2) a separate, more pointed test on B7 alone — running it through B6's usual job (pitching, jigging, crankbaits, spinnerbaits, frogging) to see if it's actually more of a goldilocks all-rounder than B6, or whether the slower Bass One XT (7.2:1 vs B6's 8.5:1 Curado) holds it back on the faster-response techniques regardless of how light the lures are. No rigid order of attack on the finesse spread — rotate through all four as the mood/water dictates — but treat the B7 power/reaction block as a deliberate, focused comparison against B6's known strengths.",
       setups: [
         { code:'S7', gear:s7Gear, f1spool:'floating', lures: [
           "THE REAL TEST — bare Trout Magnet / Panfish Magnet jighead, ~0.84g (0.03oz) — the lightest possible read on whether this rod loads bare micro-rigs the way it's supposed to, same logic as S1.",
           "WACKY: Yum 3\" Dinger (2.8-3.0g / 0.1-0.11oz) — BKK Weedless Wacky Hook #1, bare, no weight — small-profile finesse, same presentation that's proven itself on S6.",
+          "NEKO: Yum 3\" Dinger or Berkley Straight Money, nail-weighted (small internal nail weight in the head end) — BKK Weedless Wacky Hook #1 — same small-profile bait as the wacky rig above, just weighted to stand on end.",
           "NED RIG: Yum Ned Craw (Green Pumpkin/Red) — Eagle Claw Finesse Weedless Jig (Ned mushroom head), 3.5g — ~5.9-6.1g (0.21-0.22oz) total, comfortably inside the 1.77-8.86g window.",
           "DROP-SHOT: McArthy McCrawley (6.8g / 0.24oz) — 1/0 hook + 1.5g (0.05oz) tag-end split-shot, ~8.3g (0.28oz) total — near the rod's ceiling, worth feeling out where it starts to load heavy.",
+          "TEXAS RIG: Yum 2.5\" Crawbug (Green Pumpkin) — 1/0 offset hook, bare or with a light 1.5g (0.05oz) pegged weight — small-profile craw, stays well inside the rod's window either way.",
           "No pressure to force it — just get a genuine read on how it casts, loads and feels across this spread before deciding where it slots in against S2/S6."
         ]},
         { code:'S6', gear:s6Gear, f1spool:'floating', lures: [
           "WACKY (field-confirmed top producer): Yum 3\" Dinger — BKK Weedless Wacky Hook #1, bare, no weight.",
-          "DROP-SHOT: McArthy McCrawley (6.8g / 0.24oz) — 1/0 hook + light tag-end shot.",
+          "NEKO: Yum 3\" Dinger or Berkley Straight Money, nail-weighted — same wacky hook, weighted to stand on end.",
           "NED RIG: Eagle Claw Finesse Weedless Jig (Ned mushroom head, 5.3g) + Yum Ned Craw or a Zoom Trick Worm trailer.",
-          "The known-good baseline for the weekend — lean on this one if the friend wants a rod that's an easy, reliable producer to hand over for a bit."
+          "DROP-SHOT: McArthy McCrawley (6.8g / 0.24oz) — 1/0 hook + light tag-end shot.",
+          "TEXAS RIG: Yum 2.5\" Crawbug or McArthy Tiddler, light pegged tungsten if any cover calls for it.",
+          "The known-good baseline for the weekend on this spread — lean on this one if the friend wants a rod that's an easy, reliable producer to hand over for a bit."
         ]},
         { code:'B3', gear:b3Gear, f1spool:'floating', lures: [
           "WACKY: McArthy Stumpi wacky rig (9.0g / 0.32oz) bare — precision pitching to docks/laydowns.",
-          "JIG + TRAILER: Keitech Tungsten Jig (1/4oz / 7.09g) + soft plastic trailer (McCrawley or Tiddler).",
-          "NED/CRAW: Yum Ned Craw or Yum 2.5\" Crawbug, light Texas-rigged.",
-          "Single-hook precision work — the rod that can horse a fish out of structure if the bank has any cover worth pitching into."
+          "NEKO: McArthy Stumpi or Yum 3\" Dinger, nail-weighted — same wacky hook, weighted.",
+          "NED RIG: Yum Ned Craw (Green Pumpkin/Red) — Eagle Claw Finesse Weedless Jig (Ned mushroom head, 5.3g) — tight-margin pairing on this rod, worth confirming it loads on the water.",
+          "DROP-SHOT: McArthy McCrawley (6.8g / 0.24oz) — 1/0 hook + light tag-end shot.",
+          "TEXAS RIG: Yum 2.5\" Crawbug, light Texas-rigged — 1/0 offset hook + light pegged tungsten.",
+          "Single-hook precision work across the board — the rod that can horse a fish out of structure if the bank has any cover worth pitching into."
         ]},
         { code:'B7', gear:b7Gear, f1spool:'floating', lures: [
-          "REACTION SEARCH: Berkley SquareBull or Sensation Mini Trap — covers water fast between spots, good for scouting new bank stretches.",
-          "TOPWATER: Sensation Torque / Mini Pop or Berkley Power Pop 70 — fun, visual, easy for a beginner to understand what's happening on the take.",
-          "JERKBAIT: Bass Hunter Twitch Minnow or Penex Patrician.",
-          "SPINNERBAIT: Booyah Pond Magic Spinnerbait — the forgiving, hard-to-mess-up moving bait if the friend wants to throw something himself."
+          "FINESSE SPREAD (same 5 techniques as the other three) — WACKY: McArthy Stumpi bare. NEKO: same Stumpi/Dinger, nail-weighted. NED RIG: Eagle Claw Ned mushroom head + Yum Ned Craw. DROP-SHOT: McArthy McCrawley + light tag-end shot. TEXAS RIG: Yum 2.5\" Crawbug, light pegged tungsten.",
+          "POWER/REACTION COMPARISON BLOCK — THE B6 CHALLENGE: PITCHING — McArthy Tiddler + Bass Hunter Tungsten Flip Jig, light end of the weight range first. JIGGING — Keitech Tungsten Jig (1/4oz / 7.09g) + trailer. CRANKBAITS — Berkley SquareBull or Sensation Mini Trap (this rod's own proven reaction lures — 3 bass on the Mini Trap on 2026-09-13). SPINNERBAIT — Booyah Pond Magic Spinnerbait, light. FROGGING — Sensation Hollow Frog, if the water's got any pad/mat cover to walk it across.",
+          "The comparison that matters — work through the Power/Reaction block deliberately, starting with the lightest lure in each category, and pay attention to hookset timing specifically (how much lag there is between the strike and coming tight) rather than just casting distance or feel. That lag is what the slower Bass One XT is expected to cost on pitching/frogging in particular — note honestly whether it actually does."
         ]}
       ],
       notes: []
