@@ -10794,6 +10794,60 @@
     };
   }
 
+  // Aqua Paradiso weekend (2026-10-03), back-to-back with the prior weekend's B1/B2/S2/B5 trip.
+  // Low-pressure framing on purpose: mostly there to help a friend (new to bass) enjoy himself, not
+  // to chase a technical result — so the real point of this trip is just running the "Core Four"
+  // one-piece rods (S6, S7, B3, B7 — see the Core Four scouting-kit note) across both boat and bank
+  // fishing. S7 is the headline: its actual field debut, first time off dry land, on the brand-new
+  // (and still unproven) Loomis & Franklin Reflex 1000 — see the S7 contingency note if it flops.
+  function buildCoreFourWeekendSeedPlan(){
+    var s6Gear = (packDefaults['S6'] || []).map(function(g){ return {text:g, checked:true}; });
+    var s7Gear = (packDefaults['S7'] || []).map(function(g){ return {text:g, checked:true}; });
+    var b3Gear = (packDefaults['B3'] || []).map(function(g){ return {text:g, checked:true}; });
+    var b7Gear = (packDefaults['B7'] || []).map(function(g){ return {text:g, checked:true}; });
+    s7Gear.push(
+      {text:"S7's actual field debut — never been on the water. Reflex 1000 is untested too; if it feels bad or fails, the planned swap is a Shimano Miravel 1000 (same 1000 size), not a rethink of the rod.", checked:true}
+    );
+    b7Gear.push(
+      {text:"Bring a spare rod for the friend if he wants to try something himself — S1 or S2 (bare Trout Magnet / light spinner) is the easiest cast for someone new to handle, no backlash risk.", checked:true}
+    );
+    return {
+      id: 'corefour_weekend_2026-10-03',
+      name: 'Aqua Paradiso — Core Four Rod Test (S6/S7/B3/B7)',
+      date: '2026-10-03',
+      type: 'Weekend trip',
+      conditions: "Back at Aqua Paradiso, boat plus a fair amount of bank fishing. Taking a friend along who's new to bass fishing — this one isn't about optimizing his gear or chasing numbers, mostly just there to help him have a good time on the water. The actual point of the trip, gear-wise, is running the Core Four one-piece rods (S6, S7, B3, B7) through both boat and bank fishing to see how they hold up as the default grab-and-go lineup for a day where you don't know the water yet. S7 gets top billing since it's never been fished — first real read on both the rod and the untested Reflex 1000 reel. No rigid order of attack today; rotate through all four as the mood/water dictates and treat S6/B3/B7 as the known-good baseline to fish against while S7 gets the real scrutiny.",
+      setups: [
+        { code:'S7', gear:s7Gear, f1spool:'floating', lures: [
+          "THE REAL TEST — bare Trout Magnet / Panfish Magnet jighead, ~0.84g (0.03oz) — the lightest possible read on whether this rod loads bare micro-rigs the way it's supposed to, same logic as S1.",
+          "WACKY: Yum 3\" Dinger (2.8-3.0g / 0.1-0.11oz) — BKK Weedless Wacky Hook #1, bare, no weight — small-profile finesse, same presentation that's proven itself on S6.",
+          "NED RIG: Yum Ned Craw (Green Pumpkin/Red) — Eagle Claw Finesse Weedless Jig (Ned mushroom head), 3.5g — ~5.9-6.1g (0.21-0.22oz) total, comfortably inside the 1.77-8.86g window.",
+          "DROP-SHOT: McArthy McCrawley (6.8g / 0.24oz) — 1/0 hook + 1.5g (0.05oz) tag-end split-shot, ~8.3g (0.28oz) total — near the rod's ceiling, worth feeling out where it starts to load heavy.",
+          "No pressure to force it — just get a genuine read on how it casts, loads and feels across this spread before deciding where it slots in against S2/S6."
+        ]},
+        { code:'S6', gear:s6Gear, f1spool:'floating', lures: [
+          "WACKY (field-confirmed top producer): Yum 3\" Dinger — BKK Weedless Wacky Hook #1, bare, no weight.",
+          "DROP-SHOT: McArthy McCrawley (6.8g / 0.24oz) — 1/0 hook + light tag-end shot.",
+          "NED RIG: Eagle Claw Finesse Weedless Jig (Ned mushroom head, 5.3g) + Yum Ned Craw or a Zoom Trick Worm trailer.",
+          "The known-good baseline for the weekend — lean on this one if the friend wants a rod that's an easy, reliable producer to hand over for a bit."
+        ]},
+        { code:'B3', gear:b3Gear, f1spool:'floating', lures: [
+          "WACKY: McArthy Stumpi wacky rig (9.0g / 0.32oz) bare — precision pitching to docks/laydowns.",
+          "JIG + TRAILER: Keitech Tungsten Jig (1/4oz / 7.09g) + soft plastic trailer (McCrawley or Tiddler).",
+          "NED/CRAW: Yum Ned Craw or Yum 2.5\" Crawbug, light Texas-rigged.",
+          "Single-hook precision work — the rod that can horse a fish out of structure if the bank has any cover worth pitching into."
+        ]},
+        { code:'B7', gear:b7Gear, f1spool:'floating', lures: [
+          "REACTION SEARCH: Berkley SquareBull or Sensation Mini Trap — covers water fast between spots, good for scouting new bank stretches.",
+          "TOPWATER: Sensation Torque / Mini Pop or Berkley Power Pop 70 — fun, visual, easy for a beginner to understand what's happening on the take.",
+          "JERKBAIT: Bass Hunter Twitch Minnow or Penex Patrician.",
+          "SPINNERBAIT: Booyah Pond Magic Spinnerbait — the forgiving, hard-to-mess-up moving bait if the friend wants to throw something himself."
+        ]}
+      ],
+      notes: []
+    };
+  }
+
   // Day 4 of the 6-day rotation series — the user's #2 question: B4 vs B5, both currently flagged
   // "Untested, zero field time" on the watchlist. Whichever earns more real casts/hookups today
   // starts answering which one keeps its slot in the lineup.
@@ -11339,6 +11393,7 @@
   removeGameplanIfNeeded('aqua_weekend_day1_removal_2026-09-25', 'aqua_weekend_day1_2026-09-26');
   removeGameplanIfNeeded('aqua_weekend_day2_removal_2026-09-25', 'aqua_weekend_day2_2026-09-27');
   seedGameplanIfNeeded('aqua_weekend_2026-09-26', buildAquaWeekendSeedPlan());
+  seedGameplanIfNeeded('corefour_weekend_2026-10-03', buildCoreFourWeekendSeedPlan());
   // Force-push (2026-09-24): the original build had an escaping bug (unescaped inch-mark quotes)
   // that broke the whole page script on load, meaning seedGameplanIfNeeded above never got a
   // chance to run on any browser that hit that broken build. This unconditionally inserts the
