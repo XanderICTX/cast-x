@@ -10994,21 +10994,29 @@
   function buildCoreFourWeekendSeedPlan(){
     var s6Gear = (packDefaults['S6'] || []).map(function(g){ return {text:g, checked:true}; });
     var s7Gear = (packDefaults['S7'] || []).map(function(g){ return {text:g, checked:true}; });
+    var s8Gear = (packDefaults['S8'] || []).map(function(g){ return {text:g, checked:true}; });
     var b3Gear = (packDefaults['B3'] || []).map(function(g){ return {text:g, checked:true}; });
     var b7Gear = (packDefaults['B7'] || []).map(function(g){ return {text:g, checked:true}; });
+    var b8Gear = (packDefaults['B8'] || []).map(function(g){ return {text:g, checked:true}; });
     s7Gear.push(
       {text:"S7's actual field debut — never been on the water. Reel situation resolved pre-trip (2026-10-01): the original Reflex 1000 has already been swapped for a new dedicated Shimano Miravel 1000, freshly spooled with 15lb Predator Pro braid — so this debut is on the new pairing, not the original one.", checked:true}
+    );
+    s8Gear.push(
+      {text:"S8's actual field debut — never been on the water. Reel situation also resolved pre-trip (2026-10-01): briefly ran S0's Reflex UL 500 for under a day before that pairing was found backwards and swapped back, so S8 is now permanently on S7's old Reflex 1000 (178g) — the bigger reel suits this rod's heavier 2-14g window better than the 500-class reel did.", checked:true}
     );
     b7Gear.push(
       {text:"Bring a spare rod for the friend if he wants to try something himself — S1 or S2 (bare Trout Magnet / light spinner) is the easiest cast for someone new to handle, no backlash risk.", checked:true},
       {text:"The real comparison test today — B7 taking on B6's usual pitching/jigging/crankbait/spinnerbait/frogging job. B7's Bass One XT (7.2:1) is slower than B6's Curado (8.5:1), and the Curado's already been tried on B7 and felt off-balance/heavy on this blank, so it's staying off the table — this is Bass One XT vs Curado on its own home rod, not a reel swap test. Bring a wide spread of lure weights to see whether lighter baits in each category offset the slower gearing, or whether the speed gap matters regardless of weight.", checked:true}
     );
+    b8Gear.push(
+      {text:"B8's actual field debut — never been on the water, and so is its dedicated Shimano SLX DC XT 71 XG (Digital Control electronic cast-braking). Leader finalized pre-trip (2026-10-01) at 20lb fluorocarbon, chosen over a lighter 14lb option for abrasion margin against today's cover-contact techniques — worth actually confirming that call holds up once it's fishing real grass/mats.", checked:true}
+    );
     return {
       id: 'corefour_weekend_2026-10-03',
-      name: 'Aqua Paradiso — Core Four Rod Test (S6/S7/B3/B7)',
+      name: 'Aqua Paradiso — Core Six Rod Test (S6/S7/S8/B3/B7/B8)',
       date: '2026-10-03',
       type: 'Weekend trip',
-      conditions: "Back at Aqua Paradiso, boat plus a fair amount of bank fishing. Taking a friend along who's new to bass fishing — this one isn't about optimizing his gear or chasing numbers, mostly just there to help him have a good time on the water. The actual point of the trip, gear-wise, is two things: (1) running S6, S7, B3 and B7 through the same five finesse techniques — wacky, Ned rig, Neko rig, drop-shot and Texas rig — for a genuine side-by-side read on all four, with S7 the real headline since it's never been fished — and as of 2026-10-01 it debuts on a brand-new Shimano Miravel 1000 (the original Reflex 1000 was swapped out pre-trip); and (2) a separate, more pointed test on B7 alone — running it through B6's usual job (pitching, jigging, crankbaits, spinnerbaits, frogging) to see if it's actually more of a goldilocks all-rounder than B6, or whether the slower Bass One XT (7.2:1 vs B6's 8.5:1 Curado) holds it back on the faster-response techniques regardless of how light the lures are. No rigid order of attack on the finesse spread — rotate through all four as the mood/water dictates — but treat the B7 power/reaction block as a deliberate, focused comparison against B6's known strengths.",
+      conditions: "Back at Aqua Paradiso, boat plus a fair amount of bank fishing. Taking a friend along who's new to bass fishing — this one isn't about optimizing his gear or chasing numbers, mostly just there to help him have a good time on the water. The actual point of the trip, gear-wise, now has three parts: (1) running S6, S7, S8 and B3 through the same five finesse techniques — wacky, Ned rig, Neko rig, drop-shot and Texas rig — for a genuine side-by-side read across all four, with S7 and S8 the real headlines since neither has ever been fished — S7 debuts on its brand-new Shimano Miravel 1000, and S8 debuts on S7's old Reflex 1000 after a same-day reel correction sorted out which rod actually suits it (both resolved pre-trip, 2026-10-01); (2) a separate, more pointed test on B7 alone — running it through B6's usual job (pitching, jigging, crankbaits, spinnerbaits, frogging) to see if it's actually more of a goldilocks all-rounder than B6, or whether the slower Bass One XT (7.2:1 vs B6's 8.5:1 Curado) holds it back on the faster-response techniques regardless of how light the lures are; and (3) B8's own debut on its own dedicated technique spread — Texas rigs, weightless flukes/senkos, chatterbaits, swim jigs and frogs — the worm-and-jig role it was actually bought for, run independently rather than against another rod since nothing else in the lineup covers quite this same spread. No rigid order of attack on the finesse spread — rotate through S6/S7/S8/B3 as the mood/water dictates — but treat the B7 power/reaction block and B8's own spread as deliberate, focused tests in their own right.",
       setups: [
         { code:'S7', gear:s7Gear, f1spool:'floating', lures: [
           "THE REAL TEST — bare Trout Magnet / Panfish Magnet jighead, ~0.84g (0.03oz) — the lightest possible read on whether this rod loads bare micro-rigs the way it's supposed to, same logic as S1.",
@@ -11018,6 +11026,14 @@
           "DROP-SHOT: McArthy McCrawley (6.8g / 0.24oz) — 1/0 hook + 1.5g (0.05oz) tag-end split-shot, ~8.3g (0.28oz) total — near the rod's ceiling, worth feeling out where it starts to load heavy.",
           "TEXAS RIG: Yum 2.5\" Crawbug (Green Pumpkin) — 1/0 offset hook, bare or with a light 1.5g (0.05oz) pegged weight — small-profile craw, stays well inside the rod's window either way.",
           "No pressure to force it — just get a genuine read on how it casts, loads and feels across this spread before deciding where it slots in against S2/S6."
+        ]},
+        { code:'S8', gear:s8Gear, f1spool:'floating', lures: [
+          "THE REAL TEST — Yum Ned Craw (Green Pumpkin/Red) on an Eagle Claw Finesse Weedless Jig (Ned mushroom head, 3.5g) — ~5.9-6.1g (0.21-0.22oz) total, comfortably mid-window for S8's 2-14g (0.07-0.5oz) casting range and a direct side-by-side against S7's identical rig on the same technique.",
+          "WACKY: Yum 3\" Dinger (2.8-3.0g / 0.1-0.11oz) — BKK Weedless Wacky Hook #1, bare, no weight — right at S8's 2g (0.07oz) floor, worth feeling out whether the rod loads this light cleanly or wants more weight than its spec suggests.",
+          "NEKO: Yum 3\" Dinger or Berkley Straight Money, nail-weighted — same wacky hook, weighted to stand on end.",
+          "DROP-SHOT: McArthy McCrawley (6.8g / 0.24oz) — 1/0 hook + 1.5g (0.05oz) tag-end split-shot, ~8.3g (0.28oz) total.",
+          "TEXAS RIG: Yum 2.5\" Crawbug (Green Pumpkin) — 1/0 offset hook, light pegged tungsten — pushes toward the rod's 14g (0.5oz) ceiling, further than any of the other three finesse rods can reach on this spread.",
+          "First cast of any kind on this rod — note whether the Reflex 1000 feels balanced on a blank this light, and whether the heavier floor (2g vs S7's 1.77g) is actually noticeable casting the lightest baits above."
         ]},
         { code:'S6', gear:s6Gear, f1spool:'floating', lures: [
           "WACKY (field-confirmed top producer): Yum 3\" Dinger — BKK Weedless Wacky Hook #1, bare, no weight.",
@@ -11039,6 +11055,14 @@
           "FINESSE SPREAD (same 5 techniques as the other three) — WACKY: McArthy Stumpi bare. NEKO: same Stumpi/Dinger, nail-weighted. NED RIG: Eagle Claw Ned mushroom head + Yum Ned Craw. DROP-SHOT: McArthy McCrawley + light tag-end shot. TEXAS RIG: Yum 2.5\" Crawbug, light pegged tungsten.",
           "POWER/REACTION COMPARISON BLOCK — THE B6 CHALLENGE: PITCHING — McArthy Tiddler + Bass Hunter Tungsten Flip Jig, light end of the weight range first. JIGGING — Keitech Tungsten Jig (1/4oz / 7.09g) + trailer. CRANKBAITS — Berkley SquareBull or Sensation Mini Trap (this rod's own proven reaction lures — 3 bass on the Mini Trap on 2026-09-13). SPINNERBAIT — Booyah Pond Magic Spinnerbait, light. FROGGING — Sensation Hollow Frog, if the water's got any pad/mat cover to walk it across.",
           "The comparison that matters — work through the Power/Reaction block deliberately, starting with the lightest lure in each category, and pay attention to hookset timing specifically (how much lag there is between the strike and coming tight) rather than just casting distance or feel. That lag is what the slower Bass One XT is expected to cost on pitching/frogging in particular — note honestly whether it actually does."
+        ]},
+        { code:'B8', gear:b8Gear, f1spool:'floating', lures: [
+          "TEXAS RIG — Yum 2.5\" Crawbug or McArthy Tiddler, 1/0 offset hook with a light pegged tungsten weight if cover calls for it — the rod's core role, worked through grass and around laydowns.",
+          "WEIGHTLESS FLUKE/SENKO — Yum 3\" Dinger or a soft-plastic fluke, weightless, twitched over and through cover — the finesse end of this rod's spread, worth comparing against how S6/S7/S8/B3 handle the same weightless presentations on their own wacky rigs.",
+          "CHATTERBAIT — Booyah Pond Magic Spinnerbait or a bladed jig if one's in the box, burned through grass lines at a moderate pace — first real test of whether the lightweight ~119g blank stays comfortable on a technique with constant water resistance.",
+          "SWIM JIG — Megabass Mag Draft Head with a swimbait trailer, worked over flats and drop-offs.",
+          "FROG — Sensation Hollow Frog walked across any mat or pad cover the water offers — the technique that puts the new 20lb fluoro leader to its first real test.",
+          "Both rod and reel's actual field debut — note how the Digital Control braking on the SLX DC XT behaves compared to a standard magnetic/centrifugal dial, especially on the heavier chatterbait/swim jig casts where backlash risk is highest."
         ]}
       ],
       notes: []
@@ -11591,6 +11615,12 @@
   removeGameplanIfNeeded('aqua_weekend_day2_removal_2026-09-25', 'aqua_weekend_day2_2026-09-27');
   seedGameplanIfNeeded('aqua_weekend_2026-09-26', buildAquaWeekendSeedPlan());
   seedGameplanIfNeeded('corefour_weekend_2026-10-03', buildCoreFourWeekendSeedPlan());
+  // 2026-10-01: added S8 and B8 to this weekend's plan (both debuting the same trip) — patches
+  // browsers that already seeded the original 4-rod version before this change landed.
+  fixGameplanIfNeeded('corefour_add_s8b8_v1', 'corefour_weekend_2026-10-03', (function(){
+    var p = buildCoreFourWeekendSeedPlan();
+    return { name: p.name, conditions: p.conditions, setups: p.setups, notes: p.notes };
+  })());
   // Force-push (2026-09-24): the original build had an escaping bug (unescaped inch-mark quotes)
   // that broke the whole page script on load, meaning seedGameplanIfNeeded above never got a
   // chance to run on any browser that hit that broken build. This unconditionally inserts the
