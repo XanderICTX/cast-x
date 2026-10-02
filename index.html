@@ -11467,6 +11467,18 @@
     var p = buildCoreFourWeekendSeedPlan();
     return { name: p.name, conditions: p.conditions, setups: p.setups, notes: p.notes };
   })());
+  // 2026-10-02 (round 2): on any device signed in to OneDrive sync, the 'v1' patch above already
+  // consumed its one-time flag during the earlier broken run — it DID apply locally and flash
+  // correctly, but cloudPullAndApply then silently overwrote it with a stale pre-patch OneDrive
+  // snapshot (the actual bug, now fixed via locallyPatchedPlanIds above) before the corrected
+  // version ever got pushed back up. Net result: both this device's localStorage and its OneDrive
+  // copy are still stuck on "Core Four". Since the 'v1' flag is already spent, it won't re-fire on
+  // its own — this re-fires the identical patch under a fresh key so it actually takes now that
+  // the cloud-sync race is fixed, and pushes the corrected copy back to OneDrive for good.
+  fixGameplanIfNeeded('corefour_rename_core_six_v2', 'corefour_weekend_2026-10-03', (function(){
+    var p = buildCoreFourWeekendSeedPlan();
+    return { name: p.name, conditions: p.conditions, setups: p.setups, notes: p.notes };
+  })());
   // Force-push (2026-09-24): the original build had an escaping bug (unescaped inch-mark quotes)
   // that broke the whole page script on load, meaning seedGameplanIfNeeded above never got a
   // chance to run on any browser that hit that broken build. This unconditionally inserts the
