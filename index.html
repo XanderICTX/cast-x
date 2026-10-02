@@ -11075,6 +11075,15 @@
   // One-time fix: corrects an already-seeded gameplan in place — for users who opened an
   // earlier build before the S0-removal correction landed, so they don't have to manually
   // edit or re-import anything. Gated by its own flag, independent of the original plan seed.
+  //
+  // locallyPatchedPlanIds (2026-10-02): records which plan ids got freshly patched THIS page
+  // load. Needed because cloudPullAndApply's gameplan merge only restores plans that are
+  // entirely missing from the cloud snapshot — a plan that exists in both copies but was just
+  // patched locally (e.g. the Core Four -> Core Six rename) gets silently overwritten by an
+  // older cloud copy the moment sync runs, which is exactly the "flashes correct, then reverts"
+  // bug reported after the rename shipped. cloudPullAndApply uses this list to know which
+  // plans must keep the fresh local version regardless of what the cloud copy says.
+  var locallyPatchedPlanIds = [];
   function fixGameplanIfNeeded(fixKey, planId, patch){
     var FLAG_KEY = 'rodSetupGameplanFix_' + fixKey;
     if(localStorage.getItem(FLAG_KEY)) return;
@@ -11085,6 +11094,7 @@
     Object.keys(patch).forEach(function(k){ plan[k] = patch[k]; });
     plans = plans.map(function(p){ return p.id === planId ? plan : p; });
     savePlans(plans);
+    locallyPatchedPlanIds.push(planId);
   }
 
   // One-time removal: deletes an already-seeded gameplan the user no longer wants, for
@@ -11317,8 +11327,16 @@
       var missingLocal = localPlansBefore.filter(function(p){
         return !cloudPlans.some(function(cp){ return cp.id === p.id; });
       });
+      // A plan that exists in BOTH copies but was freshly patched by fixGameplanIfNeeded earlier
+      // in this very page load (see locallyPatchedPlanIds) must keep the fresh local version —
+      // the cloud copy predates the patch and would otherwise silently undo it on every load.
+      cloudPlans = cloudPlans.map(function(cp){
+        if(locallyPatchedPlanIds.indexOf(cp.id) === -1) return cp;
+        var lp = localPlansBefore.filter(function(p){ return p.id === cp.id; })[0];
+        return lp || cp;
+      });
       var needsPush = false;
-      if(missingLocal.length){
+      if(missingLocal.length || locallyPatchedPlanIds.length){
         savePlans(missingLocal.concat(cloudPlans));
         needsPush = true;
       }
