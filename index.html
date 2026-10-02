@@ -11442,6 +11442,13 @@
     var p = buildCoreFourWeekendSeedPlan();
     return { name: p.name, conditions: p.conditions, setups: p.setups, notes: p.notes };
   })());
+  // 2026-10-02: the 's8b8_v1' patch above already ran on some browsers before this plan's name
+  // was renamed "Core Four" -> "Core Six", so it never reached them. This re-fires the same
+  // patch under a fresh key so the saved plan's title (and everything else) catches up.
+  fixGameplanIfNeeded('corefour_rename_core_six_v1', 'corefour_weekend_2026-10-03', (function(){
+    var p = buildCoreFourWeekendSeedPlan();
+    return { name: p.name, conditions: p.conditions, setups: p.setups, notes: p.notes };
+  })());
   // Force-push (2026-09-24): the original build had an escaping bug (unescaped inch-mark quotes)
   // that broke the whole page script on load, meaning seedGameplanIfNeeded above never got a
   // chance to run on any browser that hit that broken build. This unconditionally inserts the
