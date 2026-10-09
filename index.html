@@ -508,7 +508,7 @@
     <div>
       <h1>CAST-<span>X</span></h1>
       <div class="subhead">Field reference &middot; Xander</div>
-      <div class="headerstats">24 rods &middot; 24 reels &middot; 49 combos &middot; updated 08 Oct 2026</div>
+      <div class="headerstats">24 rods &middot; 24 reels &middot; 49 combos &middot; updated 09 Oct 2026</div>
     </div>
     <span class="cloudSyncStatus" id="cloudSyncStatus"></span>
     <button class="cloudSignInBtn" id="cloudSignInBtn" type="button" title="Sign in with Microsoft to sync this app's data (gameplans, notes, checklists, catches) to your OneDrive — keeps every device signed in to the same account up to date automatically.">Sign in to sync</button>
@@ -560,7 +560,7 @@
       <div style="font-size:.78em;color:var(--text-dim);margin-top:2px;">Watchlist Items</div>
     </div>
       </div>
-      <div class="tagline" style="margin-top:10px;">Generated 08 Oct 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
+      <div class="tagline" style="margin-top:10px;">Generated 09 Oct 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
     </div>
     <div class="sectiontitle">Rod &amp; Reel Lineup</div>
     <details class="card" open><summary>Spinning &amp; baitcasters, light to heavy, with codes and specs</summary>
@@ -12164,6 +12164,13 @@
   ]);
   markGameplansCompletedIfNeeded('aqua_weekend_completed_2026-09-26', ['aqua_weekend_2026-09-26']);
 
+  // Trip log: X-Factor morning, 2026-10-09 (7-10am) — F1, one beautiful trout on a white Woolly
+  // Bugger (the last trout of the season; trout season closed after). The fish itself was already
+  // tapped by hand on the Fish-Caught pill (DIRECT_LOG), so only the trip is seeded here (fish:0)
+  // to avoid double-counting. Purely additive/one-time.
+  seedFieldLogRodIfNeeded('field_report_f1_xfactor_2026-10-09', {
+    'F1': {trips:1, fish:0, last:'2026-10-09'}
+  });
   seedGameplanNotesIfNeeded('corefour_weekend_debrief_2026-10-04', 'corefour_weekend_2026-10-03', [
     "DEBRIEF (2026-10-04) — Great 2-day weekend on the boat (two grown men aboard), 40+ fish landed in total; only fish over 250g were logged as catches in the app, smaller ones weren't counted. All six Core Six rods (S5 Tiny Terror, S6, S7, B3, B7, B8) were perfect and caught loads of fish each. Boat battery: 2 days on the water finished at 62% SoC (38Ah used). Old S5 (Shimano Sienna) was sold afterwards and the Tiny Terror took the S5 code."
   ]);
