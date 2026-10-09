@@ -12174,8 +12174,18 @@
   // Trip log: B9's first outing, X-Factor 2026-10-09 — 4 bass over 500g (best 600g) plus a few
   // smaller fish. Only the 4 big fish are seeded (the app counts bigger fish only). One-time.
   seedFieldLogRodIfNeeded('field_report_b9_2026-10-09', {
-    'B9': {trips:1, fish:4, last:'2026-10-09'}
+    'B9': {trips:1, fish:0, last:'2026-10-09'}
   });
+  // Correction (2026-10-09): the 4 B9 fish were also tapped in by hand (DIRECT_LOG), so the seed's
+  // fish:4 double-counted (showed 8). Fish are now seeded as 0 above; this one-time fix SETS the
+  // field-log fish for B9 to 0 for browsers that already ran the earlier fish:4 seed.
+  (function(){
+    var FLAG = 'rodSetupFieldLogFix_b9_fish_2026-10-09';
+    if(localStorage.getItem(FLAG)) return;
+    localStorage.setItem(FLAG, '1');
+    var log = loadFieldLogRod();
+    if(log.B9){ log.B9.fish = 0; saveFieldLogRod(log); }
+  })();
   seedGameplanNotesIfNeeded('corefour_weekend_debrief_2026-10-04', 'corefour_weekend_2026-10-03', [
     "DEBRIEF (2026-10-04) — Great 2-day weekend on the boat (two grown men aboard), 40+ fish landed in total; only fish over 250g were logged as catches in the app, smaller ones weren't counted. All six Core Six rods (S5 Tiny Terror, S6, S7, B3, B7, B8) were perfect and caught loads of fish each. Boat battery: 2 days on the water finished at 62% SoC (38Ah used). Old S5 (Shimano Sienna) was sold afterwards and the Tiny Terror took the S5 code."
   ]);
