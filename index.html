@@ -508,7 +508,7 @@
     <div>
       <h1>CAST-<span>X</span></h1>
       <div class="subhead">Field reference &middot; Xander</div>
-      <div class="headerstats">24 rods &middot; 24 reels &middot; 49 combos &middot; updated 11 Oct 2026</div>
+      <div class="headerstats">24 rods &middot; 24 reels &middot; 49 combos &middot; updated 12 Oct 2026</div>
     </div>
     <span class="cloudSyncStatus" id="cloudSyncStatus"></span>
     <button class="cloudSignInBtn" id="cloudSignInBtn" type="button" title="Sign in with Microsoft to sync this app's data (gameplans, notes, checklists, catches) to your OneDrive — keeps every device signed in to the same account up to date automatically.">Sign in to sync</button>
@@ -560,7 +560,7 @@
       <div style="font-size:.78em;color:var(--text-dim);margin-top:2px;">Watchlist Items</div>
     </div>
       </div>
-      <div class="tagline" style="margin-top:10px;">Generated 11 Oct 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
+      <div class="tagline" style="margin-top:10px;">Generated 12 Oct 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
     </div>
     <div class="sectiontitle">Rod &amp; Reel Lineup</div>
     <details class="card" open><summary>Spinning &amp; baitcasters, light to heavy, with codes and specs</summary>
@@ -11076,6 +11076,39 @@
     };
   }
 
+  // Truck rod solo session at X-Factor (2026-10-13) — TR has never caught a fish. Fresh off the
+  // 2026-10-11 reel upgrade (Abu Garcia Black Max-L 6.5:1, 30lb Sufix braid, 12lb fluoro leader ~2m).
+  // Kit lures first, then the owner's own soft-plastic experiments (neko/wacky/Texas weightless),
+  // since the Medium / Moderate-Fast blank may suit those. One-time seed.
+  function buildTRXFactorSeedPlan(){
+    var trGear = [
+      {text:"TR rod + Abu Garcia Black Max-L 6.5:1 (LH) — grab it with the clip-on tackle box straight off the rod; spooled with 30lb Sufix braid and a 12lb fluorocarbon leader (~2m).", checked:true},
+      {text:"Brand-new reel setup — do a few test casts with a mid-weight kit lure and set the brakes/spool tension first. Braid on a faster 6.5:1 reel makes a bird's nest easy, and the old fluoro-forgiveness is gone.", checked:true},
+      {text:"Check the 12lb leader for nicks after any snag — it's lighter than the 20lb it replaced.", checked:true},
+      {text:"Soft plastics + hooks from own stock: EWG hooks (3/0, 1/0), wacky/neko hooks, small nail weights, jigheads, split shot.", checked:true},
+      {text:"Goal: the truck rod's first fish. Note which presentation gets the bite so the app can record it.", checked:true}
+    ];
+    return {
+      id: 'tr_xfactor_2026-10-13',
+      name: 'X-Factor — Truck Rod Solo Session (first fish)',
+      date: '2026-10-13',
+      type: 'Day trip',
+      conditions: "Solo session at X-Factor with just the truck rod (Shakespeare Ugly Stik Gold 5'6\" Medium, Moderate to Moderate-Fast + Abu Garcia Black Max-L 6.5:1). The rod has never caught a fish, so the aim is a first fish and a read on which presentations suit this blank. Start with the kit lures, then try the owner's own soft-plastic ideas (neko, wacky, Texas, mostly weightless) on a rod that may suit them.",
+      setups: [
+        { code:'TR', gear:trGear, f1spool:'floating', lures: [
+          "KIT CRANKBAIT — small diving crankbait from the clip-on kit — steady retrieve along banks and drop-offs to search; a good first cast to feel how the new reel throws.",
+          "KIT SPINNER / SPINNERBAIT — included inline spinner and safety-pin spinnerbait — steady retrieve through open water and along edges, easy way to find active fish.",
+          "KIT PADDLETAILS — small paddle-tail swimbaits on a light jighead (1/8oz or 1/4oz) — slow roll, then a hop on the bottom.",
+          "TEXAS RIG (weightless or light) — McArthy Tiddler (8.5g / 0.3oz), Stumpi (9.0g / 0.32oz) or McCrawley (6.8g / 0.24oz) on an EWG hook (1/0-3/0), no weight or a very small bullet weight — flip or cast to cover and let it fall.",
+          "WACKY RIG (weightless) — McArthy bulky plastics (Stumpi/Tiddler) or a stick worm on a wacky hook, no weight — cast near cover and let it fall on a slack line. The bulkier ones cast best on this rod.",
+          "NEKO RIG — a stick worm or Yum 3\" Dinger (2.8-3.0g / 0.1-0.11oz) with a small nail weight in one end — drag and shake on the bottom. Weightless Dingers this small will be hard to cast on a standard baitcaster, so use the nail weight.",
+          "ORDER OF ATTACK — warm up with the kit crankbait or spinner to find fish and test the reel, then work the plastics: Texas rig on cover, wacky along open banks, Neko where it's clear and shallow. Watch whether the Medium / Moderate-Fast blank loads on the very light rigs; if casting 3g baits is a struggle, stick to the heavier plastics and the kit lures. Log what caught the first fish."
+        ]}
+      ],
+      notes: []
+    };
+  }
+
   // Aqua Paradiso sleepover weekend (2026-09-26/27) — deliberately rotating away from the comfort
   // sticks (B6/S6/B7/B3/S3) onto B1/B2/S2/B5 instead, to build real confidence on more of the
   // fleet rather than defaulting to the same handful. B1 and S2 have never been on the boat at all
@@ -11809,6 +11842,7 @@
   removeGameplanIfNeeded('aqua_weekend_day2_removal_2026-09-25', 'aqua_weekend_day2_2026-09-27');
   seedGameplanIfNeeded('aqua_weekend_2026-09-26', buildAquaWeekendSeedPlan());
   seedGameplanIfNeeded('corefour_weekend_2026-10-03', buildCoreFourWeekendSeedPlan());
+  seedGameplanIfNeeded('tr_xfactor_2026-10-13', buildTRXFactorSeedPlan());
   // 2026-10-01: added S5 and B8 to this weekend's plan (both debuting the same trip) — patches
   // browsers that already seeded the original 4-rod version before this change landed.
   fixGameplanIfNeeded('corefour_add_s8b8_v1', 'corefour_weekend_2026-10-03', (function(){
