@@ -11396,6 +11396,55 @@
     };
   }
 
+  // Travel kit dress rehearsal (2026-10-16): the gun-bag travel kit is fished at X-Factor a week before the
+  // family holiday so anything missing gets found while home is still close. The bag's lure/terminal
+  // contents are deliberately not itemised, so the plan tests what is actually in the bag.
+  function buildTravelKitXFactorSeedPlan(){
+    var tb1Gear = (packDefaults['TB1'] || []).map(function(g){ return {text:g, checked:true}; });
+    tb1Gear.push(
+      {text:"TB1 = Okuma Psycho Stick PS-C-704MHF + Abu Garcia Jordan Lee (7.1:1), 30lb Sufix 832, 14lb leader. Neither the Jordan Lee nor this leader has been fished on this rod yet, so today is its first real test.", checked:true},
+      {text:"Test the casting brake on the Jordan Lee in the first few casts before committing to heavier lures.", checked:true}
+    );
+    var ts1Gear = (packDefaults['TS1'] || []).map(function(g){ return {text:g, checked:true}; });
+    ts1Gear.push(
+      {text:"TS1 = Okuma Psycho Stick PS-S-704MHF + Okuma ITX-2500H, 10lb lime-green braid, 10lb Seaguar leader. Not yet fished with the ITX on this rod, so watch drag feel and the braid-to-leader knot.", checked:true}
+    );
+    var ts2Gear = (packDefaults['TS2'] || []).map(function(g){ return {text:g, checked:true}; });
+    ts2Gear.push(
+      {text:"Optional today — only if the bite is light or a micro-lure job comes up. The point is to check it packs and unpacks cleanly from the bag.", checked:true}
+    );
+    return {
+      id: 'travelkit_xfactor_2026-10-16',
+      name: 'X-Factor — Travel Kit Dress Rehearsal (holiday prep)',
+      date: '2026-10-16',
+      type: 'Day trip',
+      conditions: "Dress rehearsal for the family holiday a week from now (holiday resort, with one or two fishing days close to the resort). Fish X-Factor out of the gun-bag travel kit, packed the way it will travel, and find anything that is missing or awkward while home is still close. Both Psycho Sticks (TB1 casting, TS1 spinning) are the main event; TS2, the ultralight, may stay in the bag. Treat the bag as the test, not just the rods: unpack it at the water, fish from the sling bag if walking, and note everything that you reach for and can't find.",
+      setups: [
+        { code:'TB1', gear:tb1Gear, f1spool:'floating', lures: [
+          "WARM-UP — a mid-weight jig or Texas rig (McArthy McCrawley, 6.8g / 0.24oz, on an EWG hook with a small bullet weight or tungsten) cast a few times to set the Jordan Lee's brake and feel the rod loaded.",
+          "REACTION — Berkley SquareBull or Sensation Mini Trap (9-13g / 0.32-0.46oz) and a Booyah Pond Magic Spinnerbait: the heavier casting work this rod is for. Confirms the travel kit can cover moving baits.",
+          "COVER — a weightless-to-light Texas rig or a Hollow Frog around any weed or overhang, if the water has it: the frog/cover job that a travel setup needs to handle.",
+          "WHAT TO NOTE — which of these came out of the bag's own mixed stock rather than the home boxes, and what you wished you had brought."
+        ]},
+        { code:'TS1', gear:ts1Gear, f1spool:'floating', lures: [
+          "WACKY / NEKO — McArthy Stumpi (9.0g / 0.32oz) wacky-rigged, and a Yum 3\" Dinger neko-rigged with a small nail weight: the finesse job TS1 takes off the baitcaster.",
+          "NED / SMALL PADDLETAIL — Zortex Nedmonster Power-Ned and a Compact Paddle Tail on a light jighead, as the small-profile option for a slow bite.",
+          "FINESSE TEXAS — a McCrawley or Tiddler on a light tungsten: the heavier finesse job TS1 can do that the lighter S6 cannot.",
+          "WHAT TO NOTE — how the 10lb Seaguar leader handles, whether the ITX feels right on this rod, and whether the 4lb / 10lb / 14lb leader spools cover what you wanted to re-tie."
+        ]},
+        { code:'TS2', gear:ts2Gear, f1spool:'floating', lures: [
+          "ONLY IF NEEDED — a Trout Magnet or a small spinner on the light tip if fish are small or the bite is very tentative; otherwise leave it in the bag.",
+          "WHAT TO NOTE — whether the rod and its tips pack easily alongside the other two, and whether you actually miss having it."
+        ]}
+      ],
+      notes: [
+        {id:'note_travelkit_audit_2026-10-16', text:"BAG AUDIT — before leaving, tick off the bag: 3 rods and 3 reels, collapsible net, mixed soft plastics + spare hardbaits + jig heads + hooks, leader spools (4lb, 10lb, 14lb), pliers in the sling bag, small sling bag itself, spare Crocs flip-flops, fishing shirt, shorts, sun gloves, cap."},
+        {id:'note_travelkit_missing_2026-10-16', text:"WRITE DOWN WHAT'S MISSING — anything reached for and not in the bag (e.g. line cutters/scissors, hook sharpener, extra weights or hooks of a size you ran out of, fish grip or lip tool, sunscreen, polarised sunglasses, a rod sock or tube for travel, a bag for wet gear). That list becomes the shopping list for the week before the trip."},
+        {id:'note_travelkit_holiday_2026-10-16', text:"HOLIDAY CHECK — also note anything about the trip itself that today shows: the weight and bulk of the bag for travel, how fast it unpacks at the water, and whether the 7'0\" 4-piece Psycho Sticks and the 5'6\" 2-piece LRF rod all fit the bag with the net."}
+      ]
+    };
+  }
+
   // Aqua Paradiso sleepover weekend (2026-09-26/27) — deliberately rotating away from the comfort
   // sticks (B6/S6/B7/B3/S3) onto B1/B2/S2/B5 instead, to build real confidence on more of the
   // fleet rather than defaulting to the same handful. B1 and S2 have never been on the boat at all
@@ -12228,6 +12277,7 @@
   seedGameplanIfNeeded('aqua_weekend_2026-09-26', buildAquaWeekendSeedPlan());
   seedGameplanIfNeeded('corefour_weekend_2026-10-03', buildCoreFourWeekendSeedPlan());
   seedGameplanIfNeeded('tr_xfactor_2026-10-13', buildTRXFactorSeedPlan());
+  seedGameplanIfNeeded('travelkit_xfactor_2026-10-16', buildTravelKitXFactorSeedPlan());
   // Trip debrief: truck rod solo session, X-Factor 2026-10-13 — first two fish on TR. Tested the
   // plastics it could cast: good down to about 4in weightless senkos, nothing lighter. Fish seeded
   // here because nothing was tapped in the app first. Purely additive/one-time.
