@@ -9273,6 +9273,7 @@
       if(isActive) x.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
     });
     panels.forEach(function(x){x.classList.toggle('active', x.id==='panel-'+code)});
+    var openedPanel = document.getElementById('panel-'+code); if(openedPanel && typeof collapseAllHeadings === 'function') collapseAllHeadings(openedPanel);
     document.getElementById('search').value='';
     applyFilter('');
     if(code==='compare'){ populateMixSelects(); renderGapResults(); renderRangeChart(); renderGearRatioChart(); }
@@ -9356,6 +9357,32 @@
     document.querySelectorAll('.headHidden').forEach(function(n){ n.classList.remove('headHidden'); });
   }
   searchInput.addEventListener('input', function(){ if(this.value) expandAllHeadings(); });
+  // Everything starts folded (2026-10-15): collapse every heading in a container once. Panels that are built
+  // lazily get the same treatment the first time they are opened (see activateTab).
+  function collapseAllHeadings(root){
+    var heads = Array.prototype.slice.call((root || document).querySelectorAll('.sectiontitle, .subsectiontitle'));
+    heads.forEach(function(h){ if(!h.dataset.hinit){ h.dataset.hinit = '1'; if(headSiblings(h).length) setHeadCollapsed(h, true); } });
+  }
+  // Open whatever headings are folded above a given element (used when jumping to an item).
+  function revealEl(el){
+    var n = el;
+    while(n && n !== document.body){
+      var p = n.previousElementSibling, got1 = false, got2 = false;
+      while(p && !got1){
+        var l = headLevel(p);
+        if(l === 1){ if(p.classList.contains('headCollapsed')) setHeadCollapsed(p, false); got1 = true; }
+        else if(l === 2 && !got2){ if(p.classList.contains('headCollapsed')) setHeadCollapsed(p, false); got2 = true; }
+        p = p.previousElementSibling;
+      }
+      n = n.parentElement;
+    }
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if(!a) return;
+    var id = a.getAttribute('href').slice(1); if(!id) return;
+    var t = document.getElementById(id); if(t) revealEl(t);
+  }, true);
 
   function escHtml(s){ var d=document.createElement('div'); d.innerText=s; return d.innerHTML.replace(/\n/g,'<br>'); }
   function escAttr(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -10783,6 +10810,7 @@
       });
       if(target){
         target.classList.remove('collapsed');
+        revealEl(target);
         target.scrollIntoView({behavior:'smooth', block:'start'});
         target.style.outline = '2px solid var(--accent)';
         setTimeout(function(){ target.style.outline=''; }, 2500);
@@ -12174,6 +12202,7 @@
     S6: ["To try next trip: Ned rig with the Eagle Claw Finesse Weedless Jig (Ned mushroom head, 5.3g / 0.19oz) — sits right at S6's 5.3g manufacturer floor — paired with either the 6th Sense Bounce Worm (Watermelon Red Pro) or a Zoom Trick Worm (Baby Bass or Watermelon Red) as the trailer. Total with either worm lands roughly 7.3-11.3g (0.26-0.4oz), comfortably inside S6's 5.3-17.7g window. Thread the worm nose-first onto the jig hook until the head sits flush against the collar."]
   });
   activateSubtab('spinning');
+  collapseAllHeadings(document);
   fixB0B3PhotoSwapIfNeeded();
   syncTopbarHeightVar();
   seedGameplanIfNeeded('xfactor_2026-08-10', buildXFactorSeedPlan());
