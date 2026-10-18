@@ -514,7 +514,7 @@
     <div>
       <h1>CAST-<span>X</span></h1>
       <div class="subhead">Field reference &middot; Xander</div>
-      <div class="headerstats">25 rods &middot; 25 reels &middot; 50 combos &middot; updated 16 Oct 2026</div>
+      <div class="headerstats">25 rods &middot; 25 reels &middot; 50 combos &middot; updated 18 Oct 2026</div>
     </div>
     <span class="cloudSyncStatus" id="cloudSyncStatus"></span>
     <button class="cloudSignInBtn" id="cloudSignInBtn" type="button" title="Sign in with Microsoft to sync this app's data (gameplans, notes, checklists, catches) to your OneDrive — keeps every device signed in to the same account up to date automatically.">Sign in to sync</button>
@@ -566,7 +566,7 @@
       <div style="font-size:.78em;color:var(--text-dim);margin-top:2px;">Watchlist Items</div>
     </div>
       </div>
-      <div class="tagline" style="margin-top:10px;">Generated 16 Oct 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
+      <div class="tagline" style="margin-top:10px;">Generated 18 Oct 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
     </div>
     <div class="sectiontitle">Rod &amp; Reel Lineup</div>
     <details class="card" open><summary>Spinning &amp; baitcasters, light to heavy, with codes and specs</summary>
@@ -11445,6 +11445,75 @@
     };
   }
 
+
+  // Buffelspoort Dam holiday bank trip (weekend of 2026-10-24) and X-Factor bass competition prep
+  // (practice runs before the 2026-11-14 comp). Both are drafts built from general post-spawn
+  // principles plus the owner's own results; refine after the Buffelspoort trip and each X-Factor practice run.
+  function gearFor(code, extra){
+    var g = (packDefaults[code] || []).map(function(x){ return {text:x, checked:true}; });
+    (extra||[]).forEach(function(t){ g.push({text:t, checked:true}); });
+    return g;
+  }
+  function buildBuffelspoortSeedPlan(){
+    return {
+      id: 'buffelspoort_2026-10-24',
+      name: 'Buffelspoort Dam — Holiday Bank Fishing (travel kit)',
+      date: '2026-10-24',
+      type: 'Holiday trip',
+      conditions: "Bank fishing at Buffelspoort Dam while on holiday, one or two sessions near the resort. Fish the travel bag: TB1 (casting) and TS1 (spinning) as the main rods, TS2 only for a very light bite. Early morning and evening are the best windows; midday go to shade and the deepest water within reach. Reported background (undated local write-up, so treat with care): healthy largemouth population, catches skew small with few over 1 kg, bass more active in summer, and the upper Sterkstroom and Easterkloof inlets are a no-fishing conservation zone. Check current dam rules, access points and any fishing permit with the resort or dam office before going. Bank anglers cover less water than boats, so walk and cast parallel to the bank.",
+      setups: [
+        { code:'TB1', gear:gearFor('TB1',["Shallow cover and wind-blown banks first; keep the casting rod for moving baits."]), f1spool:'floating', lures: [
+          "FIRST LIGHT — topwater over shallow cover: Berkley Power Pop 70 or Sensation Mini Pop, and the Hollow Frog over any weed or pads.",
+          "COVER WATER — Z-Man ChatterBait Jack Hammer (3/8oz) or the Booyah Pond Magic Spinnerbait along reeds, wood and drop-offs. Slow-roll and let it fall near cover.",
+          "REACTION — Berkley SquareBull or Sensation Mini Trap on rocky or gravel banks.",
+          "SLOW FALLBACK — weightless Dinger or Stumpi on a light Texas rig next to cover only if the moving baits stop getting bites."
+        ]},
+        { code:'TS1', gear:gearFor('TS1',["Shade and midday finesse rod; the 10lb Seaguar leader is already on the spool."]), f1spool:'floating', lures: [
+          "WACKY / NEKO — McArthy Stumpi or a Yum 3\" Dinger wacky or neko rigged, skipped under overhangs and dropped beside cover.",
+          "NED / SMALL PADDLETAIL — Zortex Nedmonster Power-Ned or a Compact Paddle Tail on a light jighead for a tough bite.",
+          "SHAKY / LIGHT TEXAS — McCrawley or Tiddler on a light tungsten when fish hold tight to wood and rocks."
+        ]},
+        { code:'TS2', gear:gearFor('TS2',["Only if small fish or a very tentative bite; otherwise leave it in the bag."]), f1spool:'floating', lures: [
+          "ONLY IF NEEDED — Trout Magnet or a small spinner on the light tip."
+        ]}
+      ],
+      notes: [
+        {id:'note_buffels_prep_2026-10-24', text:"BEFORE YOU GO — confirm access, rules and permit for Buffelspoort; check the weather and wind for the days you fish; restock the bag (leader spools, jig heads, hooks, soft plastics) from the dress-rehearsal missing list."},
+        {id:'note_buffels_plan_2026-10-24', text:"PLAN — fish the bank walking, early and late. Start with topwater and moving baits (Power Pop, Mini Pop, ChatterBait), then go to the finesse rod (TS1) as the sun gets up. Treat Buffelspoort as a second look at how bass respond in November conditions, and use the results for the X-Factor comp. Log what they hit, where on the bank, and what time."}
+      ]
+    };
+  }
+  function buildXFactorCompPrepSeedPlan(){
+    return {
+      id: 'xfactor_compprep_2026-11',
+      name: 'X-Factor — Comp Practice Runs (before 14 Nov)',
+      date: '2026-10-31',
+      type: 'Practice',
+      conditions: "A couple of practice sessions at X-Factor before the bank bass competition on 2026-11-14, to learn what the fish want now (the date above is a target; change it as you schedule). Last visit: wacky, stick baits and Texas rigs got few bites, and carp were spawning and chasing the bass. Test the cover-water order in one session each: topwater, ChatterBait or spinnerbait, SquareBull or Mini Trap, then finesse. Log which lure, colour, retrieve, time of day and bank spot produce bites. The aim is to leave with a ranked list of two or three baits and the spots you will fish in the comp.",
+      setups: [
+        { code:'B6', gear:gearFor('B6',["All-rounder casting rod for ChatterBait, spinnerbait and topwater tests."]), f1spool:'floating', lures: [
+          "TOPWATER — Berkley Power Pop 70, Sensation Mini Pop, Halco Roosta Popper (smaller sizes only) and the Hollow Frog over cover, first and last hour of light.",
+          "CHATTERBAIT — Z-Man ChatterBait Jack Hammer (3/8oz): swim steadily, then rip it free of cover. Try Black/Blue first.",
+          "SPINNERBAIT — Booyah Pond Magic Spinnerbait (Heavy), slow-rolled along drop-offs and bank cover.",
+          "FLIPPING / PITCHING — Texas rig or jig into shade, wood or docks around midday, only to see if fish are holding in the thick cover."
+        ]},
+        { code:'TB1', gear:gearFor('TB1',["Second casting rod so two lure types are tied on."]), f1spool:'floating', lures: [
+          "REACTION — Berkley SquareBull or Sensation Mini Trap along rocky banks and over shallow flats.",
+          "TWITCH / JERKBAIT — Bass Hunter Twitch Minnow, with pauses, near cover and points."
+        ]},
+        { code:'TS1', gear:gearFor('TS1',["Finesse rod for when the bite stops and fish slap at moving baits."]), f1spool:'floating', lures: [
+          "WEIGHTLESS WORM / SENKO — skipped under overhangs and dropped beside cover; the slow option if the carp have the fish spooked.",
+          "NED RIG / SMALL PADDLETAIL — Zortex Nedmonster Power-Ned or Compact Paddle Tail.",
+          "SHAKY HEAD — near wood and rocks if the bass hold tight."
+        ]}
+      ],
+      notes: [
+        {id:'note_compprep_log_2026-11', text:"LOG PER SESSION — time, weather and wind, water clarity, carp activity, bank spot, lure, colour, retrieve, number of bites and fish landed. Note the first bait that gets a bite and what the bass did after it."},
+        {id:'note_compprep_comp_2026-11-14', text:"COMP DAY DRAFT (14 Nov, bank) — 1) First 1-2 hours: topwater and the ChatterBait over shallow cover, covering water fast. 2) When bass slap at the bait and miss, or bites stop: SquareBull or Mini Trap, then switch to the finesse rod (TS1) with a weightless worm, Ned or shaky head next to cover. 3) Midday: shade, wood and the deepest water within reach; flip or pitch only if fish are holding in thick cover. 4) Last 1-2 hours: back to topwater and moving baits. Finalise this after the practice runs, and check the comp rules (hours, fish count, size limit, weigh-in) once you have them."}
+      ]
+    };
+  }
+
   // Aqua Paradiso sleepover weekend (2026-09-26/27) — deliberately rotating away from the comfort
   // sticks (B6/S6/B7/B3/S3) onto B1/B2/S2/B5 instead, to build real confidence on more of the
   // fleet rather than defaulting to the same handful. B1 and S2 have never been on the boat at all
@@ -12278,6 +12347,8 @@
   seedGameplanIfNeeded('corefour_weekend_2026-10-03', buildCoreFourWeekendSeedPlan());
   seedGameplanIfNeeded('tr_xfactor_2026-10-13', buildTRXFactorSeedPlan());
   seedGameplanIfNeeded('travelkit_xfactor_2026-10-16', buildTravelKitXFactorSeedPlan());
+  seedGameplanIfNeeded('buffelspoort_2026-10-24', buildBuffelspoortSeedPlan());
+  seedGameplanIfNeeded('xfactor_compprep_2026-11', buildXFactorCompPrepSeedPlan());
   seedGameplanNotesIfNeeded('travelkit_debrief_2026-10-16', 'travelkit_xfactor_2026-10-16', [
     "DEBRIEF (2026-10-16) — Both rods tested perfect. TB1 (Psycho Stick + Jordan Lee) was phenomenal; TS1 (Psycho Stick + ITX-2500H) was great. Carp were spawning and chasing the bass so bites were few, but it was a great test day."
   ]);
