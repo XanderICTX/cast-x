@@ -7849,7 +7849,7 @@
     <div class="sectiontitle">Natural Food Sources vs Your Flies</div>
     <div class="tblwrap" data-tableid="foodsources"><table class="tbl"><thead><tr><th>Natural</th><th>Zone</th><th>Behaviour</th><th>Closest Match</th><th>Setup(s)</th><th class="tblActionsHead"></th></tr></thead><tbody><tr data-r="0"><td>Midge/Chironomid</td><td>Bottom rising to surface</td><td>Slow vertical rise, active dawn/dusk</td><td>Diawl Bach or FAB/Booby Hybrid</td><td>F1/F2/T1</td><td class="tblActionsCell"><button class="rowEditTableBtn" title="Edit">✎</button></td></tr><tr data-r="1"><td>Mayfly Nymph</td><td>Near bottom</td><td>Weak swimmer/crawler</td><td>Diawl Bach</td><td>F1/F2/T1</td><td class="tblActionsCell"><button class="rowEditTableBtn" title="Edit">✎</button></td></tr><tr data-r="2"><td>Damselfly Nymph</td><td>Mid-water to shallows</td><td>Active undulating swimmer</td><td>No dedicated pattern — closest: slim Bugger, steady retrieve</td><td>F1/F2/T1</td><td class="tblActionsCell"><button class="rowEditTableBtn" title="Edit">✎</button></td></tr><tr data-r="3"><td>Dragonfly Nymph</td><td>Bottom, near cover</td><td>Ambush predator, darting bursts</td><td>No dedicated pattern — closest: black Bugger, erratic strips</td><td>F1/F2/T1</td><td class="tblActionsCell"><button class="rowEditTableBtn" title="Edit">✎</button></td></tr><tr data-r="4"><td>Baitfish / Leech</td><td>Mid-water to bottom</td><td>Active swimmer</td><td>Woolly Bugger streamers — direct match</td><td>F1/F2/T1</td><td class="tblActionsCell"><button class="rowEditTableBtn" title="Edit">✎</button></td></tr></tbody></table><button class="addTableRowBtn" title="Add a row">+ Add row</button></div>
     <div class="sectiontitle jumptarget" id="photoref">Lure &amp; Kit Photo Reference</div>
-    <div class="card searchable"><div class="cardtitle">Soft Plastics — 79 soft baits</div><div class="tagline">Every soft bait you own, one entry per packet (plus the Power Pop popper). Switch the view to sort by what it does or by who makes it.</div></div><div class="subtabs" id="spViewBar" style="margin-top:6px;">
+    <div class="card searchable"><div class="cardtitle">Soft Plastics — 79 soft baits</div><div class="tagline">Every soft bait you own, one entry per packet (plus the Power Pop popper). Switch the view to sort by what it does or by who makes it.</div><div style="margin-top:8px;"><button class="btn" id="btnAddSoftBait">+ Add a soft bait (take a photo of the packet)</button></div></div><div id="customSoftBaitContainer"></div><div class="subtabs" id="spViewBar" style="margin-top:6px;">
       <div class="subtab active" data-spview="type">By type — what does what</div>
       <div class="subtab" data-spview="brand">By brand</div>
     </div>
@@ -11463,6 +11463,31 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="softBaitModalOverlay">
+  <div class="modal">
+    <h2>Add a soft bait</h2>
+    <label>Photo of the packet</label><input type="file" accept="image/*" capture="environment" id="sb_photo">
+    <div class="row2">
+      <div><label>Brand</label><input type="text" id="sb_brand" list="sb_brandlist" placeholder="e.g. Zoom"><datalist id="sb_brandlist"><option value="McArthy"><option value="Zoom"><option value="Yamamoto"><option value="YUM"><option value="Berkley"><option value="Rapala"><option value="Googan Baits"><option value="6th Sense"><option value="Geecrack"><option value="Deps"><option value="Itty's Secret Baits"><option value="Zortex"><option value="Xzone"><option value="Quattro"><option value="Evergreen"><option value="Robo Worm"><option value="Bloodteez"><option value="Z-Man"><option value="Jackall"><option value="Rabid Baits"><option value="Megabass"></datalist></div>
+      <div><label>Name &amp; colour</label><input type="text" id="sb_name" placeholder="e.g. Trick Worm, Green Pumpkin"></div>
+    </div>
+    <div class="row2">
+      <div><label>Size</label><input type="text" id="sb_size" placeholder="e.g. 4-inch"></div>
+      <div><label>Pieces in pack</label><input type="text" id="sb_count" placeholder="e.g. 10"></div>
+    </div>
+    <div class="row2">
+      <div><label>Type (what it does)</label><select id="sb_type"><option value="0">Stick worms &amp; wacky worms (Senko / Dinger style)</option><option value="1">Finesse worms (Neko / drop-shot / shaky head)</option><option value="2">Ned-rig &amp; small finesse baits</option><option value="3">Creature baits &amp; craws</option><option value="4">Swimbaits &amp; paddle tails</option><option value="5">Flukes &amp; soft jerkbaits</option><option value="6">Grubs &amp; trailers</option><option value="7">Soft topwaters</option></select></div>
+      <div><label>Size class</label><select id="sb_class"><option value="small">Small (up to 3-inch)</option><option value="medium" selected>Medium (4 to 6-inch)</option><option value="large">Large / heavy cover</option></select></div>
+    </div>
+    <label>Rod tags (filled in from size class — edit if needed)</label><input type="text" id="sb_tags">
+    <label>Weight in grams (optional — leave blank if not yet weighed)</label><input type="text" id="sb_weight" placeholder="e.g. 4.3">
+    <div class="modalbtns">
+      <button class="btn" id="saveSoftBait">Save soft bait</button>
+      <button class="btn btnGhost" id="cancelSoftBait">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="permitModalOverlay">
   <div class="modal">
     <h2>Add a permit</h2>
@@ -13004,6 +13029,73 @@
     if(fileInput.files && fileInput.files[0]){ readAndStoreImage(imgKey, fileInput.files[0], finish); } else { finish(); }
   });
 
+  // ---------------- ADD SOFT BAIT (localStorage, syncs with OneDrive via the rodSetup* key prefix) ----------------
+  var SOFT_KEY = 'rodSetupCustomSoftBaits';
+  var SP_TAGS_BY_CLASS = { small: 'TS2/S1/S2/S3/S6/B1/B9', medium: 'S2/S3/S4/S6/TB1/B1/B9/B2/B3/B6/B7', large: 'S3/S4/S6/TB1/B2/B3/B5/B6/B7/B8' };
+  var SP_CAT_NAMES = ["Stick worms & wacky worms (Senko / Dinger style)","Finesse worms (Neko / drop-shot / shaky head)","Ned-rig & small finesse baits","Creature baits & craws","Swimbaits & paddle tails","Flukes & soft jerkbaits","Grubs & trailers","Soft topwaters"];
+  function loadCustomSoftBaits(){ try{return JSON.parse(localStorage.getItem(SOFT_KEY))||[];}catch(e){return [];} }
+  function saveCustomSoftBaits(l){ localStorage.setItem(SOFT_KEY, JSON.stringify(l)); }
+  function customSoftBaitsHTML(){
+    var items = loadCustomSoftBaits();
+    if(!items.length) return '';
+    var body = items.map(function(it){
+      var tags = (it.tags||[]);
+      var title = (it.brand ? it.brand + ' ' : '') + it.name + (it.size ? ' (' + it.size + ')' : '') + (it.count ? ' — ' + it.count + ' pcs' : '') + (it.weight ? ' — ' + it.weight + 'g' : ' — not yet weighed');
+      return '<div class="photoitem" data-imgkey="' + it.imgKey + '" data-rods="' + tags.join(',') + '" data-lurelabel="' + escHtml(title) + '">' +
+        '<div class="imgwrap"><img class="hidden" data-imgkey="' + it.imgKey + '" alt=""><div class="rodphotoplaceholder" data-placeholder="' + it.imgKey + '">No photo yet</div>' +
+        '<button class="imgEditBtn" data-imgkey="' + it.imgKey + '" title="Add/replace photo">✎</button><input type="file" accept="image/*" class="imgFileInput" data-imgkey="' + it.imgKey + '"></div>' +
+        '<div class="photolabel">' + escHtml(title) + '<br><span style="color:#1CA8E8">' + escHtml(SP_CAT_NAMES[it.type] || 'Soft bait') + '</span></div>' +
+        '<span class="catchbadge"><button class="catchBtn" data-catchkey="' + it.imgKey + '" title="Tap when this catches a fish">🐟<span class="catchcount"></span></button><button class="catchResetBtn hidden" data-catchkey="' + it.imgKey + '" title="Clear catch count">↺</button></span>' +
+        (tags.length ? '<div class="rodchips">' + tags.map(function(t){ return '<button class="rodchip" data-code="' + escHtml(t) + '" title="Jump to ' + escHtml(t) + '">' + escHtml(t) + ' →</button>'; }).join('') + '</div>' : '') +
+        '<button class="btn btnGhost delSoftBait" data-id="' + it.id + '" style="margin-top:6px;font-size:10px;padding:4px 8px;">Remove</button>' +
+        '</div>';
+    }).join('');
+    return '<div class="card searchable"><div class="cardtitle">Added by you (' + items.length + ')</div><div class="tagline">Soft baits you added in the app. Send the packet photos to be filed into the type and brand sections.</div><div class="photogrid">' + body + '</div></div>';
+  }
+  function renderCustomSoftBaits(){
+    var c = document.getElementById('customSoftBaitContainer');
+    if(!c) return;
+    c.innerHTML = customSoftBaitsHTML();
+    applyImageOverrides();
+    hydrateCatches();
+  }
+  var softOverlay = document.getElementById('softBaitModalOverlay');
+  function fillSoftTags(){ document.getElementById('sb_tags').value = SP_TAGS_BY_CLASS[document.getElementById('sb_class').value].split('/').join(', '); }
+  function openSoftBaitModal(){
+    ['sb_brand','sb_name','sb_size','sb_count','sb_weight','sb_photo'].forEach(function(id){ document.getElementById(id).value=''; });
+    document.getElementById('sb_type').value = '0';
+    document.getElementById('sb_class').value = 'medium';
+    fillSoftTags();
+    softOverlay.classList.add('open');
+  }
+  document.getElementById('sb_class').addEventListener('change', fillSoftTags);
+  document.getElementById('cancelSoftBait').addEventListener('click', function(){ softOverlay.classList.remove('open'); });
+  softOverlay.addEventListener('click', function(e){ if(e.target === softOverlay) softOverlay.classList.remove('open'); });
+  document.body.addEventListener('click', function(e){
+    var t = e.target;
+    if(t && t.id === 'btnAddSoftBait'){ openSoftBaitModal(); }
+    if(t && t.classList && t.classList.contains('delSoftBait')){
+      if(!confirm('Remove this soft bait?')) return;
+      var id = t.dataset.id;
+      saveCustomSoftBaits(loadCustomSoftBaits().filter(function(it){ return it.id !== id; }));
+      renderCustomSoftBaits();
+    }
+  });
+  document.getElementById('saveSoftBait').addEventListener('click', function(){
+    var name = document.getElementById('sb_name').value.trim();
+    if(!name){ alert('Give the soft bait a name (and colour).'); return; }
+    var id = Date.now().toString(36);
+    var imgKey = 'csb_' + id;
+    var tags = document.getElementById('sb_tags').value.split(/[ ,/]+/).map(function(x){ return x.trim().toUpperCase(); }).filter(Boolean);
+    var item = { id:id, imgKey:imgKey, brand:document.getElementById('sb_brand').value.trim(), name:name,
+      size:document.getElementById('sb_size').value.trim(), count:document.getElementById('sb_count').value.trim(),
+      weight:document.getElementById('sb_weight').value.trim(), type:parseInt(document.getElementById('sb_type').value,10), tags:tags };
+    var items = loadCustomSoftBaits(); items.push(item); saveCustomSoftBaits(items);
+    var f = document.getElementById('sb_photo');
+    var finish = function(){ renderCustomSoftBaits(); softOverlay.classList.remove('open'); };
+    if(f.files && f.files[0]){ readAndStoreImage(imgKey, f.files[0], finish); } else { finish(); }
+  });
+
   // ---------------- ADD PERMIT (localStorage) ----------------
   // Same pattern as ADD LURE above: localStorage-backed, so it survives rebuilds, and named with
   // the 'rodSetup' prefix so it rides along with the existing OneDrive cloud-sync snapshot (see
@@ -14435,6 +14527,7 @@
     renderAllNotes();
     renderAllCustomRods();
     renderCustomLures();
+    renderCustomSoftBaits();
     renderCustomPermits();
     hydrateBlocks();
     hydrateTables();
