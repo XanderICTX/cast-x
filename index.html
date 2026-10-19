@@ -282,6 +282,14 @@
   .catchBtn{background:rgba(0,0,0,.4);border:1px solid var(--border-strong);border-radius:4px;color:var(--text-dim);font-size:11px;cursor:pointer;padding:1px 4px;line-height:14px;display:inline-flex;align-items:center;gap:2px;}
   .catchBtn.hasCatch{background:rgba(46,160,90,.35);border-color:rgba(46,160,90,.7);color:#eafff2;}
   .catchcount{font-size:9px;font-weight:700;pointer-events:none;}
+  .caughtBar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:6px 0 10px;padding:8px 10px;border:1px solid var(--border-strong);border-radius:8px;background:rgba(46,160,90,.08);}
+  .caughtSummary{font-size:13px;font-weight:600;}
+  .caughtFilterBtn{background:transparent;border:1px solid var(--border-strong);border-radius:14px;color:inherit;padding:4px 10px;font-size:12px;cursor:pointer;margin-left:4px;}
+  .caughtFilterBtn.active{background:rgba(46,160,90,.4);border-color:rgba(46,160,90,.8);}
+  .photoitem.caughtItem{outline:2px solid rgba(46,160,90,.85);outline-offset:-2px;position:relative;}
+  .photoitem.caughtItem::after{content:"\2713 caught";position:absolute;top:4px;right:4px;background:rgba(46,160,90,.92);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:8px;z-index:3;pointer-events:none;}
+  tr.caughtItem > td:first-child{box-shadow:inset 4px 0 0 rgba(46,160,90,.9);}
+  .caughtHide{display:none !important;}
   .catchResetBtn{background:rgba(0,0,0,.4);border:1px solid var(--border-strong);border-radius:4px;color:var(--text-dim);font-size:9px;cursor:pointer;padding:1px 3px;line-height:14px;margin-left:2px;}
   .tblActionsCell .catchbadge{position:static;margin-right:4px;}
   .combocardtop{display:flex;align-items:center;justify-content:space-between;gap:10px;}
@@ -7740,6 +7748,10 @@
   </section>
 
   <section class="panel" id="panel-lures">
+    <div class="caughtBar" id="caughtBar">
+      <span class="caughtSummary" id="caughtSummary"></span>
+      <span class="caughtFilters"><button class="caughtFilterBtn active" data-cfilter="all">All</button><button class="caughtFilterBtn" data-cfilter="caught">&#10003; Caught fish</button><button class="caughtFilterBtn" data-cfilter="not">Not caught yet</button></span>
+    </div>
     <div class="quicknav">
       <a href="#flybox1">Fly Box 1</a>
       <a href="#flybox2">Fly Box 2</a>
@@ -12029,6 +12041,7 @@
       var badge = btn.parentElement.querySelector('.catchcount');
       if(badge) badge.textContent = count > 0 ? count : '';
       btn.classList.toggle('hasCatch', count > 0);
+      var host = btn.closest('.photoitem, tr'); if(host) host.classList.toggle('caughtItem', count > 0);
       btn.title = count > 0 ? ('Caught ' + count + 'x — last on ' + fmtCatchDate(entry.last) + '. Tap to log another catch.') : 'Tap when this catches a fish';
       var resetBtn = btn.parentElement.querySelector('.catchResetBtn');
       if(resetBtn) resetBtn.classList.toggle('hidden', count === 0);
@@ -12042,6 +12055,23 @@
     });
     renderLureStatusBadges();
     renderSpeciesChips();
+    applyCaughtFilter();
+  }
+  var caughtFilterMode = 'all';
+  function applyCaughtFilter(){
+    var log = loadCatchLog();
+    var seen = {}, total = 0, caught = 0;
+    document.querySelectorAll('#panel-lures .photoitem, #panel-lures tr[data-rods]').forEach(function(it){
+      var b = it.querySelector('.catchBtn');
+      if(!b) return;
+      var k = b.dataset.catchkey;
+      var has = !!(log[k] && log[k].count > 0);
+      if(!seen[k]){ seen[k] = 1; total++; if(has) caught++; }
+      it.classList.toggle('caughtHide', (caughtFilterMode === 'caught' && !has) || (caughtFilterMode === 'not' && has));
+    });
+    var sum = document.getElementById('caughtSummary');
+    if(sum) sum.textContent = '🐟 ' + caught + ' of ' + total + ' baits have caught fish';
+    document.querySelectorAll('.caughtFilterBtn').forEach(function(bt){ bt.classList.toggle('active', bt.dataset.cfilter === caughtFilterMode); });
   }
   // Lure Confidence/Status badge (2026-09, Phase 1 of the lure/fly tag project) — "Field Proven"
   // once the catch log shows an actual catch under that lure's key, otherwise "Owned / Untested".
@@ -12689,6 +12719,7 @@
     if(t.classList.contains('luretag-species-chip')){
       toggleSpeciesConfirmed(t.dataset.specieskey, t.dataset.species);
     }
+    if(t.classList.contains('caughtFilterBtn')){ caughtFilterMode = t.dataset.cfilter; applyCaughtFilter(); return; }
     if(t.classList.contains('catchBtn')){
       var ckey = t.dataset.catchkey;
       var clog = loadCatchLog();
@@ -12699,6 +12730,7 @@
       saveCatchLog(clog);
       renderCatchBadge(ckey);
       renderLureStatusBadges();
+      applyCaughtFilter();
       refreshRotation();
     }
     if(t.classList.contains('catchResetBtn')){
@@ -12708,6 +12740,7 @@
         delete rlog[rkey];
         saveCatchLog(rlog);
         renderCatchBadge(rkey);
+        applyCaughtFilter();
         renderLureStatusBadges();
         refreshRotation();
       }
