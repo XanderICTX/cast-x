@@ -14771,6 +14771,40 @@
   // Day 4 of the 6-day rotation series — the user's #2 question: B4 vs B5, both currently flagged
   // "Untested, zero field time" on the watchlist. Whichever earns more real casts/hookups today
   // starts answering which one keeps its slot in the lineup.
+  // B5 flipping/punching test (added 2026-10-19): first dedicated field test of B5 with the new bait/hook inventory.
+  function buildB5FlippingTestSeedPlan(){
+    var b5Gear = (packDefaults['B5'] || []).map(function(g){ return {text:g, checked:true}; });
+    b5Gear.push(
+      {text:"Hooks: BKK Heavy Cover Flipping/Pitching/Punching 5/0, BKK Nemesis EWG 5/0, Daichi Extra Wide Gap 4/0 and Wide Gap 3/0, Gamakatsu Worm 327 Flip Style 2/0, Owner Cultiva Multi Offset 1/0-3/0", checked:true},
+      {text:"Tungsten bullet weights from 3/16oz up to the heavy ones in the other terminal kit, plus bobber stops / pegs to lock them to the hook", checked:true},
+      {text:"Flip jigs for trailer tests: Keitech Tungsten Jig (X-Heavy) and Bass Hunter Tungsten Flip Jig", checked:true},
+      {text:"Frog: Sensation Hollow Frog and Booyah Poppin Pad Crasher", checked:true},
+      {text:"Scissors / pliers, spare braid leader (20-25lb fluoro), phone for quick notes", checked:true}
+    );
+    return {
+      id: 'b5_flipping_test_2026-10-26',
+      name: 'B5 Flipping & Punching Test',
+      date: '2026-10-26',
+      type: 'Day trip',
+      conditions: "First dedicated B5 test (Daiwa Black Series 7ft 6in Heavy + Curado M 201XG, 40lb braid). Flipping and punching are short-range, so the 14-42g rating is not a limit: go lighter or heavier as the cover demands. Target reeds, wood, overhanging trees, shade pockets and any mats. Tick the fish button in the Lures tab for every bait that catches, and note which rig and hook it was on. Prep for the 14 Nov X-Factor bank comp.",
+      setups: [
+        { code:'B5', gear:b5Gear, f1spool:'floating', lures: [
+          "1. Berkley MaxScent Critter Hawg (Green Pumpkin Magic) - Texas rig, BKK Heavy Cover 5/0, 3/8-1/2oz tungsten pegged. Flip into reed pockets and wood, let it fall on a controlled line, hop once, move on if nothing in 3 casts. Note: bites, hook-ups, snags.",
+          "2. Berkley Havoc Hawk Hawg (Green Pumpkin) - Texas rig, BKK Heavy Cover 5/0, 1/2oz+ pegged. Heavier cover: punch it through thicker reeds and bushes. Compare against the Critter Hawg in the same cover.",
+          "3. Zoom UV Speed Craw (Junebug / Watermelon Red) and Rapala CleanUp Craw - Texas rig on Daichi Extra Wide Gap 4/0 or Nemesis EWG 5/0, 1/4-3/8oz. Then re-rig one as a Jika / free rig (light weight on the line, bait falls vertically) in the same spot to compare.",
+          "4. YUM Christie Critter (Bama Magic / Black Blue) - Texas rig first, then Carolina rig along a drop-off or reed edge. Note which presentation gets bit.",
+          "5. Geecrack Bellows Gill 3.8 (Green Pumpkin Chartreuse) - Texas rig weightless or light, BKK Nemesis EWG 5/0. Then free rig (1/4oz, separate sinker) dropped into pockets and dead-sticked beside reeds. Highest-upside bait to learn.",
+          "6. Jig trailer test - Keitech Tungsten Jig X-Heavy or Bass Hunter Flip Jig with a Speed Craw, then a Jester or McCrawley as the trailer. Flip, drag and hop. Note which trailer draws more bites.",
+          "7. Yamamoto Senko 5-inch (and Fat Senko) - weightless Texas on Daichi Wide Gap 3/0 or Gamakatsu Worm 327 2/0, skipped under overhangs and dead-sticked. Backup bait for when the bite is tough.",
+          "8. Frog - Sensation Hollow Frog or Booyah Poppin Pad Crasher over pads or mats, pause beside openings. Only if there is surface cover."
+        ]}
+      ],
+      notes: [
+        {id:'note_b5test_checklist', text:"B5 TEST CHECKLIST\n[ ] Rod, reel and 40lb braid checked; leader tied for mixed cover, straight braid for thick vegetation\n[ ] Hooks and heavy tungsten weights packed (see gear list)\n[ ] Each bait above fished in at least two cover types\n[ ] Critter Hawg vs Hawk Hawg compared in the same cover\n[ ] Texas vs Jika/free rig compared with the Speed Craw\n[ ] Bellows Gill 3.8: Texas vs free rig compared\n[ ] Jig trailer compared (Speed Craw vs Jester/McCrawley)\n[ ] Fish button ticked in the Lures tab for every bait that catches\n[ ] Rod notes: hookset power, cast comfort, braid wind knots, reel handle speed (8.5:1)\n[ ] Keep the top 3 baits and rigs for the X-Factor plan on 14 Nov"}
+      ]
+    };
+  }
+
   function buildB4B5SeedPlan(){
     var b4Gear = (packDefaults['B4'] || []).map(function(g){ return {text:g, checked:true}; });
     b4Gear.push(
@@ -15452,6 +15486,7 @@
   removeGameplanIfNeeded('aqua_weekend_day2_removal_2026-09-25', 'aqua_weekend_day2_2026-09-27');
   seedGameplanIfNeeded('aqua_weekend_2026-09-26', buildAquaWeekendSeedPlan());
   seedGameplanIfNeeded('corefour_weekend_2026-10-03', buildCoreFourWeekendSeedPlan());
+  seedGameplanIfNeeded('b5_flipping_test_2026-10-26', buildB5FlippingTestSeedPlan());
   seedGameplanIfNeeded('tr_xfactor_2026-10-13', buildTRXFactorSeedPlan());
   seedGameplanIfNeeded('travelkit_xfactor_2026-10-16', buildTravelKitXFactorSeedPlan());
   seedGameplanIfNeeded('buffelspoort_2026-10-24', buildBuffelspoortSeedPlan());
