@@ -520,6 +520,49 @@
   #editModeBtn{ margin-left:0; }
   .cloudSyncStatus{ font-size:.72em; font-weight:600; color:var(--text-dim); white-space:nowrap; }
   .cloudSyncStatus.err{ color:#e88; }
+
+  /* ===== UI PASS 2026-11-02 — AnglersHub-style open layout =====
+     Desktop (>=900px): grouped left sidebar + roomy centred content column + softer cards.
+     Phones keep the horizontal tab strip (group labels hidden) so nothing about mobile use changes
+     except card spacing and the new at-a-glance rod summary. All overrides live here, after the
+     original rules, so removing this one block restores the previous look exactly. */
+  .tabgroup, .sidebrand{display:none;}
+  .rodsummary{display:grid;gap:3px;margin-top:8px;}
+  .rs-cell{display:flex;gap:8px;font-size:12px;line-height:1.35;}
+  .rs-k{flex:0 0 58px;color:var(--grey);font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding-top:1px;}
+  .rs-v{color:var(--text-dim);min-width:0;}
+  .card{background:#182026;border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.35);}
+  .card.collapsed{padding-top:14px;padding-bottom:14px;}
+  .card:hover{border-color:var(--border-strong);}
+  .sectiontitle{border-radius:8px;}
+  @media (min-width:900px){
+    body{padding-left:248px;padding-bottom:60px;}
+    #topbar{position:sticky;top:0;z-index:30;}
+    header{border-bottom:1px solid var(--border);box-shadow:none;padding:14px 32px 12px;}
+    .brandrow .brandmark, .brandrow h1, .brandrow .subhead{display:none;}
+    .brandrow{margin-bottom:8px;}
+    .headerstats{font-size:12px;margin-top:0;}
+    .searchbar input{max-width:560px;padding:11px 16px;font-size:14.5px;border-radius:999px;background:rgba(255,255,255,.05);}
+    .tabs{position:fixed;left:0;top:0;bottom:0;width:248px;z-index:45;flex-direction:column;flex-wrap:nowrap;gap:2px;overflow-y:auto;padding:18px 12px 24px;background:#0d1114;border-right:1px solid var(--border);border-bottom:none;}
+    .sidebrand{display:flex;align-items:center;gap:10px;padding:2px 10px 18px;}
+    .sidebrand img{height:34px;width:auto;max-width:56px;object-fit:contain;}
+    .sidebrand b{display:block;font-size:17px;font-weight:900;letter-spacing:1.2px;color:#fff;}
+    .sidebrand b span{color:var(--accent);}
+    .sidebrand small{display:block;font-size:10.5px;color:var(--grey);letter-spacing:.6px;text-transform:uppercase;margin-top:1px;}
+    .tabgroup{display:block;padding:18px 12px 6px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--grey-dark);}
+    .tab{display:block;width:100%;border-radius:8px;padding:10px 12px;font-size:14px;font-weight:600;letter-spacing:.1px;text-transform:none;color:var(--text-dim);border-left:3px solid transparent;cursor:pointer;}
+    .tab:hover{background:rgba(255,255,255,.05);color:#fff;}
+    .tab.active{background:rgba(28,168,232,.13);color:#fff;border-left-color:var(--accent);}
+    main{max-width:1040px;padding:28px 32px 40px;}
+    .quicknav{top:var(--topbar-h,54px);}
+    .subtabs{gap:8px;padding-bottom:18px;}
+    .card{padding:22px 24px;margin-bottom:18px;}
+    .cardhead{gap:14px;margin-bottom:6px;}
+  }
+  @media (max-width:899px){
+    .card{padding:16px 14px;margin-bottom:14px;}
+  }
+  @media print{ body{padding-left:0 !important;} }
 </style>
 </head>
 <body>
@@ -541,19 +584,24 @@
 </header>
 
 <div class="tabs" id="tabs">
+  <div class="sidebrand"><img src="images/castx_header_logo.png" alt=""><div><b>CAST-<span>X</span></b><small>Field reference</small></div></div>
   <div class="tab active" data-tab="dashboard">Dashboard</div>
+  <div class="tabgroup">Rods</div>
   <div class="tab" data-tab="freshwater">Freshwater</div>
   <div class="tab" data-tab="saltwater">Saltwater</div>
+  <div class="tab" data-tab="arsenal">Arsenal</div>
+  <div class="tab" data-tab="rotation">Rotation</div>
+  <div class="tabgroup">Baits</div>
   <div class="tab" data-tab="lures">Lures &amp; Flies</div>
+  <div class="tabgroup">Trip Planning</div>
   <div class="tab" data-tab="grabgo">Grab &amp; Go</div>
+  <div class="tab" data-tab="gameplan">Gameplan</div>
+  <div class="tab" data-tab="pack">Pack</div>
+  <div class="tab" data-tab="boat">Boat</div>
+  <div class="tabgroup">Reference</div>
   <div class="tab" data-tab="techniques">Techniques</div>
   <div class="tab" data-tab="species">Species</div>
   <div class="tab" data-tab="compare">Compare</div>
-  <div class="tab" data-tab="gameplan">Gameplan</div>
-  <div class="tab" data-tab="boat">Boat</div>
-  <div class="tab" data-tab="pack">Pack</div>
-  <div class="tab" data-tab="rotation">Rotation</div>
-  <div class="tab" data-tab="arsenal">Arsenal</div>
   <div class="tab" data-tab="guides">Guides</div>
 </div>
 </div>
@@ -860,6 +908,7 @@
         <div class="rolebadges"><span class="rolebadge">Travel Pair</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 20th</span><span>All-Round 21st</span></div>
         <span class="rotbadge" data-rotcode="TS1" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Okuma ITX Hi Speed, Code ITX-2500H (moved over…</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">10lb braid, lime green → Seaguar 10lb leader (confirmed by…</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Travel power-spinner · Finesse with a Fast tip · Skipping</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="TS1"> Used</label>
       <div class="checklistWrap" data-checklistcode="TS1">
@@ -932,6 +981,7 @@
         <div class="rolebadges"><span class="rolebadge">UL Finesse</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 12th</span><span>All-Round 13th</span></div>
         <span class="rotbadge" data-rotcode="S1" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Okuma Avenger AV-500B</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">SpiderWire Ultracast Invisi-Braid, 10lb, PE0.4… → 4lb fluorocarbon, 2m</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Solid carbon tip advantage · Thin braid with a long… · Decisive upgrade, not just a…</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="S1"> Used</label>
       <div class="checklistWrap" data-checklistcode="S1">
@@ -1316,6 +1366,7 @@
         <div class="rolebadges"><span class="rolebadge">Technical</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 9th</span><span>All-Round 12th</span></div>
         <span class="rotbadge" data-rotcode="S2" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Shimano Sedona C2000SHG</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">SpiderWire Stealth Smooth x8, 0.06mm → Berkley Trilene Fluoro XL, 6lb…</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Finesse jigging · High-speed river spinner… · Micro hardbaits</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="S2"> Used</label>
       <div class="checklistWrap" data-checklistcode="S2">
@@ -1892,6 +1943,7 @@
         <div class="rolebadges"><span class="rolebadge">Utility</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 8th</span><span>All-Round 4th</span></div>
         <span class="rotbadge" data-rotcode="S3" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">13 Fishing Creed GT 1000</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">15lb Boss Braid Slick, ~0.15mm → Kingfisher Advanced Fluoro, 8.36lb</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Mid-weight soft plastics · Jerkbaits · Inline spinners</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="S3"> Used</label>
       <div class="checklistWrap" data-checklistcode="S3">
@@ -2450,6 +2502,7 @@
         <div class="rolebadges"><span class="rolebadge">Bridge</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 7th</span><span>All-Round 8th</span></div>
         <span class="rotbadge" data-rotcode="S4" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">13 Fishing Creed K 3000</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">SpiderWire Stealth Camo Braid, 20lb → Shimano Mastiff Nanoarmour, 14lb…</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Bridging jig and chatterbait… · Covering water at a moderate… · Respecting the gap between…</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="S4"> Used</label>
       <div class="checklistWrap" data-checklistcode="S4">
@@ -2909,6 +2962,7 @@
         <div class="rolebadges"><span class="rolebadge">Micro-Finesse</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>All-Round 18th</span></div>
         <span class="rotbadge" data-rotcode="S5" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Loomis &amp; Franklin Reflex 1000</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Seaguar PE X8 Lure Edition braid, 14lb, 0.6mm → 6lb fluorocarbon</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Ultralight micro-finesse</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="S5"> Used</label>
       <div class="checklistWrap" data-checklistcode="S5">
@@ -3047,6 +3101,7 @@
         <div class="rolebadges"><span class="rolebadge">Neko/Wacky/DS</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 11th</span><span>All-Round 10th</span></div>
         <span class="rotbadge" data-rotcode="S6" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Okuma Inspira ISX-2500A (in hand 2026-10-13…</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Shimano Pitbull 8 braid, PE0.8 (18.3lb break), lime… → Seaguar fluorocarbon, 10lb…</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Neko rig · Drop-shot · Wacky rig</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="S6"> Used</label>
       <div class="checklistWrap" data-checklistcode="S6">
@@ -3569,6 +3624,7 @@
         <div class="rolebadges"><span class="rolebadge">S6 Jr.</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 14th</span><span>All-Round 17th</span></div>
         <span class="rotbadge" data-rotcode="S7" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Shimano Miravel 1000</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Predator Pro braid, 15lb, PE1.2, 0.14mm, Lime Green → 6lb fluorocarbon</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Small Texas rigs, tight flip · 3"-5" stick worms · Ned rigs</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="S7"> Used</label>
       <div class="checklistWrap" data-checklistcode="S7">
@@ -3689,6 +3745,7 @@
         <div class="rolebadges"><span class="rolebadge">Travel</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 13th</span><span>All-Round 16th</span></div>
         <span class="rotbadge" data-rotcode="TS2" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Loomis &amp; Franklin Reflex UL 500</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">SpiderWire Ultracast Invisi-Braid, 10lb, PE0.4… → 4lb fluorocarbon, 2m</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Shaky head · Wacky · Choosing a tip by feel, not…</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="TS2"> Used</label>
       <div class="checklistWrap" data-checklistcode="TS2">
@@ -3989,6 +4046,7 @@
         <div class="rolebadges"><span class="rolebadge">Pack Travel</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 5th</span><span>All-Round 6th</span></div>
         <span class="rotbadge" data-rotcode="TB1" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Abu Garcia Black Max 5 (LH)</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">30lb Sufix braid → Fluorocarbon, 12lb, ~2m</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Learn the Black Max 5's brake · Execute the deflection strike · Calibrate the travel-duty drag</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="TB1"> Used</label>
       <div class="checklistWrap" data-checklistcode="TB1">
@@ -4415,6 +4473,7 @@
         <div class="rolebadges"><span class="rolebadge">JDM BFS</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 1st</span><span>All-Round 1st</span></div>
         <span class="rotbadge" data-rotcode="B1" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Abu Garcia Zenon MG7-L (LH)</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Predator Pro braid, 15lb, PE1.2, 0.14mm, lime green → Shimano Mastiff Nanoarmour, 14lb</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Freshwater bass · Trout · Kurper / small tilapia</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="B1"> Used</label>
       <div class="checklistWrap" data-checklistcode="B1">
@@ -4994,6 +5053,7 @@
         <div class="rolebadges"><span class="rolebadge">Utility</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 4th</span><span>All-Round 3rd</span></div>
         <span class="rotbadge" data-rotcode="B2" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Abu Garcia Jordan Lee Signature Series (LH)</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">30lb Sufix 832 Advanced Superline, round 8-strand… → Shimano Mastiff Nanoarmour, 14lb…</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Manage the MagTrax Brake · Execute the deflection strike · Calibrate the power-finesse…</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="B2"> Used</label>
       <div class="checklistWrap" data-checklistcode="B2">
@@ -5477,6 +5537,7 @@
         <div class="rolebadges"><span class="rolebadge">Precision</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 6th</span><span>All-Round 9th</span></div>
         <span class="rotbadge" data-rotcode="B3" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Abu Garcia Revo SX LP-L</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">30lb 8-strand braid → Shimano Mastiff Nanoarmour, 14lb</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">One-piece sensitivity for a… · Finesse jig and dock skipping · Long-distance power casts</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="B3"> Used</label>
       <div class="checklistWrap" data-checklistcode="B3">
@@ -5882,6 +5943,7 @@
         <div class="rolebadges"><span class="rolebadge">Precision Power</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 3rd</span><span>All-Round 14th</span></div>
         <span class="rotbadge" data-rotcode="B4" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Quantum Accurist AT101HPTA (LH)</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">30lb Daiwa J-Braid X8 (its original line) → 30lb leader planned with the…</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">PRIMARY · PRIMARY · SECONDARY</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="B4"> Used</label>
       <div class="checklistWrap" data-checklistcode="B4">
@@ -6020,6 +6082,7 @@
         <div class="rolebadges"><span class="rolebadge">Cover Assault</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 17th</span><span>All-Round 15th</span></div>
         <span class="rotbadge" data-rotcode="B5" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Shimano Curado M 201XG (LH)</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">40lb Boss Braid → Optional: 20-25lb fluorocarbon…</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Punching heavy mats · Flipping/pitching to isolated… · Frogging over slime/vegetation…</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="B5"> Used</label>
       <div class="checklistWrap" data-checklistcode="B5">
@@ -6389,6 +6452,7 @@
         <div class="rolebadges"><span class="rolebadge">All-Rounder</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 16th</span><span>All-Round 5th</span></div>
         <span class="rotbadge" data-rotcode="B6" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Shimano Bass One XT 151 (LH)</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Pioneer Terra PE2.0 (~30lb), dark green → Shimano Mastiff Nanoarmour, 14lb</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Weightless · Frogging over mats and slime · Spinnerbaits</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="B6"> Used</label>
       <div class="checklistWrap" data-checklistcode="B6">
@@ -6812,6 +6876,7 @@
         <div class="rolebadges"><span class="rolebadge">Crankbait</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 15th</span><span>All-Round 7th</span></div>
         <span class="rotbadge" data-rotcode="B7" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Abu Garcia Revo X WLP-L 5.4:1 (LH)</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Boss Braid Slick Braid, 30lb → 30lb fluorocarbon leader…</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">B7 ROLE · Squarebill · Prop-bait</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="B7"> Used</label>
       <div class="checklistWrap" data-checklistcode="B7">
@@ -7241,6 +7306,7 @@
         <div class="rolebadges"><span class="rolebadge">Worm &amp; Jig</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 18th</span><span>All-Round 19th</span></div>
         <span class="rotbadge" data-rotcode="B8" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Shimano SLX DC XT 71 XG</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">30lb braid → 20lb fluorocarbon</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Texas Rigs · Weightless Flukes · Chatterbaits</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="B8"> Used</label>
       <div class="checklistWrap" data-checklistcode="B8">
@@ -7466,6 +7532,7 @@
         <div class="rolebadges"><span class="rolebadge">Micro BFS</span><span class="statusbadge statusProven">Proven</span></div>
         <div class="rankbadges"><span>Market 19th</span><span>All-Round 20th</span></div>
         <span class="rotbadge" data-rotcode="B9" title="Trips and fish logged for this rod"></span>
+        <div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Shimano SLX BFS XT</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Shimano Pitbull 8 braid, PE0.6 (about 14.5lb break… → 8lb fluorocarbon (default)</span></div><div class="rs-cell"><span class="rs-k">Best for</span><span class="rs-v">Weightless Senkos · Ned Rigs · Small Paddletails</span></div></div>
       </div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="B9"> Used</label>
       <div class="checklistWrap" data-checklistcode="B9">
@@ -8280,7 +8347,7 @@
   <div class="card searchable rodcard collapsed" data-rodtype="saltwater">
     <div class="cardhead">
       <span class="badge">SYS1</span>
-      <div class="cardheadtext"><span class="titlewrap"><span class="cardtitle labelText" data-labelkey="setupname_SYS1">Extended-Reach Surf Spinning</span><button class="labelEditBtn inline" data-labelkey="setupname_SYS1" title="Rename this setup">✎</button></span><div class="cardsub">Loomis &amp; Franklin Archipelago STX HMG 10ft + Gulf 5000</div><div class="rolebadges"><span class="rolebadge">Surf</span><span class="statusbadge statusUntested">Untested</span></div></div>
+      <div class="cardheadtext"><span class="titlewrap"><span class="cardtitle labelText" data-labelkey="setupname_SYS1">Extended-Reach Surf Spinning</span><button class="labelEditBtn inline" data-labelkey="setupname_SYS1" title="Rename this setup">✎</button></span><div class="cardsub">Loomis &amp; Franklin Archipelago STX HMG 10ft + Gulf 5000</div><div class="rolebadges"><span class="rolebadge">Surf</span><span class="statusbadge statusUntested">Untested</span></div><div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Loomis &amp; Franklin Gulf 5000</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Boss Braid Slick Braid, Green, 30lb/13.6kg, 1000m → Kingfisher Advanced Fluorocarbon…</span></div></div></div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="SYS1"> Used</label>
       <div class="checklistWrap" data-checklistcode="SYS1">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="SYS1"> Owned</label>
@@ -8311,7 +8378,7 @@
   <div class="card searchable rodcard collapsed" data-rodtype="saltwater">
     <div class="cardhead">
       <span class="badge">SYS3</span>
-      <div class="cardheadtext"><span class="titlewrap"><span class="cardtitle labelText" data-labelkey="setupname_SYS3">Primary — Rock, Gully &amp; Estuary</span><button class="labelEditBtn inline" data-labelkey="setupname_SYS3" title="Rename this setup">✎</button></span><div class="cardsub">13 Fishing Rely S RSS810MH2 + Okuma Wave Off Urban 4000H-LTD</div><div class="rolebadges"><span class="rolebadge">Coastal</span><span class="statusbadge statusSolid">Solid</span></div></div>
+      <div class="cardheadtext"><span class="titlewrap"><span class="cardtitle labelText" data-labelkey="setupname_SYS3">Primary — Rock, Gully &amp; Estuary</span><button class="labelEditBtn inline" data-labelkey="setupname_SYS3" title="Rename this setup">✎</button></span><div class="cardsub">13 Fishing Rely S RSS810MH2 + Okuma Wave Off Urban 4000H-LTD</div><div class="rolebadges"><span class="rolebadge">Coastal</span><span class="statusbadge statusSolid">Solid</span></div><div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Okuma Wave Off Urban WO-4000H-LTD</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Boss Braid 8X Strand PE Hi-Lite, Multi Colour… → Shimano Ocea Leader Clear, 20lb…</span></div></div></div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="SYS3"> Used</label>
       <div class="checklistWrap" data-checklistcode="SYS3">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="SYS3"> Owned</label>
@@ -8342,7 +8409,7 @@
   <div class="card searchable rodcard collapsed" data-rodtype="saltwater">
     <div class="cardhead">
       <span class="badge">SYS2</span>
-      <div class="cardheadtext"><span class="titlewrap"><span class="cardtitle labelText" data-labelkey="setupname_SYS2">Specialty — Boat &amp; Compact Casting</span><button class="labelEditBtn inline" data-labelkey="setupname_SYS2" title="Rename this setup">✎</button></span><div class="cardsub">Okuma Wave Power Pro 6'6" + Okuma Ceymar HD 3000A</div><div class="rolebadges"><span class="rolebadge">Boat Coastal</span><span class="statusbadge statusSolid">Solid</span></div></div>
+      <div class="cardheadtext"><span class="titlewrap"><span class="cardtitle labelText" data-labelkey="setupname_SYS2">Specialty — Boat &amp; Compact Casting</span><button class="labelEditBtn inline" data-labelkey="setupname_SYS2" title="Rename this setup">✎</button></span><div class="cardsub">Okuma Wave Power Pro 6'6" + Okuma Ceymar HD 3000A</div><div class="rolebadges"><span class="rolebadge">Boat Coastal</span><span class="statusbadge statusSolid">Solid</span></div><div class="rodsummary"><div class="rs-cell"><span class="rs-k">Reel</span><span class="rs-v">Okuma Ceymar HD 3000A</span></div><div class="rs-cell"><span class="rs-k">Line</span><span class="rs-v">Boss Braid Slick, 30lb, Yellow</span></div></div></div>
       <label class="usedCheckWrap" title="Tick once this rod has actually been taken fishing"><input type="checkbox" class="usedCheckbox" data-usedcode="SYS2"> Used</label>
       <div class="checklistWrap" data-checklistcode="SYS2">
     <label class="checklistItem" title="Tick once this rod/reel/reel-seat combo is physically owned"><input type="checkbox" class="ownedCheckbox" data-ownedcode="SYS2"> Owned</label>
