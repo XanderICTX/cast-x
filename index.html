@@ -13627,9 +13627,19 @@
     }
     var c = log[l.k];
     if(c && c.count > 0){ s += 3; why.push('already caught fish on it'); }
-    var core = l.n.split(/[(,]/)[0].trim().toLowerCase();
-    if(core.length > 4 && RECO_WATERTXT.indexOf(core) !== -1){ s += 3; why.push('worked at this water before'); }
+    if(RECO_WATERTXT && recoWaterHit(l)){ s += 3; why.push('works at this water'); }
     return {s: s, why: why};
+  }
+  function recoWaterHit(l){
+    var t = RECO_WATERTXT, tn = t.replace(/[s-]/g, ''), n = l.n.toLowerCase(), ty = l.ty.toLowerCase();
+    var core = n.split(/[(,]/)[0].trim();
+    if(core.length > 4 && t.indexOf(core) !== -1) return true;
+    var brand = n.split(' ')[0];
+    if(['yum','zoom','yamamoto'].indexOf(brand) !== -1 && t.indexOf(brand) !== -1) return true;
+    var rules = [['crank', /crankbait/], ['chatter', /bladed|chatter/], ['underspin', /underspin/], ['spinnerbait', /spinnerbait/], ['jig', /jig/], ['creature', /creature|craw/], ['lizard', /creature|craw/], ['crab', /creature|craw/], ['fluke', /fluke/], ['neko', /stick worm|finesse worm|worm/], ['craw', /craw/], ['ned', /ned/],
+      ['wacky', /stick worm|finesse worm|worm/], ['dropshot', /stick worm|finesse worm|worm|shad|minnow/], ['texas', /creature|craw|stick worm|worm/], ['punch', /creature|craw|jig/], ['flip', /creature|craw|jig/], ['pitch', /creature|craw|jig/]];
+    for(var i=0;i<rules.length;i++){ if(tn.indexOf(rules[i][0]) !== -1 && rules[i][1].test(ty)) return true; }
+    return false;
   }
   function recoRod(l){
     var chosen = RECO_SEL.rods;
@@ -13704,19 +13714,19 @@
   // ---------------- WATERS (dam / venue database) ----------------
   var WATERS_KEY = 'rodSetupWaters', WATERS_SEEDED_KEY = 'rodSetupWatersSeeded';
   var WATERS_SEED = [
-    {id:'xfactor', name:'X-Factor', notes:'Bass water that is being stocked with yellowfish soon. Spawning carp pressured the bass on 2026-10-16.',
+    {id:'xfactor', works:'Mostly wacky, drop shot and crankbaits. All Yamamoto, Zoom and Yum soft baits, Zoom craws, jigs, wacky, Ned, Neko, drop shot, Texas, punching/flipping/pitching, flukes, all creature baits (lizards, crabs and every other creature), underspins and chatterbaits (owner, 2026-11-02).', worksV:2, name:'X-Factor', notes:'Bass water that is being stocked with yellowfish soon. Spawning carp pressured the bass on 2026-10-16. Crystal clear water. Fished from the bank and from small trolling-motor boats (owner, 2026-11-02).',
      seasons:[], sessions:[
       {date:'2026-08-10', text:'Rod range test with the Berkley rod. Field sweet spot was 1.77-3.5g.', fish:'', baits:'Trout Magnet'},
       {date:'2026-09-24', text:'Two bass landed on S6, Texas-rigged.', fish:'2', baits:'Zoom UV Speed Craw'},
       {date:'2026-10-09', text:'4 bass over 500g (largest 600g) plus a few smaller fish.', fish:'4+', baits:''},
       {date:'2026-10-13', text:'2 fish landed.', fish:'2', baits:''},
       {date:'2026-10-16', text:'Few bites. Bass pressured by spawning carp.', fish:'', baits:''}]},
-    {id:'aqua', name:'Aqua Paradiso', notes:'Boat water with willow tree lines. Trips logged 2026-08-30, 09-13, 09-26 and 10-02/03.',
+    {id:'aqua', works:'Mostly wacky, drop shot and crankbaits. All Yamamoto, Zoom and Yum soft baits, Zoom craws, jigs, wacky, Ned, Neko, drop shot, Texas, punching/flipping/pitching, flukes, all creature baits (lizards, crabs and every other creature), underspins and chatterbaits (owner, 2026-11-02).', worksV:2, name:'Aqua Paradiso', notes:'Boat water with willow tree lines. Trips logged 2026-08-30, 09-13, 09-26 and 10-02/03. Crystal clear water. Fished from the bank and from small trolling-motor boats (owner, 2026-11-02).',
      seasons:[{date:'2026-08-30', text:'Early season: small bass dominated every catch and nothing came on the larger reaction baits, a sign bigger fish were still tied up with bedding. Downsize lures.'}],
      sessions:[
       {date:'2026-08-30', text:'Early Season Bite pattern, 5 bass.', fish:'5', baits:''},
       {date:'2026-10-03', text:'Two-day weekend on the boat, 40+ fish landed in total (only fish over 250g were logged as catches).', fish:'40+', baits:''}]},
-    {id:'buffelspoort', name:'Buffelspoort', notes:'Clear water. The far end is dedicated to bass and can be fished from the bank or from small boats like yours. Holds bass and carp/kurper (owner, 2026-11-02).',
+    {id:'buffelspoort', works:'Mostly wacky, drop shot and crankbaits. All Yamamoto, Zoom and Yum soft baits, Zoom craws, jigs, wacky, Ned, Neko, drop shot, Texas, punching/flipping/pitching, flukes, all creature baits (lizards, crabs and every other creature), underspins and chatterbaits (owner, 2026-11-02).', worksV:2, name:'Buffelspoort', notes:'Clear water. The far end is dedicated to bass and can be fished from the bank or from small boats like yours. Holds bass and carp/kurper (owner, 2026-11-02).',
      seasons:[], sessions:[
       {date:'2026-10-24', text:'Bank session, bass only. Roughly 4 to 10 fish (exact count not recorded).', rod:'TS1, TB1', fish:'4-10', baits:'Yamamoto Sinko 5-inch, Zoom Speedworm, Zoom Speed Craw'}]},
     {id:'serengeti5', name:'Serengeti Golf & Wildlife Estate, Dam 5', notes:'Angling permit 89, approved 18/09/2026, valid until 18/09/2027. Catch-and-release only. See the permit card on the Dashboard for the full rules.',
@@ -13732,6 +13742,8 @@
       seeded.push(s.id);
       if(!list.some(function(w){ return w.id === s.id; })){ list.push(JSON.parse(JSON.stringify(s))); changed = true; }
     });
+    list.forEach(function(w){ if((w.id === 'xfactor' || w.id === 'aqua') && (w.notes || '').indexOf('Crystal clear') === -1){ w.notes = (w.notes || '') + ' Crystal clear water. Fished from the bank and from small trolling-motor boats (owner, 2026-11-02).'; changed = true; } });
+    WATERS_SEED.forEach(function(sd){ if(!sd.works) return; list.forEach(function(w){ if(w.id === sd.id && w.worksV !== sd.worksV && (!w.works || w.works === 'Mostly wacky, drop shot and crankbaits. All Yamamoto, Zoom and Yum soft baits, Zoom craws, jigs, wacky, Ned, drop shot, Texas, punching/flipping/pitching, any creature baits, underspins and chatterbaits (owner, 2026-11-02).')){ w.works = sd.works; w.worksV = sd.worksV; changed = true; } }); });
     localStorage.setItem(WATERS_SEEDED_KEY, JSON.stringify(seeded));
     if(changed) saveWaters(list);
   }
@@ -13752,6 +13764,7 @@
         '<div class="wtHead"><b class="wtName">' + wtEsc(w.name) + '</b><span class="wtMeta">' + sess.length + ' session' + (sess.length===1?'':'s') + (fish ? ' · ' + fish + ' fish logged' : '') + '</span>' +
         '<button type="button" class="btn btnGhost wtDel" data-act="delwater">Delete water</button></div>' +
         '<div class="recoLabel">Notes</div><textarea class="wtNotes" rows="3">' + wtEsc(w.notes||'') + '</textarea>' +
+        '<div class="recoLabel" style="margin-top:12px;">Baits and techniques that work here</div><textarea class="wtWorks wtNotes" rows="3" placeholder="e.g. wacky, drop shot, chatterbaits, all Zoom plastics">' + wtEsc(w.works||'') + '</textarea>' +
         '<div class="recoLabel" style="margin-top:12px;">Seasonal observations</div>' +
         (seas.length ? seas.map(function(s,i){ return '<div class="wtRow"><span class="wtDate">' + wtEsc(s.date) + '</span><span class="wtText">' + wtEsc(s.text) + '</span><button type="button" class="wtX" data-act="delseason" data-date="' + wtEsc(s.date) + '" data-text="' + wtEsc(s.text) + '" title="Remove">&times;</button></div>'; }).join('') : '<div class="tagline">None yet.</div>') +
         '<div class="wtForm"><input type="date" class="wtSeasonDate"><input type="text" class="wtSeasonText" placeholder="What did you notice this season?"><button type="button" class="btn btnGhost" data-act="addseason">Add</button></div>' +
@@ -13778,8 +13791,8 @@
     });
     panel.addEventListener('focusout', function(e){
       if(!e.target.classList || !e.target.classList.contains('wtNotes')) return;
-      var card = e.target.closest('.wtCard'), list = loadWaters();
-      list.forEach(function(w){ if(w.id === card.dataset.wid) w.notes = e.target.value; });
+      var card = e.target.closest('.wtCard'), list = loadWaters(), isWorks = e.target.classList.contains('wtWorks');
+      list.forEach(function(w){ if(w.id === card.dataset.wid){ if(isWorks) w.works = e.target.value; else w.notes = e.target.value; } });
       saveWaters(list);
     });
     panel.addEventListener('click', function(e){
@@ -13818,7 +13831,7 @@
   })();
   function recoWaterText(){
     var sel = document.getElementById('reco_water'); if(!sel || !sel.value) return '';
-    var t = ''; loadWaters().forEach(function(w){ if(w.id === sel.value) (w.sessions||[]).forEach(function(s){ t += ' ' + (s.baits||'').toLowerCase(); }); });
+    var t = ''; loadWaters().forEach(function(w){ if(w.id === sel.value){ t += ' ' + (w.works||'').toLowerCase(); (w.sessions||[]).forEach(function(s){ t += ' ' + (s.baits||'').toLowerCase(); }); } });
     return t;
   }
   function saveLureConf(c){ localStorage.setItem(LURE_CONF_KEY, JSON.stringify(c)); }
