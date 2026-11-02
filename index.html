@@ -13732,6 +13732,23 @@
     {id:'serengeti5', name:'Serengeti Golf & Wildlife Estate, Dam 5', notes:'Angling permit 89, approved 18/09/2026, valid until 18/09/2027. Catch-and-release only. See the permit card on the Dashboard for the full rules.',
      seasons:[], sessions:[]}
   ];
+  var WATERS_SEASON_NOTES = [
+    {tag:'Spring and spawn', text:'Spring and spawn: a lot of sight fishing, but some fish sit deeper and prefer slower-falling lures such as wacky rigs. Later in spring the fish get more aggressive and punching and flipping gets better (this is where we are now, Nov 2026). Drop shot and wacky are still great options.'},
+    {tag:'Autumn and winter', text:'Autumn and winter: not much info yet. This is trout season and fly fishing is amazing. A few bass were caught in late winter, also on wacky rigs. More info to be added next autumn/winter.'}
+  ];
+  function seedWaterSeasonsIfNeeded(){
+    if(localStorage.getItem('rodSetupWatersSeasonSeed1')) return;
+    localStorage.setItem('rodSetupWatersSeasonSeed1', '1');
+    var list = loadWaters(), changed = false;
+    list.forEach(function(w){
+      if(w.id !== 'xfactor' && w.id !== 'aqua') return;
+      w.seasons = w.seasons || [];
+      WATERS_SEASON_NOTES.forEach(function(n){
+        if(!w.seasons.some(function(x){ return (x.text||'').indexOf(n.tag) === 0; })){ w.seasons.push({date:'2026-11-02', text:n.text}); changed = true; }
+      });
+    });
+    if(changed) saveWaters(list);
+  }
   function loadWaters(){ try { return JSON.parse(localStorage.getItem(WATERS_KEY)) || []; } catch(e){ return []; } }
   function saveWaters(w){ localStorage.setItem(WATERS_KEY, JSON.stringify(w)); }
   function seedWatersIfNeeded(){
@@ -13781,7 +13798,7 @@
     }
   }
   (function(){
-    seedWatersIfNeeded(); renderWaters();
+    seedWatersIfNeeded(); seedWaterSeasonsIfNeeded(); renderWaters();
     var panel = document.getElementById('panel-waters'); if(!panel) return;
     var today = function(){ return new Date().toISOString().slice(0,10); };
     document.getElementById('wt_add').addEventListener('click', function(){
