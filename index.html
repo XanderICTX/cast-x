@@ -15,13 +15,13 @@
 <style>
   :root{
     --bg:#12161A; --teal:#0A5C5A; --teal-dark:#073F3D; --teal-light:#0E726F;
-    --accent:#1CA8E8; --accent-dark:#0D7FBF;
+    --accent:#00B7A8; --accent-dark:#00897D;
     --text:#F5F7F6; --text-dim:#C7D2D0; --grey:#93A19F; --grey-dark:#67746F;
     --border:rgba(255,255,255,.10); --border-strong:rgba(255,255,255,.20);
     /* Rod-class accent colors — matches the existing Freshwater tab's Spinning/Baitcasting
        split (data-rodtype), so the color-coding reuses a category you already navigate by
        rather than inventing a new one. */
-    --type-spinning:#1CA8E8; --type-baitcaster:#FF6A1A; --type-fly:#4CAF7D; --type-spincast:#FF5FA8; --type-saltwater:#B084F5; /* spincast = the daughter's Zebco — pink, on purpose */
+    --type-spinning:#2D7DD2; --type-baitcaster:#D97706; --type-fly:#2E8B57; --type-spincast:#C76BAA; --type-saltwater:#B084F5; /* spincast = the daughter's Zebco — pink, on purpose */
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
@@ -46,7 +46,7 @@
   .searchbar input:focus{border-color:var(--accent);}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;padding:9px 10px 8px;background:linear-gradient(180deg,#4A4F54,#3A3E42);border-bottom:1px solid rgba(0,0,0,.3);}
   .tab{flex:0 0 auto;padding:8px 14px;border-radius:8px 8px 0 0;background:transparent;color:var(--text-dim);font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;cursor:pointer;border:1px solid transparent;border-bottom:none;}
-  .tab.active{background:var(--bg);color:var(--accent);}
+  .tab.active{background:var(--bg);color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent);}
   .subtabs{display:flex;flex-wrap:wrap;gap:6px;padding:0 0 12px;}
   .subtab{flex:0 0 auto;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.06);color:var(--text-dim);font-size:11.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border);}
   .subtab.active{background:var(--accent);color:#04141A;border-color:var(--accent);}
@@ -86,10 +86,10 @@
      existing confidence text, not hand-maintained separately). */
   .rolebadges{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap;}
   .rolebadges:empty{display:none;}
-  .rolebadge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(28,168,232,.16);border:1px solid rgba(28,168,232,.35);color:#8fd6f2;letter-spacing:.3px;}
+  .rolebadge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(0,183,168,.16);border:1px solid rgba(0,183,168,.35);color:#8fd6f2;letter-spacing:.3px;}
   .statusbadge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:.3px;}
   .statusbadge.statusProven{background:rgba(76,175,125,.18);border:1px solid rgba(76,175,125,.4);color:#8fe6a8;}
-  .statusbadge.statusSolid{background:rgba(28,168,232,.16);border:1px solid rgba(28,168,232,.35);color:#8fd6f2;}
+  .statusbadge.statusSolid{background:rgba(0,183,168,.16);border:1px solid rgba(0,183,168,.35);color:#8fd6f2;}
   .statusbadge.statusBuilding{background:rgba(255,210,0,.18);border:1px solid rgba(255,210,0,.35);color:#ffe680;}
   .statusbadge.statusUntested{background:rgba(255,255,255,.08);border:1px solid var(--border-strong);color:var(--text-dim);}
   /* Coastal Species Guide (2026-09): photo left, facts right, verdict colour carries the eat/
@@ -102,7 +102,7 @@
   .speciesbody{flex:1 1 auto;min-width:0;padding-right:28px;}
   .specieslabel{display:inline-block;font-size:12.5px;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:.2px;margin-top:2px;}
   .specieslabel.verdict-eat{background:rgba(76,175,125,.18);border:1px solid rgba(76,175,125,.4);color:#8fe6a8;}
-  .specieslabel.verdict-pan{background:rgba(28,168,232,.16);border:1px solid rgba(28,168,232,.35);color:#8fd6f2;}
+  .specieslabel.verdict-pan{background:rgba(0,183,168,.16);border:1px solid rgba(0,183,168,.35);color:#8fd6f2;}
   .specieslabel.verdict-maybe{background:rgba(255,210,0,.18);border:1px solid rgba(255,210,0,.35);color:#ffe680;}
   .specieslabel.verdict-release{background:rgba(255,95,95,.14);border:1px solid rgba(255,95,95,.35);color:#ff9b9b;}
   .speciesfact{font-size:13px;color:var(--text-dim);line-height:1.5;margin-top:4px;}
@@ -122,7 +122,7 @@
   .luretags{display:flex;gap:5px;margin-top:4px;flex-wrap:wrap;}
   .luretags:empty{display:none;}
   .luretag{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:5px;letter-spacing:.2px;background:rgba(255,255,255,.07);border:1px solid var(--border-strong);color:var(--text-dim);}
-  .luretag-type{background:rgba(28,168,232,.14);border-color:rgba(28,168,232,.3);color:#8fd6f2;}
+  .luretag-type{background:rgba(0,183,168,.14);border-color:rgba(0,183,168,.3);color:#8fd6f2;}
   .luretag-column{background:rgba(76,175,125,.14);border-color:rgba(76,175,125,.3);color:#8fe6a8;}
   .luretag-specieslabel{background:transparent;border:none;padding:1px 0;color:var(--text-dim);}
   /* Species chips are real <button>s (2026-09) so a real catch can confirm one with a tap —
@@ -266,12 +266,12 @@
   .rigoptionimg .imgwrap{width:56px;height:56px;min-width:56px;max-width:56px;min-height:56px;max-height:56px;border-radius:6px;overflow:hidden;background:#fff;border:1px dashed rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;box-sizing:border-box;}
   .rigoptionimg .imgwrap img{width:100%;height:100%;object-fit:contain;display:block;}
   .rigoptionbody{flex:1;min-width:0;}
-  .rigoptiontitle{font-weight:700;margin-bottom:4px;color:#1CA8E8;}
+  .rigoptiontitle{font-weight:700;margin-bottom:4px;color:#00B7A8;}
   .floatdot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#9b59d0;margin-right:5px;vertical-align:middle;box-shadow:0 0 0 1px rgba(255,255,255,.5);}
   .rigline{font-size:.92em;margin:2px 0;line-height:1.4;}
   .rigline strong{color:inherit;opacity:.85;}
-  .lure-match{outline:2px solid #1CA8E8;background:rgba(28,168,232,.16);opacity:1;}
-  tr.lure-match td{background:rgba(28,168,232,.16);}
+  .lure-match{outline:2px solid #00B7A8;background:rgba(0,183,168,.16);opacity:1;}
+  tr.lure-match td{background:rgba(0,183,168,.16);}
   .lure-fade{opacity:.3;}
   .fullchart{width:100%;border-radius:8px;background:#fff;padding:6px;margin-top:8px;}
   .how{font-size:12.5px;margin-top:8px;line-height:1.5;color:var(--text-dim);}
@@ -514,7 +514,7 @@
      (delRod, gpEditPlanBtn, delPlan, rowEditTableBtn, delTableRowBtn) are targeted directly by
      their own classes instead of hiding their shared wrapper. */
   .editModeBtn{ margin-left:auto; padding:6px 12px; border-radius:20px; border:1px solid var(--border-strong); background:rgba(255,255,255,.04); color:var(--text-dim); font-size:.78em; font-weight:600; cursor:pointer; white-space:nowrap; }
-  .editModeBtn.active{ background:rgba(28,168,232,.18); border-color:var(--accent); color:var(--text); }
+  .editModeBtn.active{ background:rgba(0,183,168,.18); border-color:var(--accent); color:var(--text); }
   .cloudSignInBtn{ margin-left:auto; padding:6px 12px; border-radius:20px; border:1px solid var(--border-strong); background:rgba(255,255,255,.04); color:var(--text-dim); font-size:.78em; font-weight:600; cursor:pointer; white-space:nowrap; }
   .cloudSignInBtn.active{ background:rgba(120,220,150,.14); border-color:rgba(120,220,150,.4); color:#8fe6a8; }
   #editModeBtn{ margin-left:0; }
@@ -552,7 +552,7 @@
     .tabgroup{display:block;padding:18px 12px 6px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--grey-dark);}
     .tab{display:block;width:100%;border-radius:8px;padding:10px 12px;font-size:14px;font-weight:600;letter-spacing:.1px;text-transform:none;color:var(--text-dim);border-left:3px solid transparent;cursor:pointer;}
     .tab:hover{background:rgba(255,255,255,.05);color:#fff;}
-    .tab.active{background:rgba(28,168,232,.13);color:#fff;border-left-color:var(--accent);}
+    .tab.active{background:rgba(0,183,168,.16);color:#fff;border-left:4px solid var(--accent);padding-left:9px;font-weight:700;}
     main{max-width:1040px;padding:28px 32px 40px;}
     .quicknav{top:var(--topbar-h,54px);}
     .subtabs{gap:8px;padding-bottom:18px;}
@@ -604,13 +604,13 @@
   .searchresults{position:absolute;left:0;top:calc(100% + 6px);width:100%;max-width:560px;max-height:62vh;overflow-y:auto;background:#10161a;border:1px solid var(--border-strong);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:60;padding:6px;}
   .searchresults[hidden]{display:none;}
   .gsRow{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer;}
-  .gsRow:hover{background:rgba(28,168,232,.14);}
+  .gsRow:hover{background:rgba(0,183,168,.14);}
   .gsKind{flex:0 0 auto;font-size:9.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,.08);color:var(--text-dim);min-width:52px;text-align:center;}
   .gsLabel{flex:1;min-width:0;font-size:13.5px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .gsArea{flex:0 0 auto;font-size:11px;color:var(--grey);}
   .gsNone{padding:10px;font-size:12.5px;color:var(--grey);}
   .gsFlash{outline:2px solid var(--accent);outline-offset:3px;border-radius:10px;animation:gsPulse 1.2s ease-in-out 2;}
-  @keyframes gsPulse{50%{outline-color:rgba(28,168,232,.25);}}
+  @keyframes gsPulse{50%{outline-color:rgba(0,183,168,.25);}}
   .photoitem,.rodcard,.card{scroll-margin-top:calc(var(--topbar-h,54px) + 70px);}
 </style>
 </head>
@@ -14825,7 +14825,7 @@
     var items = loadCustomLures();
     var body = items.length ? items.map(function(it){
       return '<div class="photoitem"><div class="imgwrap"><img class="hidden" data-imgkey="' + it.imgKey + '" alt=""><div class="rodphotoplaceholder" data-placeholder="' + it.imgKey + '">No photo yet</div><button class="imgEditBtn" data-imgkey="' + it.imgKey + '" title="Add/replace photo">\u270E</button><input type="file" accept="image/*" class="imgFileInput" data-imgkey="' + it.imgKey + '"></div>' +
-        '<div class="photolabel">' + escHtml(it.name) + (it.weight?(' — '+escHtml(it.weight)+'g'):'') + '<br><span style="color:#1CA8E8">' + escHtml(it.category) + '</span>' + (it.notes?('<br>'+escHtml(it.notes)):'') + '</div>' +
+        '<div class="photolabel">' + escHtml(it.name) + (it.weight?(' — '+escHtml(it.weight)+'g'):'') + '<br><span style="color:#00B7A8">' + escHtml(it.category) + '</span>' + (it.notes?('<br>'+escHtml(it.notes)):'') + '</div>' +
         '<button class="btn btnGhost delLure" data-id="' + it.id + '" style="margin-top:6px;font-size:10px;padding:4px 8px;">Remove</button>' +
         '</div>';
     }).join('') : '<div class="noEmpty">No custom lures added yet — tap the + button while on this tab.</div>';
@@ -14872,7 +14872,7 @@
       return '<div class="photoitem" data-imgkey="' + it.imgKey + '" data-rods="' + tags.join(',') + '" data-lurelabel="' + escHtml(title) + '">' +
         '<div class="imgwrap"><img class="hidden" data-imgkey="' + it.imgKey + '" alt=""><div class="rodphotoplaceholder" data-placeholder="' + it.imgKey + '">No photo yet</div>' +
         '<button class="imgEditBtn" data-imgkey="' + it.imgKey + '" title="Add/replace photo">✎</button><input type="file" accept="image/*" class="imgFileInput" data-imgkey="' + it.imgKey + '"></div>' +
-        '<div class="photolabel">' + escHtml(title) + '<br><span style="color:#1CA8E8">' + escHtml(SP_CAT_NAMES[it.type] || 'Soft bait') + '</span></div>' +
+        '<div class="photolabel">' + escHtml(title) + '<br><span style="color:#00B7A8">' + escHtml(SP_CAT_NAMES[it.type] || 'Soft bait') + '</span></div>' +
         '<span class="catchbadge"><button class="catchBtn" data-catchkey="' + it.imgKey + '" title="Tap to mark that a fish has been caught on this">🐟<span class="catchcount"></span></button><button class="catchResetBtn hidden" data-catchkey="' + it.imgKey + '" title="Clear catch count">↺</button></span>' +
         (tags.length ? '<div class="rodchips">' + tags.map(function(t){ return '<button class="rodchip" data-code="' + escHtml(t) + '" title="Jump to ' + escHtml(t) + '">' + escHtml(t) + ' →</button>'; }).join('') + '</div>' : '') +
         '<button class="btn btnGhost delSoftBait" data-id="' + it.id + '" style="margin-top:6px;font-size:10px;padding:4px 8px;">Remove</button>' +
