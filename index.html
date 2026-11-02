@@ -567,6 +567,31 @@
   /* ----- pass 2: dashboard hub + global search dropdown ----- */
   .hubgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin:6px 0 22px;}
   .hubcard{cursor:pointer;padding:18px 18px 16px;border:1px solid var(--border);border-radius:14px;background:#182026;transition:border-color .15s,transform .15s;}
+  .wtCard{margin-bottom:12px;}
+  .wtHead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  .wtName{font-size:17px;}
+  .wtMeta{font-size:12px;opacity:.7;flex:1;}
+  .wtNotes{width:100%;box-sizing:border-box;padding:9px 11px;border-radius:8px;border:1px solid var(--border);background:#11181d;color:inherit;font:inherit;resize:vertical;}
+  .wtRow{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--border);}
+  .wtDate{font-size:12px;opacity:.7;min-width:78px;padding-top:2px;}
+  .wtText{flex:1;font-size:14px;}
+  .wtBaits{font-size:12px;opacity:.75;}
+  .wtX{background:none;border:0;color:inherit;opacity:.5;font-size:18px;cursor:pointer;}
+  .wtX:hover{opacity:1;}
+  .wtForm{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .wtForm input{flex:1 1 140px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:#11181d;color:inherit;font:inherit;font-size:13px;}
+  .recoGroup{margin-bottom:12px;}
+  .recoLabel{font-size:12px;color:var(--muted,#9fb0bd);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+  .recoChips{display:flex;flex-wrap:wrap;gap:6px;}
+  .recoChip{padding:7px 12px;border-radius:999px;border:1px solid var(--border);background:#11181d;color:inherit;font:inherit;font-size:13px;cursor:pointer;}
+  .recoChip.on{background:var(--accent);border-color:var(--accent);color:#04121a;font-weight:600;}
+  .recoRow{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+  .recoRow:last-child{border-bottom:0;}
+  .recoMain{flex:1 1 260px;min-width:0;}
+  .recoType{margin-left:8px;font-size:12px;opacity:.7;}
+  .recoWhy{font-size:13px;opacity:.8;margin-top:2px;}
+  .recoSide{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .recoRods{font-size:13px;}
   .hubcard:hover,.hubcard:focus{border-color:var(--accent);transform:translateY(-1px);outline:none;}
   .hubn{font-size:26px;font-weight:800;color:var(--accent);line-height:1;min-height:26px;}
   .hubt{font-size:15px;font-weight:700;color:#fff;margin-top:8px;}
@@ -618,6 +643,8 @@
   <div class="tabgroup">Baits</div>
   <div class="tab" data-tab="lures">Lures &amp; Flies</div>
   <div class="tabgroup">Trip Planning</div>
+  <div class="tab" data-tab="recommend">Recommend</div>
+  <div class="tab" data-tab="waters">Waters</div>
   <div class="tab" data-tab="grabgo">Grab &amp; Go</div>
   <div class="tab" data-tab="gameplan">Gameplan</div>
   <div class="tab" data-tab="pack">Pack</div>
@@ -646,6 +673,10 @@
       <div class="hubn">215</div><div class="hubt">Lures &amp; flies</div><div class="hubp">Hard baits, soft plastics, flies and terminal tackle</div></div>
       <div class="hubcard" data-goto="grabgo" role="button" tabindex="0">
       <div class="hubn">50</div><div class="hubt">Grab &amp; Go</div><div class="hubp">Ready-made rod, reel and lure combos</div></div>
+      <div class="hubcard" data-goto="recommend" role="button" tabindex="0">
+      <div class="hubn"></div><div class="hubt">Recommend</div><div class="hubp">Rank your baits for today's conditions</div></div>
+      <div class="hubcard" data-goto="waters" role="button" tabindex="0">
+      <div class="hubn"></div><div class="hubt">Waters</div><div class="hubp">Dam and venue notes, seasons and session log</div></div>
       <div class="hubcard" data-goto="gameplan" role="button" tabindex="0">
       <div class="hubn"></div><div class="hubt">Gameplans</div><div class="hubp">Trip plans and test days</div></div>
       <div class="hubcard" data-goto="pack" role="button" tabindex="0">
@@ -11694,6 +11725,29 @@
     </div>
   </section>
 
+  <section class="panel" id="panel-recommend">
+    <div class="sectiontitle" style="margin-top:0;">Smart Recommendations</div>
+    <div class="card"><div class="tagline">Pick today's conditions and the app ranks the baits you own. Scores come from simple rules of thumb (clarity, temperature, light, cover, fish mood) plus a boost for baits you have already caught fish on. They are a starting point, not a promise. Baits marked Worth testing have not been field-tested yet.</div></div>
+    <div class="card" id="reco_controls">
+    <div class="recoGroup"><div class="recoLabel">Target species</div><div class="recoChips" data-recogroup="species"><button type="button" class="recoChip" data-val="Bass">Bass</button><button type="button" class="recoChip" data-val="Kurper">Kurper</button><button type="button" class="recoChip" data-val="Trout">Trout</button><button type="button" class="recoChip" data-val="Yellowfish">Yellowfish</button></div></div>
+    <div class="recoGroup"><div class="recoLabel">Water clarity</div><div class="recoChips" data-recogroup="clarity"><button type="button" class="recoChip" data-val="clear">Clear</button><button type="button" class="recoChip" data-val="stained">Stained</button><button type="button" class="recoChip" data-val="muddy">Muddy</button></div></div>
+    <div class="recoGroup"><div class="recoLabel">Water temperature</div><div class="recoChips" data-recogroup="temp"><button type="button" class="recoChip" data-val="cold">Cold</button><button type="button" class="recoChip" data-val="mild">Mild</button><button type="button" class="recoChip" data-val="warm">Warm</button></div></div>
+    <div class="recoGroup"><div class="recoLabel">Light</div><div class="recoChips" data-recogroup="light"><button type="button" class="recoChip" data-val="bright">Bright sun</button><button type="button" class="recoChip" data-val="overcast">Overcast</button><button type="button" class="recoChip" data-val="low">Dawn / dusk / night</button></div></div>
+    <div class="recoGroup"><div class="recoLabel">Cover</div><div class="recoChips" data-recogroup="cover"><button type="button" class="recoChip" data-val="open">Open water</button><button type="button" class="recoChip" data-val="weeds">Weeds</button><button type="button" class="recoChip" data-val="wood">Wood / rock</button></div></div>
+    <div class="recoGroup"><div class="recoLabel">Fish mood</div><div class="recoChips" data-recogroup="mood"><button type="button" class="recoChip" data-val="active">Active</button><button type="button" class="recoChip" data-val="neutral">Neutral</button><button type="button" class="recoChip" data-val="sluggish">Sluggish</button></div></div>
+    <div class="recoGroup"><div class="recoLabel">Water (optional, favours baits logged as working there)</div><select id="reco_water" style="padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:#11181d;color:inherit;font:inherit;"><option value="">No water selected</option></select></div>
+    <div class="recoGroup"><div class="recoLabel">Rods I am bringing (optional, leave empty for any)</div><div class="recoChips recoMulti" data-recogroup="rods"><button type="button" class="recoChip" data-val="B1">B1</button><button type="button" class="recoChip" data-val="B2">B2</button><button type="button" class="recoChip" data-val="B3">B3</button><button type="button" class="recoChip" data-val="B4">B4</button><button type="button" class="recoChip" data-val="B5">B5</button><button type="button" class="recoChip" data-val="B6">B6</button><button type="button" class="recoChip" data-val="B7">B7</button><button type="button" class="recoChip" data-val="B8">B8</button><button type="button" class="recoChip" data-val="B9">B9</button><button type="button" class="recoChip" data-val="S1">S1</button><button type="button" class="recoChip" data-val="S2">S2</button><button type="button" class="recoChip" data-val="S3">S3</button><button type="button" class="recoChip" data-val="S4">S4</button><button type="button" class="recoChip" data-val="S5">S5</button><button type="button" class="recoChip" data-val="S6">S6</button><button type="button" class="recoChip" data-val="S7">S7</button><button type="button" class="recoChip" data-val="TB1">TB1</button><button type="button" class="recoChip" data-val="TS2">TS2</button></div></div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;"><button class="btn" id="reco_go" type="button">Recommend</button><button class="btn btnGhost" id="reco_reset" type="button">Reset</button></div></div>
+    <div id="reco_output"></div>
+  </section>
+
+  <section class="panel" id="panel-waters">
+    <div class="sectiontitle" style="margin-top:0;">Waters</div>
+    <div class="card"><div class="tagline">Your own dam and venue notebook. Each water holds notes, seasonal observations and a session log with the baits that worked. The first entries below only repeat facts already recorded elsewhere in this app. Everything you add syncs with the rest of your data, and the Recommend tab can use a water's session log to favour baits that worked there.</div></div>
+    <div class="card"><div style="display:flex;gap:8px;flex-wrap:wrap;"><input id="wt_newName" type="text" placeholder="New water name (e.g. a dam or river)" style="flex:1 1 220px;padding:9px 11px;border-radius:8px;border:1px solid var(--border);background:#11181d;color:inherit;font:inherit;"><button class="btn" id="wt_add" type="button">Add water</button></div></div>
+    <div id="wt_list"></div>
+  </section>
+
   <section class="panel" id="panel-pack">
     <div class="sectiontitle" style="margin-top:0;">Pre-Trip Packing Checklist</div>
     <div class="card"><div class="tagline">Tick every rod going on this trip, then Generate — pulls together the rod + reel, which rod tube or case it travels in, and which tackle boxes actually carry lures tagged for it (the same rod-code tags used everywhere else in the app), so nothing gets left behind on the shelf.</div></div>
@@ -13526,6 +13580,235 @@
   var LURE_CONF_KEY = 'rodSetupLureConfidence';
   var LURE_CONF_LEVELS = ['Low','Medium','High','Proven','Untested'];
   function loadLureConf(){ try { return JSON.parse(localStorage.getItem(LURE_CONF_KEY)) || {}; } catch(e){ return {}; } }
+
+  // ---------------- SMART RECOMMENDATIONS ----------------
+  var RECO_LURES = [{"k":"crop_mini_trap","n":"Sensation Mini Trap (4cm, Baby Bass)","ty":"Crankbait","co":"Midwater","sp":["Bass","Trout"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"crop_kvd","n":"Strike King KVD Mini Crankbait","ty":"Crankbait","co":"Midwater","sp":["Bass","Trout"],"wt":[],"cap":["TS2","S1","S2"],"pref":[],"un":0},{"k":"crop_cd05","n":"Rapala CountDown CD-05 (Brook Trout)","ty":"Sinking Minnow","co":"Variable","sp":["Bass","Trout","Yellowfish"],"wt":[],"cap":["S1","S2","B1","B9"],"pref":[],"un":0},{"k":"crop_xlight","n":"Rapala X-Light Crank 03","ty":"Crankbait","co":"Midwater","sp":["Trout","Bass"],"wt":[],"cap":["S1","S2","B1","B9"],"pref":[],"un":0},{"k":"crop_penex75","n":"Penex Patrician Jerkbait 7.5cm","ty":"Suspending Jerkbait","co":"Midwater","sp":["Bass","Trout"],"wt":[],"cap":["S1","S2","B1","B9"],"pref":[],"un":0},{"k":"crop_penex95","n":"Penex Patrician 95 Jerkbait","ty":"Suspending Jerkbait","co":"Midwater","sp":["Bass","Trout"],"wt":[],"cap":["TS2","S1","S2","S6","B1","B9","B7"],"pref":[],"un":0},{"k":"crop_buzz_heavy","n":"Booyah Pond Magic Spinnerbait (Heavy)","ty":"Spinnerbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"crop_buzz_light","n":"Booyah Pond Magic Spinnerbait (Light)","ty":"Spinnerbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S6","B1","B9","B3"],"pref":[],"un":0},{"k":"crop_jig_light","n":"Keitech Tungsten Jig (1/4oz (7.09g), Blue/Black/Purple)","ty":"Jig","co":"Bottom","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S2","S4","S6","TB1","B1","B9","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"crop_jig_heavy","n":"Bass Hunter Tungsten Flip Jig (3/8oz (10.6g), Peanut Butter & Jelly)","ty":"Skirted Jig","co":"Bottom","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_jig_xheavy","n":"Keitech Tungsten Jig (X-Heavy)","ty":"Jig","co":"Bottom","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S3","S4","S6","TB1","B2","B3","B4","B5","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_squarebill","n":"Berkley SquareBull (Yellow Perch)","ty":"Squarebill Crankbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_bass_hunter","n":"Bass Hunter Twitch Minnow","ty":"Jerkbait","co":"Subsurface","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"crop_frog","n":"Sensation Hollow Frog (Bullfrog)","ty":"Topwater Frog","co":"Topwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B4","B5","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_spinner1_spinner2_spinner3","n":"Sensation Rotary Spinners No.1/2/3","ty":"Inline Spinner","co":"Midwater","sp":["Trout","Yellowfish","Kurper"],"wt":[],"cap":["TS2","S1","S2","S6","B1","B9"],"pref":[],"un":0},{"k":"crop_rippinrap","n":"Rapala Rippin' Rap 03 (White/Purple Tiger)","ty":"Lipless Rattlebait","co":"Variable","sp":["Trout","Kurper"],"wt":[],"cap":["TS2","S1","S2"],"pref":[],"un":0},{"k":"crop_walknroll13","n":"Rapala Walk'n Roll 13, Flake Green (MXRWR13)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S4","B4","B5"],"pref":[],"un":0},{"k":"crop_popmax","n":"Megabass Popmax, #1 GG Bass","ty":"Topwater Popper","co":"Topwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_poppin_padcrasher","n":"Booyah Poppin Pad Crasher, Leopard Frog","ty":"Topwater Frog/Popper","co":"Topwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B2","B3","B4","B5","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_booyah_buzz","n":"Booyah Buzz, 1/2oz (14.2g)","ty":"Buzzbait","co":"Topwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B4","B5","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_sv3","n":"Megabass SV-3, 1/2 DW #3","ty":"Lipless Crankbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B4","B5","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_breakerblade_blackblue","n":"Bass Hunter Tungsten Breaker Blade, 3/8oz (10.6g) (Black/Blue)","ty":"Bladed Jig / ChatterBait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_breakerblade_chartwhite","n":"Bass Hunter Tungsten Breaker Blade, 3/8oz (10.6g) (Chartreuse/White)","ty":"Bladed Jig / ChatterBait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_torque","n":"Sensation Torque (8cm, Baby Bass)","ty":"Topwater Walking Bait","co":"Topwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_minipop","n":"Sensation Mini Pop (7cm, Baby Bass)","ty":"Topwater Popper","co":"Topwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"crop_locust_ricket","n":"Sensation Locust Spinner (Ricket)","ty":"Spinnerbait","co":"Midwater","sp":["Bass","Trout"],"wt":[],"cap":["TS2","S1","S2","S6","TB1","B1","B9","B2","B6","B7"],"pref":[],"un":0},{"k":"crop_locust_firetiger","n":"Sensation Locust Spinner (Fire Tiger)","ty":"Spinnerbait","co":"Midwater","sp":["Bass","Trout"],"wt":[],"cap":["TS2","S1","S2","S6","TB1","B1","B9","B2","B6","B7"],"pref":[],"un":0},{"k":"crop_locust_gold","n":"Sensation Locust Spinner (Gold)","ty":"Spinnerbait","co":"Midwater","sp":["Bass","Trout"],"wt":[],"cap":["TS2","S1","S2","S6","TB1","B1","B9","B2","B6","B7"],"pref":[],"un":0},{"k":"crop_locust_perch","n":"Sensation Locust Spinner (Perch)","ty":"Spinnerbait","co":"Midwater","sp":["Bass","Trout"],"wt":[],"cap":["TS2","S1","S2","S6","TB1","B1","B9","B2","B6","B7"],"pref":[],"un":0},{"k":"crop_spinshad_05","n":"Sebile Spin Shad #0.5","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B4","B5","B6","B7","B8"],"pref":[],"un":0},{"k":"crop_zstick","n":"Z-Stick 115 (Storm), Beige (ZS115963)","ty":"Walking Stickbait","co":"Topwater","sp":["Bass"],"wt":[],"cap":["B7","B8"],"pref":[],"un":0},{"k":"crop_crankster_mr","n":"Sebile Crankster MR (65mm / 2-1/2in, Gold Shad with purple back)","ty":"Crankbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S3","S4","TB1","B2","B5","B7","B8"],"pref":[],"un":0},{"k":"crop_bantam_85","n":"Shimano Bantam 85 AR-C (ZR-J85S, colour 019 T Pink, Tourin)","ty":"Jerkbait / Minnow","co":"Midwater","sp":["Bass","Trout"],"wt":[],"cap":["TS2","S1","S2","S5","S6","S7","B1","B9"],"pref":[],"un":0},{"k":"crop_damiki_stick","n":"Damiki Devil Spook 110F (colour 002H, Angler's Best Edition shad/chartreuse)","ty":"Walking Stickbait","co":"Topwater","sp":["Bass"],"wt":[],"cap":["B7","B8"],"pref":[],"un":0},{"k":"crop_booyah_blade","n":"Booyah Blade, White","ty":"Spinnerbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S4","S6","TB1","B1","B3","B7"],"pref":[],"un":0},{"k":"crop_sens_walker100","n":"Sensation Walker 100 (Baby Bass, 10cm, product code 050661)","ty":"Walking Stickbait","co":"Topwater","sp":["Bass"],"wt":[],"cap":["B2","B3","B6","B7","B8"],"pref":["B7","B6","B8","B3","B2"],"un":1},{"k":"crop_sens_monsterpop68","n":"Sensation Monster Pop 68 (Ayu, 6.8cm, product code 050654)","ty":"Topwater Popper","co":"Topwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B6","B7"],"pref":["B7","B6","B3"],"un":1},{"k":"crop_snatch70x_chromemagic","n":"6th Sense Snatch 70X, Chrome Magic","ty":"Lipless Crankbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"crop_poppingcandy51","n":"Reaction Lures Popping Candy 51","ty":"Topwater Popper","co":"Topwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","B1"],"pref":[],"un":0},{"k":"crop_grassherojig_gp","n":"Googan Grass Hero Swim Jig, 3/8oz Green Pumpkin (4/0)","ty":"Swim Jig","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"crop_jackhammer_blackblue","n":"Z-Man ChatterBait Jack Hammer, 3/8oz (Black/Blue)","ty":"Bladed Jig / ChatterBait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"crop_magdraft5in_kisyuayu","n":"Megabass Magdraft 5IN, Kisyu Ayu","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S3","S4","TB1","B2","B4","B5","B6","B7"],"pref":[],"un":0},{"k":"crop_magdraft5in_probluechart","n":"Megabass Magdraft 5IN, Pro Blue Clear Chart","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S3","S4","TB1","B2","B4","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_nedmonster","n":"Zortex Nedmonster (3-inch with tail)","ty":"Ned Plastic","co":"Bottom","sp":["Bass","Kurper"],"wt":[],"cap":["TS2","S1","S2"],"pref":[],"un":0},{"k":"sp_paddletail","n":"McArthy Compact Paddle Tail (2.5-inch)","ty":"Swimbait","co":"Midwater","sp":["Bass","Trout","Kurper"],"wt":["Garrick","Kob"],"cap":["TS2","S1","S2"],"pref":[],"un":0},{"k":"sp_mccrawley","n":"McArthy McCrawley Creature Bait (3.5-inch)","ty":"Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S6","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_tiddler_watermelon","n":"McArthy Tiddler, Watermelon (5-inch)","ty":"Fluke / Minnow","co":"Variable","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_tiddler_blackred","n":"McArthy Tiddler, Black-Red Flake (5-inch)","ty":"Fluke / Minnow","co":"Variable","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_critter_hawg","n":"Berkley PowerBait MaxScent Critter Hawg, Green Pumpkin Magic (4-inch)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B8","B5"],"pref":[],"un":0},{"k":"sp_shaky_snake","n":"Berkley PowerBait Shaky Snake, June Bug (5-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","S6","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_straight_money","n":"Berkley PowerBait Pro Design Skeet Reese Straight Money, Watermelon (5-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","S6","TB1","B1","B9","B2","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_thumpn_dinger","n":"YUM Thump'n Dinger, Watermelon Pearl Laminate (6-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","S6","TB1","B1","B9","B2","B6","B7"],"pref":[],"un":0},{"k":"sp_zoomtrick_babybass","n":"Zoom Trick Worm, Baby Bass (6.5-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","S6","TB1","B1","B9","B7","B5"],"pref":[],"un":0},{"k":"sp_zoomtrick_wmred","n":"Zoom Trick Worm, Watermelon Red (6.5-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","S6","TB1","B1","B9","B7","B5"],"pref":[],"un":0},{"k":"sp_zoomspeedcraw_junebug","n":"Zoom UV Speed Craw, Junebug (3.5-inch)","ty":"Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S4","S6","TB1","B1","B9","B2","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_zoomspeedcraw_wmred","n":"Zoom UV Speed Craw, Watermelon Red (3.5-inch)","ty":"Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S4","S6","TB1","B1","B9","B2","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_ripple_shad_pearlblue","n":"Berkley PowerBait Ripple Shad, Pearl Blue Shad (5-inch, MPRS5-PBS)","ty":"Swimbait","co":"Midwater","sp":["Bass","Kurper"],"wt":["Garrick","Kob"],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_ripple_shad_pearlwhite","n":"Berkley PowerBait Ripple Shad, Pearl White Shad (5-inch, MPRS5-PWHS)","ty":"Swimbait","co":"Midwater","sp":["Bass","Kurper"],"wt":["Garrick","Kob"],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_bellows_gill","n":"Geecrack Bellows Gill (3.8-inch, Green Pumpkin Chartreuse)","ty":"Gill-Profile Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B2","B3","B5","B6","B7","B8"],"pref":[],"un":0},{"k":"sp_xzone_slammer","n":"Xzone Pro Series Slammer (4-inch, Bass Candy)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S3","S4","B2"],"pref":[],"un":0},{"k":"sp_deps_msgrub","n":"Deps MS Grub (4-inch, #12 Green)","ty":"Large Grub","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"sp_ittys_g60","n":"Itty's Secret Baits G60 (Green Pumpkin, 8pkt)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B6","B7","B8","B5","B4"],"pref":[],"un":0},{"k":"sp_dinger3_greenpumpkin_chart","n":"Yum 3\" Dinger, Green Pumpkin/Chartreuse","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","B3","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_dinger3_carolina_chart","n":"Yum 3\" Dinger, Carolina Pumpkin/Chartreuse","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","B3","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_dinger3_pumpkinpepper_greenflake","n":"Yum 3\" Dinger, Pumpkin Pepper/Green Flake","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","B3","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_dinger3_pearl_silverflake","n":"Yum 3\" Dinger, Pearl/Silver Flake","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","B3","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_crawbug25_greenpumpkin","n":"Yum 2.5\" Crawbug, Green Pumpkin","ty":"Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","B1","B9","B3","B5"],"pref":[],"un":0},{"k":"sp_nedcraw_greenpumpkin_red","n":"Yum Ned Craw, Green Pumpkin/Red","ty":"Ned Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_powerpop70_bluegill","n":"Berkley Power Pop 70, Bluegill (Pink/Black)","ty":"Topwater Popper","co":"Topwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B5","B6","B7","B8"],"pref":[],"un":0},{"k":"sp_bounceworm_wmred","n":"6th Sense Bounce Worm, Watermelon Red Pro (6.7-inch)","ty":"Finesse Worm","co":"Variable","sp":["Bass"],"wt":["Kob"],"cap":["TS2","S1","S2","S3","S6","TB1","B1","B2","B6","B7"],"pref":[],"un":0},{"k":"sp_lovegrub_bluebaby","n":"Googan Love Grub, Blue (Baby size)","ty":"Grub","co":"Bottom","sp":["Bass","Kurper"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1"],"pref":[],"un":0},{"k":"sp_saucyswimmer_gppearl","n":"Googan 3.8\" Saucy Swimmer, Green Pumpkin Pearl","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S2","S3","S4","S6","TB1","B1","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"sp_buzzgill_babybluegill","n":"6th Sense BuzzGill, Baby Bluegill","ty":"Topwater Buzz Toad","co":"Topwater","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"sp_superfluke_jr_babybass","n":"Zoom Super Fluke Jr, Baby Bass","ty":"Fluke / Minnow","co":"Variable","sp":["Bass"],"wt":["Garrick","Kob"],"cap":["S2","S3","S4","S6","TB1","B1","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_heavyhitter_snubby","n":"Rapala CrushCity Heavy Hitter, Snubby (3-inch)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B2","B3","B6","B7"],"pref":[],"un":0},{"k":"sp_cleanupcraw_candybug","n":"Rapala CrushCity CleanUp Craw, Candy Bug (3.5-inch)","ty":"Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S4","S6","TB1","B1","B2","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_mcringer6_electricblue","n":"McArthy McRinger, Electric Blue (6-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_mcringer6_babybass","n":"McArthy McRinger, Baby Bass (6-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_zoom_superfluke_wmredpearl","n":"Zoom Super Salt Plus Super Fluke, Watermelon Red Pearl","ty":"Fluke / Minnow","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_superfluke_jr_huckleberry","n":"Zoom Super Salt Plus Super Fluke Jr, Huckleberry","ty":"Fluke / Minnow","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_zoom_supersepeedcraw_junebug","n":"Zoom Super Speed Craw, Junebug","ty":"Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S4","S6","TB1","B1","B2","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_zoom_zlinky_gpmagic","n":"Zoom Heavy Salt Zlinky, Green Pumpkin Magic","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_zoomtrick_bubblegum","n":"Zoom Trick Worm, Bubble Gum (6.5-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","TB1","B1","B9","B2","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_paddletail3_olivepearl","n":"McArthy Paddle Tail, Olive Pearl (3-inch)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":[],"un":0},{"k":"sp_paddletail3_money","n":"McArthy Paddle Tail, Money (3-inch)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":[],"un":0},{"k":"sp_yama_fatsenko4_tilapiamagic","n":"Yamamoto Fat Senko, Tilapia Magic (4-inch, YAM-9SFAT-10-414)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yama_nedsenko3_babybass","n":"Yamamoto Ned Senko-Floater, Baby Bass (3-inch)","ty":"Ned Plastic","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":[],"un":0},{"k":"sp_tsunami_rattlestick4_clearglitter","n":"Tsunami Pro Rattling Stick Bait, Clear Glitter (4-inch, 6 pack)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":["B3","B2","B1"],"un":1},{"k":"sp_tsunami_rattlestick4_blacksardine","n":"Tsunami Pro Rattling Stick Bait, Black Sardine (4-inch, 6 pack)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":["B3","B2","B1"],"un":1},{"k":"sp_storm_wildeye_swimgrub_18oz","n":"Storm WildEye Rattling Swim Grub, 1/8oz (4g), 6 pcs","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","B9"],"pref":["S2","TS2","B9"],"un":1},{"k":"sp_mcarthy_slinky35_gpumpgum","n":"McArthy Slinky 3.5-inch, G/Pump Gum (10 per pack, code 062953, salt impregnated)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":["B1","B9","TS2","S1","S2"],"un":1},{"k":"sp_mcarthy_slinky45_hotbass","n":"McArthy Slinky 4.5-inch, Hot Bass (code 063139, salt impregnated)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3"],"pref":["B3","B2","B6"],"un":1},{"k":"sp_zoom_doubleringer4_wmseed","n":"Zoom Super Salt Plus Double Ringer, Watermelon Seed (4-inch, 15 per pack, 052-019)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":["B3","B2","B1"],"un":1},{"k":"sp_zoom_doubleringer4_wmred","n":"Zoom Super Salt Plus Double Ringer, Watermelon Red (4-inch, 15 per pack, 052-054)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":["B3","B2","B1"],"un":1},{"k":"sp_zoom_salty_superfluke_wmseed","n":"Zoom Super Salt Plus Salty Super Fluke, Watermelon Seed (10 per pack, 023-019)","ty":"Fluke / Minnow","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":["B3","B6","B8"],"un":1},{"k":"sp_yama_nedsenko3_tilapiamagic","n":"Yamamoto Ned Senko-Floater, Tilapia Magic (3-inch, 10 per pack, YAM-9N3-10-414)","ty":"Ned Plastic","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":["TS2","S1","S2","S3","S6","B1","B9"],"un":1},{"k":"sp_yama_nedsenko3_electricshad","n":"Yamamoto Ned Senko-Floater, Electric Shad (3-inch, 10 per pack, YAM-9N3-10-973)","ty":"Ned Plastic","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":["TS2","S1","S2","S3","S6","B1","B9"],"un":1},{"k":"sp_yama_slinko325_gpblackflake","n":"Yamamoto Slinko, Green Pumpkin / Black Flake (3.25-inch, 8 per pack, YAM-SLINKO325-8-297)","ty":"Ned Plastic","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":["TS2","S1","S2","S3","S6","B1","B9"],"un":1},{"k":"sp_yama_slinko325_babybass","n":"Yamamoto Slinko, Baby Bass (3.25-inch, 8 per pack, YAM-SLINKO325-8-305)","ty":"Ned Plastic","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":["TS2","S1","S2","S3","S6","B1","B9"],"un":1},{"k":"sp_yama_yamacraw4_wmred","n":"Yamamoto Yama Craw, Watermelon Red (4-inch, 6 pack, YAM-CRAW4-208)","ty":"Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["B5","B4","B2","B8","B6"],"pref":["B4","B5"],"un":1},{"k":"sp_unbranded_ribbed_worms_bag","n":"Unbranded realistic earthworm soft plastics (no brand or colour on the pack, small hang-bag)","ty":"Worm","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","B1","B9","B2","B3"],"pref":["S6","S3","S2","B1"],"un":1},{"k":"sp_yama_senko4_purple_emerald","n":"Yamamoto Yamasenko, Purple w/ Emerald Flake (4-inch, YAM-9S-10-213)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yama_senko4_pearl_goldblack","n":"Yamamoto Yamasenko, Pearl w/ Small Gold & Large Black Flake (4-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yama_senko4_watermelon_goldblack","n":"Yamamoto Yamasenko, Watermelon w/ Small Gold & Large Black Flake (4-inch, YAM-9S-10-323)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yama_senko5_purple_emerald","n":"Yamamoto Yamasenko, Purple w/ Emerald Flake (5-inch, YAM-9-10-213)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yama_senko4_babybass","n":"Yamamoto Yamasenko, Baby Bass (4-inch, YAM-9S-10-305)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yama_senko5_black_redflake","n":"Yamamoto Yamasenko, Black w/ Small Red Flake (5-inch, YAM-9-10-051)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yum_lizard6_junebug","n":"YUM Lizard, Junebug (6-inch, YLZ604)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yum_christie_critter_bamamagic","n":"YUM Christie Critter, Bama Magic (4.5-inch, YCR4154)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yum_christie_critter_blackblue","n":"YUM Christie Critter, Black/Blue Flake (4.5-inch, YCR421)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_yum_grub3_greenpumpkin","n":"YUM Grub, Green Pumpkin (3-inch, YG308)","ty":"Grub","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":[],"un":0},{"k":"sp_yum_grub2_pearlwhite","n":"YUM Grub, Pearl White (2-inch, YG283)","ty":"Grub","co":"Midwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","B1","B9"],"pref":[],"un":0},{"k":"sp_yum_grub2_smokesilver","n":"YUM Grub, Smoke Silver Flake (2-inch, YG265)","ty":"Grub","co":"Midwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","B1","B9"],"pref":[],"un":0},{"k":"sp_quattro_swimtail5_colablue","n":"Quattro Swim Tail (SZ-130), Cola Blue Flake (5-inch)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_quattro_stick4_smokesilver","n":"Quattro Stick (SZ-174), Smoke Silver Glitter (4-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_evergreen_bowworm","n":"Evergreen Bow Worm, #133 (4.2-inch)","ty":"Finesse Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":[],"un":0},{"k":"sp_roboworm_straight6","n":"Robo Worm Straight Tail Worm, Morning Dawn Silver Flake (6-inch)","ty":"Finesse Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":[],"un":0},{"k":"sp_bloodteez_3in","n":"Bloodteez, Motoroil Gold (3-inch / 7.5cm)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_zman_finesse_trd","n":"Z-Man Finesse TRD, Meat Dog (2.75-inch)","ty":"Ned Plastic","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":[],"un":0},{"k":"sp_jackall_yammyfish3","n":"Jackall Yammy Fish (3-inch)","ty":"Stick Worm","co":"Variable","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_crushcity_trickster_crab","n":"Rapala CrushCity Customs Trickster crab (1.5-inch / 3.8cm), Olive/Black","ty":"Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9","B5"],"pref":[],"un":0},{"k":"sp_rabid_foxtail","n":"Rabid Baits Fox Tail, Purple","ty":"Ned Plastic","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9"],"pref":[],"un":0},{"k":"sp_pb_hollowbelly4_colour_unreadable","n":"Berkley PowerBait Hollow Belly (4-inch)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_pb_ripple_shad4_pearlpink","n":"Berkley PowerBait Ripple Shad, Pearl Pink Shad (4-inch, MPRS4-PPS)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_pb_hollowbelly5_brownchart","n":"Berkley PowerBait Hollow Belly, Brown Chartreuse (5-inch)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_pb_hollowbelly4_specklime","n":"Berkley PowerBait Hollow Belly, Speckled Lime (4-inch)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_havoc_devilspear4_gp","n":"Berkley Havoc Devil Spear, Green Pumpkin (4-inch, HVMDS4-GP)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_havoc_devilspear4_junebugred","n":"Berkley Havoc Devil Spear, June Bug Red Fleck (4-inch, HVMDS4-JBR)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_zoom_swimmer4_tennshad","n":"Zoom Swimmer, Tennessee Shad (4-inch, 133-357)","ty":"Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_ittys_g30_tilapiamagic","n":"Itty's Secret Baits G30, Tilapia Magic (10pkt)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_ittys_g40_gpspecial","n":"Itty's Secret Baits G40, Green Pumpkin Special (10pkt)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5","B4"],"pref":[],"un":0},{"k":"sp_pb_jester","n":"Berkley PowerBait Pro Design Jester (Mike Iaconelli), Watermelon Red Magic (3.5-inch)","ty":"Craw","co":"Bottom","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S4","S6","TB1","B1","B2","B5","B6","B7"],"pref":[],"un":0},{"k":"sp_havoc_hawkhawg5","n":"Berkley Havoc Hawk Hawg (Bobby Lane design), Green Pumpkin Blue (5-inch, HVMHH5-GPBL)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S3","S4","S6","TB1","B1","B2","B3","B5","B6","B7","B8"],"pref":[],"un":0},{"k":"sp_zoom_lizard6_junebugchart","n":"Zoom Super Salt Plus Lizard, Junebug Chartreuse (6-inch, 002-123)","ty":"Creature Bait","co":"Bottom","sp":["Bass"],"wt":[],"cap":["S2","S3","S4","S6","TB1","B1","B9","B2","B3","B6","B7","B5"],"pref":[],"un":0},{"k":"sp_bellows_gill28_muddy","n":"Geecrack Bellows Gill, #226 Muddy Gill (2.8-inch)","ty":"Gill-Profile Swimbait","co":"Midwater","sp":["Bass"],"wt":[],"cap":["TS2","S1","S2","S3","S6","B1","B9","B3","B5"],"pref":[],"un":0}];
+  // Rule order matters: first regex that matches the bait type wins. Each trait list is the score
+  // for [first, second, third] option of: clarity (clear, stained, muddy), temp (cold, mild, warm),
+  // light (bright, overcast, low), cover (open, weeds, wood), mood (active, neutral, sluggish).
+  var RECO_RULES = [
+    [/frog|buzz toad/i,      [0,1,1],[-2,0,2],[1,1,1],[0,2,1],[2,0,-1], 'weed-cover surface bait for warm water'],
+    [/buzzbait/i,            [0,1,1],[-1,1,2],[0,1,2],[1,1,0],[2,0,-1], 'loud surface bait for stained water and low light'],
+    [/topwater|popper|walking|stickbait/i, [1,1,-1],[-2,0,2],[-1,1,2],[1,0,0],[2,0,-2], 'surface bite, best in low light and warm water'],
+    [/spinnerbait|bladed|chatter/i, [0,2,2],[-1,1,1],[0,2,1],[0,2,1],[1,1,-1], 'flash and vibration for stained or muddy water'],
+    [/inline spinner/i,      [1,1,0],[0,2,1],[0,1,1],[2,0,0],[1,1,0], 'searching bait for open water'],
+    [/squarebill/i,          [0,2,1],[0,2,1],[0,1,1],[0,0,2],[2,1,-1], 'deflects off wood and rock, good in stained water'],
+    [/lipless|rattlebait/i,  [0,1,2],[0,2,1],[0,1,1],[1,2,0],[2,0,-1], 'rattle and vibration covers water fast'],
+    [/crankbait/i,           [1,2,0],[0,2,1],[0,1,1],[1,0,2],[2,1,-1], 'cover water and bump structure'],
+    [/fluke|minnow/i,        [1,1,0],[0,1,1],[0,1,1],[1,1,0],[0,2,0], 'subtle twitch bait'],
+    [/jerkbait/i,            [2,1,-1],[2,1,-1],[0,1,1],[1,0,0],[0,1,2], 'pause-heavy bait for cold, clear water and slow fish'],
+    [/swim jig|underspin/i,  [0,2,1],[0,2,1],[0,1,1],[1,2,1],[1,1,0], 'swim through cover and weeds'],
+    [/skirted jig|^jig$/i,   [0,1,2],[2,1,-1],[1,1,1],[0,1,2],[-1,1,2], 'slow bottom bait for cold water and structure'],
+    [/swimbait|paddle|gill|shad plastic/i, [1,2,1],[-1,1,2],[0,1,1],[2,1,0],[2,1,-1], 'steady swim through open water'],
+    [/stick worm|finesse worm|^worm|ned|micro/i, [2,1,0],[1,1,1],[1,0,0],[1,1,1],[-1,1,2], 'finesse bait for clear water and sluggish fish'],
+    [/creature|craw/i,       [0,2,2],[1,1,1],[0,0,0],[-1,1,2],[0,1,1], 'bulky profile for stained water and cover'],
+    [/grub/i,                [1,1,0],[0,1,1],[0,0,0],[1,0,0],[0,1,1], 'versatile all-round plastic']
+  ];
+  var RECO_KEYS = {clarity:['clear','stained','muddy'], temp:['cold','mild','warm'], light:['bright','overcast','low'], cover:['open','weeds','wood'], mood:['active','neutral','sluggish']};
+  function recoEsc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var RECO_WATERTXT = '';
+  var RECO_SEL = {species:'', clarity:'', temp:'', light:'', cover:'', mood:'', rods:[]};
+  function recoScore(l, log){
+    var rule = null;
+    for(var i=0;i<RECO_RULES.length;i++){ if(RECO_RULES[i][0].test(l.ty)){ rule = RECO_RULES[i]; break; } }
+    var s = 0, why = [];
+    if(rule){
+      Object.keys(RECO_KEYS).forEach(function(g, gi){
+        var pick = RECO_SEL[g]; if(!pick) return;
+        var v = rule[gi+1][RECO_KEYS[g].indexOf(pick)];
+        s += v;
+      });
+      why.push(rule[6]);
+    }
+    var sp = RECO_SEL.species;
+    if(sp){
+      if(l.sp.indexOf(sp) !== -1) s += 3;
+      else if(l.wt.indexOf(sp) !== -1){ s += 1; why.push('untried crossover for ' + sp); }
+      else return null;
+    }
+    var c = log[l.k];
+    if(c && c.count > 0){ s += 3; why.push('already caught fish on it'); }
+    var core = l.n.split(/[(,]/)[0].trim().toLowerCase();
+    if(core.length > 4 && RECO_WATERTXT.indexOf(core) !== -1){ s += 3; why.push('worked at this water before'); }
+    return {s: s, why: why};
+  }
+  function recoRod(l){
+    var chosen = RECO_SEL.rods;
+    var pool = function(arr){ return chosen.length ? arr.filter(function(r){ return chosen.indexOf(r) !== -1; }) : arr; };
+    var p = pool(l.pref), c = pool(l.cap);
+    if(p.length) return {rods: p.slice(0,3), pref: true};
+    if(c.length) return {rods: c.slice(0,3), pref: false};
+    return null;
+  }
+  function renderReco(){
+    var out = document.getElementById('reco_output'); if(!out) return;
+    var log = loadCatchLog(), rows = [];
+    RECO_WATERTXT = (typeof recoWaterText === 'function') ? recoWaterText() : '';
+    RECO_LURES.forEach(function(l){
+      var r = recoScore(l, log); if(!r) return;
+      var rod = recoRod(l); if(!rod) return;
+      rows.push({l: l, s: r.s, why: r.why, rod: rod});
+    });
+    rows.sort(function(a,b){ return b.s - a.s; });
+    var best = rows.filter(function(r){ return !r.l.un; }).slice(0, 8);
+    var test = rows.filter(function(r){ return r.l.un; }).slice(0, 5);
+    function rowHTML(r){
+      return '<div class="recoRow"><div class="recoMain"><b>' + recoEsc(r.l.n) + '</b><span class="recoType">' + recoEsc(r.l.ty) + ' · ' + recoEsc(r.l.co) + '</span>' +
+        '<div class="recoWhy">' + recoEsc(r.why.join('; ')) + '</div></div>' +
+        '<div class="recoSide"><div class="recoRods">' + (r.rod.pref ? 'Preferred: ' : 'Works on: ') + recoEsc(r.rod.rods.join(', ')) + '</div>' +
+        '<button type="button" class="btn btnGhost recoFind" data-find="' + recoEsc(r.l.k) + '">Find in app</button></div></div>';
+    }
+    var h = '';
+    h += '<div class="sectiontitle">Best bets</div><div class="card">' + (best.length ? best.map(rowHTML).join('') : '<div class="tagline">Nothing matched. Try fewer filters or clear the rod selection.</div>') + '</div>';
+    if(test.length) h += '<div class="sectiontitle">Worth testing</div><div class="card"><div class="tagline">These fit the conditions but have not been field-tested yet.</div>' + test.map(rowHTML).join('') + '</div>';
+    out.innerHTML = h;
+  }
+  function recoFind(key){
+    activateTab('lures');
+    setTimeout(function(){
+      var found = null;
+      document.querySelectorAll('.photoitem[data-imgkey="' + key + '"]').forEach(function(x){ if(!found) found = x; });
+      if(found){ gsReveal(found); gsFlash(found); }
+    }, 120);
+  }
+  (function(){
+    var ctl = document.getElementById('reco_controls'); if(!ctl) return;
+    ctl.addEventListener('click', function(e){
+      var chip = e.target.closest ? e.target.closest('.recoChip') : null;
+      if(chip){
+        var g = chip.parentElement.dataset.recogroup, v = chip.dataset.val;
+        if(g === 'rods'){
+          var i = RECO_SEL.rods.indexOf(v);
+          if(i === -1) RECO_SEL.rods.push(v); else RECO_SEL.rods.splice(i, 1);
+          chip.classList.toggle('on', i === -1);
+        } else {
+          RECO_SEL[g] = (RECO_SEL[g] === v) ? '' : v;
+          chip.parentElement.querySelectorAll('.recoChip').forEach(function(c){ c.classList.toggle('on', c.dataset.val === RECO_SEL[g]); });
+        }
+        renderReco(); return;
+      }
+      if(e.target.id === 'reco_go') renderReco();
+      if(e.target.id === 'reco_reset'){
+        RECO_SEL = {species:'', clarity:'', temp:'', light:'', cover:'', mood:'', rods:[]};
+        ctl.querySelectorAll('.recoChip').forEach(function(c){ c.classList.remove('on'); });
+        renderReco();
+      }
+    });
+    ctl.addEventListener('change', function(e){ if(e.target.id === 'reco_water') renderReco(); });
+    document.getElementById('reco_output').addEventListener('click', function(e){
+      var b = e.target.closest ? e.target.closest('.recoFind') : null;
+      if(b) recoFind(b.dataset.find);
+    });
+    renderReco();
+  })();
+
+  // ---------------- WATERS (dam / venue database) ----------------
+  var WATERS_KEY = 'rodSetupWaters', WATERS_SEEDED_KEY = 'rodSetupWatersSeeded';
+  var WATERS_SEED = [
+    {id:'xfactor', name:'X-Factor', notes:'Bass water that is being stocked with yellowfish soon. Spawning carp pressured the bass on 2026-10-16.',
+     seasons:[], sessions:[
+      {date:'2026-08-10', text:'Rod range test with the Berkley rod. Field sweet spot was 1.77-3.5g.', fish:'', baits:'Trout Magnet'},
+      {date:'2026-09-24', text:'Two bass landed on S6, Texas-rigged.', fish:'2', baits:'Zoom UV Speed Craw'},
+      {date:'2026-10-09', text:'4 bass over 500g (largest 600g) plus a few smaller fish.', fish:'4+', baits:''},
+      {date:'2026-10-13', text:'2 fish landed.', fish:'2', baits:''},
+      {date:'2026-10-16', text:'Few bites. Bass pressured by spawning carp.', fish:'', baits:''}]},
+    {id:'aqua', name:'Aqua Paradiso', notes:'Boat water with willow tree lines. Trips logged 2026-08-30, 09-13, 09-26 and 10-02/03.',
+     seasons:[{date:'2026-08-30', text:'Early season: small bass dominated every catch and nothing came on the larger reaction baits, a sign bigger fish were still tied up with bedding. Downsize lures.'}],
+     sessions:[
+      {date:'2026-08-30', text:'Early Season Bite pattern, 5 bass.', fish:'5', baits:''},
+      {date:'2026-10-03', text:'Two-day weekend on the boat, 40+ fish landed in total (only fish over 250g were logged as catches).', fish:'40+', baits:''}]},
+    {id:'serengeti5', name:'Serengeti Golf & Wildlife Estate, Dam 5', notes:'Angling permit 89, approved 18/09/2026, valid until 18/09/2027. Catch-and-release only. See the permit card on the Dashboard for the full rules.',
+     seasons:[], sessions:[]}
+  ];
+  function loadWaters(){ try { return JSON.parse(localStorage.getItem(WATERS_KEY)) || []; } catch(e){ return []; } }
+  function saveWaters(w){ localStorage.setItem(WATERS_KEY, JSON.stringify(w)); }
+  function seedWatersIfNeeded(){
+    var seeded; try { seeded = JSON.parse(localStorage.getItem(WATERS_SEEDED_KEY)) || []; } catch(e){ seeded = []; }
+    var list = loadWaters(), changed = false;
+    WATERS_SEED.forEach(function(s){
+      if(seeded.indexOf(s.id) !== -1) return;
+      seeded.push(s.id);
+      if(!list.some(function(w){ return w.id === s.id; })){ list.push(JSON.parse(JSON.stringify(s))); changed = true; }
+    });
+    localStorage.setItem(WATERS_SEEDED_KEY, JSON.stringify(seeded));
+    if(changed) saveWaters(list);
+  }
+  function wtEsc(t){ return String(t == null ? '' : t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function wtTotalFish(w){
+    var n = 0; (w.sessions||[]).forEach(function(s){ var m = String(s.fish||'').match(/\d+/); if(m) n += parseInt(m[0], 10); });
+    return n;
+  }
+  function renderWaters(){
+    var host = document.getElementById('wt_list'); if(!host) return;
+    var list = loadWaters();
+    if(!list.length){ host.innerHTML = '<div class="card"><div class="tagline">No waters yet. Add one above.</div></div>'; return; }
+    host.innerHTML = list.map(function(w){
+      var sess = (w.sessions||[]).slice().sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+      var seas = (w.seasons||[]).slice().sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
+      var fish = wtTotalFish(w);
+      return '<div class="card wtCard" data-wid="' + wtEsc(w.id) + '">' +
+        '<div class="wtHead"><b class="wtName">' + wtEsc(w.name) + '</b><span class="wtMeta">' + sess.length + ' session' + (sess.length===1?'':'s') + (fish ? ' · ' + fish + ' fish logged' : '') + '</span>' +
+        '<button type="button" class="btn btnGhost wtDel" data-act="delwater">Delete water</button></div>' +
+        '<div class="recoLabel">Notes</div><textarea class="wtNotes" rows="3">' + wtEsc(w.notes||'') + '</textarea>' +
+        '<div class="recoLabel" style="margin-top:12px;">Seasonal observations</div>' +
+        (seas.length ? seas.map(function(s,i){ return '<div class="wtRow"><span class="wtDate">' + wtEsc(s.date) + '</span><span class="wtText">' + wtEsc(s.text) + '</span><button type="button" class="wtX" data-act="delseason" data-date="' + wtEsc(s.date) + '" data-text="' + wtEsc(s.text) + '" title="Remove">&times;</button></div>'; }).join('') : '<div class="tagline">None yet.</div>') +
+        '<div class="wtForm"><input type="date" class="wtSeasonDate"><input type="text" class="wtSeasonText" placeholder="What did you notice this season?"><button type="button" class="btn btnGhost" data-act="addseason">Add</button></div>' +
+        '<div class="recoLabel" style="margin-top:12px;">Session log</div>' +
+        (sess.length ? sess.map(function(s){ return '<div class="wtRow"><span class="wtDate">' + wtEsc(s.date) + '</span><span class="wtText">' + wtEsc(s.text) + (s.fish ? ' <i>(fish: ' + wtEsc(s.fish) + ')</i>' : '') + (s.baits ? '<br><span class="wtBaits">Baits: ' + wtEsc(s.baits) + '</span>' : '') + '</span><button type="button" class="wtX" data-act="delsession" data-date="' + wtEsc(s.date) + '" data-text="' + wtEsc(s.text) + '" title="Remove">&times;</button></div>'; }).join('') : '<div class="tagline">None yet.</div>') +
+        '<div class="wtForm"><input type="date" class="wtSessDate"><input type="text" class="wtSessText" placeholder="What happened?"><input type="text" class="wtSessFish" placeholder="Fish" style="max-width:80px;"><input type="text" class="wtSessBaits" placeholder="Baits that worked"><button type="button" class="btn btnGhost" data-act="addsession">Add</button></div>' +
+        '</div>';
+    }).join('');
+    var sel = document.getElementById('reco_water');
+    if(sel){
+      var cur = sel.value;
+      sel.innerHTML = '<option value="">No water selected</option>' + list.map(function(w){ return '<option value="' + wtEsc(w.id) + '">' + wtEsc(w.name) + '</option>'; }).join('');
+      sel.value = cur;
+    }
+  }
+  (function(){
+    seedWatersIfNeeded(); renderWaters();
+    var panel = document.getElementById('panel-waters'); if(!panel) return;
+    var today = function(){ return new Date().toISOString().slice(0,10); };
+    document.getElementById('wt_add').addEventListener('click', function(){
+      var inp = document.getElementById('wt_newName'), name = inp.value.trim(); if(!name) return;
+      var list = loadWaters(); list.push({id:'w' + Date.now(), name:name, notes:'', seasons:[], sessions:[]});
+      saveWaters(list); inp.value = ''; renderWaters();
+    });
+    panel.addEventListener('focusout', function(e){
+      if(!e.target.classList || !e.target.classList.contains('wtNotes')) return;
+      var card = e.target.closest('.wtCard'), list = loadWaters();
+      list.forEach(function(w){ if(w.id === card.dataset.wid) w.notes = e.target.value; });
+      saveWaters(list);
+    });
+    panel.addEventListener('click', function(e){
+      var b = e.target.closest ? e.target.closest('[data-act]') : null; if(!b) return;
+      var card = b.closest('.wtCard'), list = loadWaters(), w = null;
+      list.forEach(function(x){ if(x.id === card.dataset.wid) w = x; });
+      if(!w) return;
+      var act = b.dataset.act;
+      if(act === 'delwater'){
+        if(!window.confirm('Delete ' + w.name + ' and all its notes?')) return;
+        list = list.filter(function(x){ return x !== w; });
+      } else if(act === 'addseason'){
+        var st = card.querySelector('.wtSeasonText').value.trim(); if(!st) return;
+        w.seasons = w.seasons || []; w.seasons.push({date: card.querySelector('.wtSeasonDate').value || today(), text: st});
+      } else if(act === 'addsession'){
+        var tx = card.querySelector('.wtSessText').value.trim(), bt = card.querySelector('.wtSessBaits').value.trim();
+        if(!tx && !bt) return;
+        w.sessions = w.sessions || []; w.sessions.push({date: card.querySelector('.wtSessDate').value || today(), text: tx, fish: card.querySelector('.wtSessFish').value.trim(), baits: bt});
+      } else if(act === 'delseason'){
+        w.seasons = (w.seasons||[]).filter(function(s){ return !(s.date === b.dataset.date && s.text === b.dataset.text); });
+      } else if(act === 'delsession'){
+        w.sessions = (w.sessions||[]).filter(function(s){ return !(s.date === b.dataset.date && s.text === b.dataset.text); });
+      }
+      saveWaters(list); renderWaters(); if(typeof renderReco === 'function') renderReco();
+    });
+  })();
+  function recoWaterText(){
+    var sel = document.getElementById('reco_water'); if(!sel || !sel.value) return '';
+    var t = ''; loadWaters().forEach(function(w){ if(w.id === sel.value) (w.sessions||[]).forEach(function(s){ t += ' ' + (s.baits||'').toLowerCase(); }); });
+    return t;
+  }
   function saveLureConf(c){ localStorage.setItem(LURE_CONF_KEY, JSON.stringify(c)); }
   function cycleLureConf(key){
     var c = loadLureConf();
