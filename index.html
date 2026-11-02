@@ -21,7 +21,7 @@
     /* Rod-class accent colors — matches the existing Freshwater tab's Spinning/Baitcasting
        split (data-rodtype), so the color-coding reuses a category you already navigate by
        rather than inventing a new one. */
-    --type-spinning:#2D7DD2; --type-baitcaster:#D97706; --type-fly:#2E8B57; --type-spincast:#C76BAA; --type-saltwater:#B084F5; /* spincast = the daughter's Zebco — pink, on purpose */
+    --type-spinning:#2D7DD2; --type-baitcaster:#D97706; --type-fly:#2E8B57; --type-spincast:#C76BAA; --type-saltwater:#B084F5; --type-travel:#E3B52E; /* spincast = the daughter's Zebco — pink, on purpose */
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
@@ -73,6 +73,7 @@
   .rodcard[data-rodtype="fly"]{border-left:4px solid var(--type-fly);}
   .rodcard[data-rodtype="spincast"]{border-left:4px solid var(--type-spincast);}
   .rodcard[data-rodtype="saltwater"]{border-left:4px solid var(--type-saltwater);}
+  .rodcard[data-rodtype="travel"]{border-left:4px solid var(--type-travel);}
   .cardhead{display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap;}
   .badge{flex:0 0 auto;background:var(--accent);color:#04141A;font-weight:900;font-size:12px;padding:4px 9px;border-radius:6px;letter-spacing:.4px;}
   .badge.sm{font-size:10.5px;padding:2px 7px;margin-right:6px;}
@@ -549,7 +550,7 @@
     .sidebrand b{display:block;font-size:17px;font-weight:900;letter-spacing:1.2px;color:#fff;}
     .sidebrand b span{color:var(--accent-text);}
     .sidebrand small{display:block;font-size:10.5px;color:var(--grey);letter-spacing:.6px;text-transform:uppercase;margin-top:1px;}
-    .tabgroup{display:block;padding:18px 12px 6px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--grey-dark);}
+    .tabgroup{display:block;padding:18px 12px 6px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);}
     .tab{display:block;width:100%;border-radius:8px;padding:10px 12px;font-size:14px;font-weight:600;letter-spacing:.1px;text-transform:none;color:var(--text-dim);border-left:3px solid transparent;cursor:pointer;}
     .tab:hover{background:rgba(255,255,255,.05);color:#fff;}
     .tab.active{background:rgba(0,183,168,.16);color:#fff;border-left:4px solid var(--accent);padding-left:9px;font-weight:700;}
@@ -11769,6 +11770,7 @@
       <span class="colorlegenditem"><span class="colorlegendswatch" style="background:var(--type-fly);"></span>Fly</span>
       <span class="colorlegenditem"><span class="colorlegendswatch" style="background:var(--type-spincast);"></span>Spincast</span>
       <span class="colorlegenditem"><span class="colorlegendswatch" style="background:var(--type-saltwater);"></span>Saltwater</span>
+      <span class="colorlegenditem"><span class="colorlegendswatch" style="background:var(--type-travel);"></span>Travel</span>
     </div>
     <div class="card"><div class="tagline">Trips are pulled from the 🎣 trip counter on every Grab &amp; Go combo, credited to every rod in that combo. Fish are pulled from the same 🎣 catch buttons on individual lures, credited to whichever rod(s) that lure is tagged for. Nothing new to log here — this is just today's totals from the buttons you're already tapping, sorted by whichever rod's been idle longest.</div></div>
     <div class="card"><div id="rotationTableWrap"></div></div>
@@ -14044,7 +14046,7 @@
     var html = '<table class="rottable"><thead><tr><th>Rod</th><th>Usage</th><th>Trips</th><th>Fish</th><th>Last Used</th></tr></thead><tbody>';
     rows.forEach(function(r){
       var pct = Math.round((r.trips / maxTrips) * 100);
-      var typeColor = 'var(--type-' + (RODTYPE_BY_CODE[r.code] || 'spinning') + ')';
+      var typeColor = 'var(--type-' + (RODGROUP_BY_CODE[r.code] || RODTYPE_BY_CODE[r.code] || 'spinning') + ')';
       var bar = r.trips
         ? '<div class="usagebar" title="'+r.trips+' trip'+(r.trips===1?'':'s')+'"><div class="usagebarfill" style="width:'+pct+'%;background:'+typeColor+';"></div></div>'
         : '<div class="usagebar"><div class="usagebarfill usagebarempty"></div></div>';
