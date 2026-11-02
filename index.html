@@ -13753,8 +13753,8 @@
         (seas.length ? seas.map(function(s,i){ return '<div class="wtRow"><span class="wtDate">' + wtEsc(s.date) + '</span><span class="wtText">' + wtEsc(s.text) + '</span><button type="button" class="wtX" data-act="delseason" data-date="' + wtEsc(s.date) + '" data-text="' + wtEsc(s.text) + '" title="Remove">&times;</button></div>'; }).join('') : '<div class="tagline">None yet.</div>') +
         '<div class="wtForm"><input type="date" class="wtSeasonDate"><input type="text" class="wtSeasonText" placeholder="What did you notice this season?"><button type="button" class="btn btnGhost" data-act="addseason">Add</button></div>' +
         '<div class="recoLabel" style="margin-top:12px;">Session log</div>' +
-        (sess.length ? sess.map(function(s){ return '<div class="wtRow"><span class="wtDate">' + wtEsc(s.date) + '</span><span class="wtText">' + wtEsc(s.text) + (s.fish ? ' <i>(fish: ' + wtEsc(s.fish) + ')</i>' : '') + (s.baits ? '<br><span class="wtBaits">Baits: ' + wtEsc(s.baits) + '</span>' : '') + '</span><button type="button" class="wtX" data-act="delsession" data-date="' + wtEsc(s.date) + '" data-text="' + wtEsc(s.text) + '" title="Remove">&times;</button></div>'; }).join('') : '<div class="tagline">None yet.</div>') +
-        '<div class="wtForm"><input type="date" class="wtSessDate"><input type="text" class="wtSessText" placeholder="What happened?"><input type="text" class="wtSessFish" placeholder="Fish" style="max-width:80px;"><input type="text" class="wtSessBaits" placeholder="Baits that worked"><button type="button" class="btn btnGhost" data-act="addsession">Add</button></div>' +
+        (sess.length ? sess.map(function(s){ return '<div class="wtRow"><span class="wtDate">' + wtEsc(s.date) + '</span><span class="wtText">' + wtEsc(s.text) + (s.rod ? ' <i>[' + wtEsc(s.rod) + ']</i>' : '') + (s.fish ? ' <i>(fish: ' + wtEsc(s.fish) + ')</i>' : '') + (s.baits ? '<br><span class="wtBaits">Baits: ' + wtEsc(s.baits) + '</span>' : '') + '</span><button type="button" class="wtX" data-act="delsession" data-date="' + wtEsc(s.date) + '" data-text="' + wtEsc(s.text) + '" title="Remove">&times;</button></div>'; }).join('') : '<div class="tagline">None yet.</div>') +
+        '<div class="wtForm"><input type="date" class="wtSessDate"><input type="text" class="wtSessText" placeholder="What happened?"><input type="text" class="wtSessRod" placeholder="Rod (e.g. B7)" style="max-width:110px;"><input type="text" class="wtSessFish" placeholder="Fish" style="max-width:80px;"><input type="text" class="wtSessBaits" placeholder="Baits that worked"><button type="button" class="btn btnGhost" data-act="addsession">Add</button></div>' +
         '</div>';
     }).join('');
     var sel = document.getElementById('reco_water');
@@ -13794,7 +13794,17 @@
       } else if(act === 'addsession'){
         var tx = card.querySelector('.wtSessText').value.trim(), bt = card.querySelector('.wtSessBaits').value.trim();
         if(!tx && !bt) return;
-        w.sessions = w.sessions || []; w.sessions.push({date: card.querySelector('.wtSessDate').value || today(), text: tx, fish: card.querySelector('.wtSessFish').value.trim(), baits: bt});
+        w.sessions = w.sessions || []; var sd = card.querySelector('.wtSessDate').value || today(), sf = card.querySelector('.wtSessFish').value.trim();
+        w.sessions.push({date: sd, text: tx, rod: card.querySelector('.wtSessRod').value.trim().toUpperCase(), fish: sf, baits: bt});
+        if(sf && sf !== '0' && bt){
+          // Mark any bait named in the session as having caught fish, so Recommend's proven-catch boost picks it up.
+          var clog = loadCatchLog(), btl = bt.toLowerCase(), marked = false;
+          RECO_LURES.forEach(function(l){
+            var core = l.n.split(/[(,]/)[0].trim().toLowerCase();
+            if(core.length > 4 && btl.indexOf(core) !== -1){ var e = clog[l.k] || {count: 0}; e.count = (e.count || 0) + 1; e.last = sd; clog[l.k] = e; marked = true; }
+          });
+          if(marked){ saveCatchLog(clog); if(typeof renderCatchBadge === 'function') RECO_LURES.forEach(function(l){ if(clog[l.k]) renderCatchBadge(l.k); }); }
+        }
       } else if(act === 'delseason'){
         w.seasons = (w.seasons||[]).filter(function(s){ return !(s.date === b.dataset.date && s.text === b.dataset.text); });
       } else if(act === 'delsession'){
