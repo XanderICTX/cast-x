@@ -13402,7 +13402,14 @@
   // lazily get the same treatment the first time they are opened (see activateTab).
   function collapseAllHeadings(root){
     var heads = Array.prototype.slice.call((root || document).querySelectorAll('.sectiontitle, .subsectiontitle'));
-    heads.forEach(function(h){ if(!h.dataset.hinit){ h.dataset.hinit = '1'; if(headSiblings(h).length) setHeadCollapsed(h, true); } });
+    // Headings the owner wants open by default (2026-11-02). They still fold when tapped.
+    var KEEP_OPEN = ['jump to', 'your tackle in numbers', 'arsenal master plan', 'rotation', 'smart recommendations', 'best bets', 'worth testing', 'waters', 'saved gameplans', 'pre-trip packing checklist', 'optimal lure weight by rod setup'];
+    heads.forEach(function(h){
+      if(h.dataset.hinit) return;
+      h.dataset.hinit = '1';
+      if(KEEP_OPEN.indexOf((h.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase()) !== -1) return;
+      if(headSiblings(h).length) setHeadCollapsed(h, true);
+    });
   }
   // Open whatever headings are folded above a given element (used when jumping to an item).
   function revealEl(el){
