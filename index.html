@@ -563,6 +563,30 @@
     .card{padding:16px 14px;margin-bottom:14px;}
   }
   @media print{ body{padding-left:0 !important;} }
+
+  /* ----- pass 2: dashboard hub + global search dropdown ----- */
+  .hubgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin:6px 0 22px;}
+  .hubcard{cursor:pointer;padding:18px 18px 16px;border:1px solid var(--border);border-radius:14px;background:#182026;transition:border-color .15s,transform .15s;}
+  .hubcard:hover,.hubcard:focus{border-color:var(--accent);transform:translateY(-1px);outline:none;}
+  .hubn{font-size:26px;font-weight:800;color:var(--accent);line-height:1;min-height:26px;}
+  .hubt{font-size:15px;font-weight:700;color:#fff;margin-top:8px;}
+  .hubp{font-size:12.5px;color:var(--text-dim);margin-top:4px;line-height:1.4;}
+  .hubtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:6px 0 22px;}
+  .hubtile{padding:16px 14px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.03);text-align:center;}
+  .hubtile b{display:block;font-size:24px;color:#fff;}
+  .hubtile span{display:block;font-size:11.5px;color:var(--text-dim);margin-top:4px;letter-spacing:.2px;}
+  .searchbar{position:relative;}
+  .searchresults{position:absolute;left:0;top:calc(100% + 6px);width:100%;max-width:560px;max-height:62vh;overflow-y:auto;background:#10161a;border:1px solid var(--border-strong);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:60;padding:6px;}
+  .searchresults[hidden]{display:none;}
+  .gsRow{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer;}
+  .gsRow:hover{background:rgba(28,168,232,.14);}
+  .gsKind{flex:0 0 auto;font-size:9.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,.08);color:var(--text-dim);min-width:52px;text-align:center;}
+  .gsLabel{flex:1;min-width:0;font-size:13.5px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .gsArea{flex:0 0 auto;font-size:11px;color:var(--grey);}
+  .gsNone{padding:10px;font-size:12.5px;color:var(--grey);}
+  .gsFlash{outline:2px solid var(--accent);outline-offset:3px;border-radius:10px;animation:gsPulse 1.2s ease-in-out 2;}
+  @keyframes gsPulse{50%{outline-color:rgba(28,168,232,.25);}}
+  .photoitem,.rodcard,.card{scroll-margin-top:calc(var(--topbar-h,54px) + 70px);}
 </style>
 </head>
 <body>
@@ -580,7 +604,7 @@
     <button class="cloudSignInBtn" id="cloudSignInBtn" type="button" title="Sign in with Microsoft to sync this app's data (gameplans, notes, checklists, catches) to your OneDrive — keeps every device signed in to the same account up to date automatically.">Sign in to sync</button>
     <button class="editModeBtn" id="editModeBtn" type="button" title="Show or hide editing controls (renaming, deleting, adding rows/photos). Logging trips, catches and notes always stays available either way.">Edit Mode: Off</button>
   </div>
-  <div class="searchbar"><input id="search" type="text" placeholder="Search rods, lures, flies, species..." autocomplete="off"></div>
+  <div class="searchbar"><input id="search" type="text" placeholder="Search rods, lures, flies, species..." autocomplete="off"><div id="searchResults" class="searchresults" hidden></div></div>
 </header>
 
 <div class="tabs" id="tabs">
@@ -611,6 +635,39 @@
   <section class="panel active" id="panel-dashboard">
     <div class="sectiontitle" style="margin-top:0;">Dashboard</div>
     
+    
+    <div class="sectiontitle">Jump to</div>
+    <div class="hubgrid">
+      <div class="hubcard" data-goto="freshwater" role="button" tabindex="0">
+      <div class="hubn">25</div><div class="hubt">Freshwater rods</div><div class="hubp">Baitcasters, spinning, travel, fly and spincast setups</div></div>
+      <div class="hubcard" data-goto="saltwater" role="button" tabindex="0">
+      <div class="hubn">3</div><div class="hubt">Saltwater</div><div class="hubp">SYS1 to SYS3 coastal rods and reels</div></div>
+      <div class="hubcard" data-goto="lures" role="button" tabindex="0">
+      <div class="hubn">215</div><div class="hubt">Lures &amp; flies</div><div class="hubp">Hard baits, soft plastics, flies and terminal tackle</div></div>
+      <div class="hubcard" data-goto="grabgo" role="button" tabindex="0">
+      <div class="hubn">50</div><div class="hubt">Grab &amp; Go</div><div class="hubp">Ready-made rod, reel and lure combos</div></div>
+      <div class="hubcard" data-goto="gameplan" role="button" tabindex="0">
+      <div class="hubn"></div><div class="hubt">Gameplans</div><div class="hubp">Trip plans and test days</div></div>
+      <div class="hubcard" data-goto="pack" role="button" tabindex="0">
+      <div class="hubn"></div><div class="hubt">Pack list</div><div class="hubp">Build a packing list for the trip</div></div>
+      <div class="hubcard" data-goto="techniques" role="button" tabindex="0">
+      <div class="hubn"></div><div class="hubt">Techniques</div><div class="hubp">Rigs, retrieves and what to fish them on</div></div>
+      <div class="hubcard" data-goto="species" role="button" tabindex="0">
+      <div class="hubn"></div><div class="hubt">Species</div><div class="hubp">Target species and what works for each</div></div>
+      <div class="hubcard" data-goto="compare" role="button" tabindex="0">
+      <div class="hubn"></div><div class="hubt">Compare</div><div class="hubp">Rods, reels and gear ratios side by side</div></div>
+      <div class="hubcard" data-goto="arsenal" role="button" tabindex="0">
+      <div class="hubn">0</div><div class="hubt">Arsenal</div><div class="hubp">Role, confidence and watchlist for every rod</div></div>
+    </div>
+    <div class="sectiontitle">Your tackle in numbers</div>
+    <div class="hubtiles">
+      <div class="hubtile"><b>55</b><span>Hard baits &amp; spinners</span></div>
+      <div class="hubtile"><b>93</b><span>Soft plastics</span></div>
+      <div class="hubtile"><b>32</b><span>Flies</span></div>
+      <div class="hubtile"><b>35</b><span>Terminal tackle items</span></div>
+      <div class="hubtile"><b>18</b><span>Untested baits</span></div>
+      <div class="hubtile"><b>25</b><span>Reels</span></div>
+    </div>
     
     <div class="card searchable">
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -13137,6 +13194,125 @@
     document.getElementById('emptyState').classList.toggle('hidden', anyVisible || !q);
   }
   searchInput.addEventListener('input', function(){ applyFilter(this.value); });
+
+  // ---------------- GLOBAL SEARCH (jump list) ----------------
+  // Typing in the top search box still filters the open tab exactly as before; in addition a dropdown
+  // lists matches from EVERY tab (rods, individual lures, cards). Picking one switches to its tab,
+  // opens whatever is folded around it, scrolls to it and flashes it. The index is built on first use.
+  var gsIdx = null, gsBox = document.getElementById('searchResults'), gsCur = [];
+  function gsBuild(){
+    gsIdx = []; var seen = {};
+    document.querySelectorAll('.panel').forEach(function(p){
+      var code = p.id.replace('panel-','');
+      var tabEl = document.querySelector('.tab[data-tab="' + code + '"]');
+      var area = tabEl ? tabEl.textContent.trim() : code;
+      p.querySelectorAll('.photoitem, .rodcard, .searchable').forEach(function(el){
+        var kind, label;
+        if(el.classList.contains('photoitem')){
+          kind = 'Lure'; label = (el.dataset.lurelabel || '').split(' | ')[0].split(' — ')[0];
+        } else if(el.classList.contains('rodcard')){
+          kind = 'Rod'; var b = el.querySelector('.badge'); var tt = el.querySelector('.cardheadtext');
+          label = (b ? b.textContent.trim() + ' — ' : '') + (tt && tt.firstElementChild ? tt.firstElementChild.textContent.split('✎').join('').trim() : '');
+        } else {
+          if(el.querySelector('.photoitem') || el.closest('.rodcard')) return;
+          var ct = el.querySelector('.cardtitle, .ranktitle, summary'); if(!ct) return;
+          kind = 'Section'; label = ct.textContent.trim();
+        }
+        label = label.split('\n').join(' ').trim(); if(label.length > 110) label = label.slice(0, 110);
+        if(!label) return;
+        var key = code + '|' + kind + '|' + label.toLowerCase();
+        if(seen[key]) return; seen[key] = 1;
+        gsIdx.push({code: code, area: area, kind: kind, label: label, hay: (el.dataset.lurelabel || el.textContent).toLowerCase(), el: el});
+      });
+    });
+  }
+  function gsClose(){ if(gsBox){ gsBox.hidden = true; gsBox.innerHTML = ''; } gsCur = []; }
+  function gsUpdate(q){
+    q = q.trim().toLowerCase();
+    if(q.length < 2){ gsClose(); return; }
+    if(!gsIdx) gsBuild();
+    var toks = q.split(' ').filter(function(x){ return x; });
+    var hits = [];
+    gsIdx.forEach(function(r){
+      for(var i = 0; i < toks.length; i++){ if(r.hay.indexOf(toks[i]) === -1) return; }
+      var lab = r.label.toLowerCase();
+      var score = lab.indexOf(q) === 0 ? 0 : (lab.indexOf(q) !== -1 ? 1 : 2);
+      hits.push({r: r, score: score + (r.kind === 'Rod' ? 0 : (r.kind === 'Lure' ? 0.2 : 0.4))});
+    });
+    hits.sort(function(a, b){ return a.score - b.score || a.r.label.localeCompare(b.r.label); });
+    gsCur = hits.slice(0, 14).map(function(h){ return h.r; });
+    gsBox.innerHTML = '';
+    if(!gsCur.length){
+      var none = document.createElement('div'); none.className = 'gsNone'; none.textContent = 'No matches'; gsBox.appendChild(none);
+    }
+    gsCur.forEach(function(r, i){
+      var row = document.createElement('div'); row.className = 'gsRow'; row.dataset.i = i;
+      var k = document.createElement('span'); k.className = 'gsKind'; k.textContent = r.kind;
+      var l = document.createElement('span'); l.className = 'gsLabel'; l.textContent = r.label;
+      var a = document.createElement('span'); a.className = 'gsArea'; a.textContent = r.area;
+      row.appendChild(k); row.appendChild(l); row.appendChild(a); gsBox.appendChild(row);
+    });
+    if(hits.length > gsCur.length){
+      var more = document.createElement('div'); more.className = 'gsNone';
+      more.textContent = (hits.length - gsCur.length) + ' more — keep typing to narrow'; gsBox.appendChild(more);
+    }
+    gsBox.hidden = false;
+  }
+  function gsReveal(el){
+    var a = el, guard = 0;
+    while(a && a !== document.body && guard++ < 200){
+      if(a.classList && a.classList.contains('headHidden')){
+        var p = a.previousElementSibling, h = null;
+        while(p){ if(headLevel(p) && p.classList.contains('headCollapsed')){ h = p; break; } p = p.previousElementSibling; }
+        if(h){ setHeadCollapsed(h, false); a = h; continue; }
+      }
+      if(a.tagName === 'DETAILS') a.open = true;
+      if(a.classList && a.classList.contains('collapsed')) a.classList.remove('collapsed');
+      a = a.parentElement;
+    }
+  }
+  function gsFlash(el){
+    el.classList.add('gsFlash');
+    el.scrollIntoView({behavior: 'smooth', block: 'center'});
+    setTimeout(function(){ el.classList.remove('gsFlash'); }, 2600);
+  }
+  function gsGo(r){
+    gsClose(); searchInput.blur();
+    activateTab(r.code);
+    if(r.kind === 'Rod' && r.code === 'freshwater' && r.el.dataset.rodtype){ activateSubtab(r.el.dataset.rodtype); }
+    setTimeout(function(){
+      var target = r.el;
+      if(r.kind === 'Lure'){
+        var label = r.el.dataset.lurelabel, found = null;
+        document.querySelectorAll('.photoitem').forEach(function(x){ if(!found && x.dataset.lurelabel === label && x.offsetParent !== null) found = x; });
+        target = found || r.el;
+      }
+      gsReveal(target); gsFlash(target);
+    }, 80);
+  }
+  searchInput.addEventListener('input', function(){ gsUpdate(this.value); });
+  searchInput.addEventListener('focus', function(){ if(this.value.trim().length >= 2) gsUpdate(this.value); });
+  searchInput.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ gsClose(); this.blur(); }
+    else if(e.key === 'Enter' && gsCur.length){ e.preventDefault(); gsGo(gsCur[0]); }
+  });
+  if(gsBox){
+    gsBox.addEventListener('mousedown', function(e){
+      var row = e.target.closest ? e.target.closest('.gsRow') : null;
+      if(row){ e.preventDefault(); gsGo(gsCur[+row.dataset.i]); }
+    });
+  }
+  document.addEventListener('click', function(e){
+    if(gsBox && !gsBox.hidden && !(e.target.closest && e.target.closest('.searchbar'))) gsClose();
+    var g = e.target.closest ? e.target.closest('[data-goto]') : null;
+    if(g){ activateTab(g.dataset.goto); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){
+      var g = e.target.closest ? e.target.closest('[data-goto]') : null;
+      if(g){ e.preventDefault(); activateTab(g.dataset.goto); }
+    }
+  });
   // ---------------- COLLAPSIBLE HEADINGS ----------------
   // Every .sectiontitle (level 1) and .subsectiontitle (level 2) folds the siblings that follow it,
   // up to the next heading of the same or a higher level. Done by event delegation at click time so it
@@ -15409,6 +15585,76 @@
       ]
     };
   }
+  // X-Factor comp practice (2026-11-02): three test days - Day 1 flipping/punching (B5 + B4, in the
+  // existing B5 test plan), Day 2 finesse SPINNING (S6, S7, S5), Day 3 finesse BAITCASTING (B1, B9).
+  // Dates are targets, not bookings. No double quotes inside the text: this sits in a template literal.
+  function finesseNotes(dayKey, extra){
+    return [
+      {id:'note_finesse_'+dayKey+'_log', text:"LOG PER SPOT - time, weather and wind, water clarity, carp activity, bank spot, rod, bait, colour, rig and weight, retrieve or fall rate, bites, fish, size, snags and lost tackle. Tick the fish button in the Lures tab for every bait that catches."},
+      {id:'note_finesse_'+dayKey+'_snag', text:"SNAG AWARE - X-Factor is bank only with many submerged snags. Finesse rigs on light line lose tackle fast, so note every loss and which rod and rig it came on. Land any fish quickly with a net and set the drag carefully - the comp bass are tagged."}
+    ].concat(extra || []);
+  }
+  function buildFinesseSpinningSeedPlan(){
+    return {
+      id: 'xfactor_finesse_spin_2026-11',
+      name: 'X-Factor Finesse Test - Spinning (S6, S7, S5)',
+      date: '2026-11-05',
+      type: 'Practice',
+      conditions: "Test day 2 of 3 for the 14 Nov X-Factor comp (day 1 is the B5 + B4 flipping and punching test, day 3 the finesse baitcasters; dates are targets, move them). Question for the day: which spinning rod and rigs get bites on bank cover when the fish will not take anything bigger, and which loses the least tackle? Run S6 (7ft 1in, Medium/Fast, 5.3-17.7g, 6-12lb) and S7 (5ft 6in, Light/Medium Fast, 1.77-8.86g, 4-8lb) back to back along the same stretch of bank, then bring S5 (4ft 6in ultralight, 2-14g) out for the spots and moments where even those are too much. Owner decision from the comp prep plan: S6 is the default to keep snag losses down, S7 the swap-in - today decides whether S7 and S5 earn a place.",
+      setups: [
+        { code:'S6', gear:gearFor('S6',["Wacky, neko and drop-shot kits tied up before you leave so you are not re-rigging at the water.","Spare drop-shot hooks and weights - snag losses are the thing to count today."]), f1spool:'floating', lures: [
+          "1. Wacky - McArthy Stumpi (9.0g) or Yamamoto Fat Senko, wacky-rigged, skipped under overhangs and dropped beside reeds. Let it fall on a slack line.",
+          "2. Neko / weightless Texas - Yamamoto Senko 5-inch with a nail or neko weight at the nose, dragged and shaken along the bottom edge of the reeds.",
+          "3. Drop-shot - McArthy McCrawley (about 8g) or a Zoom Trick Worm on a drop-shot hook with a light shot, worked slowly in open pockets between reeds.",
+          "4. Shaky head - Berkley PowerBait Shaky Snake on a 1/8-3/16oz head near wood and rocks (right at S6's 5.3g floor, so a good test of the rod's low end).",
+          "5. Untested new arrivals - Zoom Double Ringer, Yamamoto Slinko and the Zoom Super Fluke, weightless on S6 as a slow twitch-and-pause along the bank. Note which gets follows."
+        ]},
+        { code:'S7', gear:gearFor('S7',["Light line (4-8lb): land fish with a net and keep the drag set carefully - tagged comp bass.","Ned jigheads and small weedless hooks tied up in advance."]), f1spool:'floating', lures: [
+          "1. Ned rig - Zortex Nedmonster Power-Ned on a light Ned head, dragged and hopped along the bottom beside the bank.",
+          "2. Small paddletail - Compact Paddle Tail on a 1/8oz jighead, a slow steady swim along the reed edge.",
+          "3. Floating Ned plastics - Yamamoto Ned Senko-Floater and Slinko on a Ned head: they stand up off the bottom, so cast past the cover and let them sit. Note whether they draw bites a sinking Ned does not.",
+          "4. Weightless Fluke or Senko, short casts only - the open question on this rod (1.77-8.86g): note how a weightless Fluke casts, how it handles snags and how it handles a heavier fish.",
+          "5. Tight-cover flip and pitch - a small craw or creature on a light Texas rig into gaps S6 cannot reach."
+        ]},
+        { code:'S5', gear:gearFor('S5',["Lightest line in the fleet: net every fish and set the drag carefully.","Micro jigheads and tiny baits tied up in advance."]), f1spool:'floating', lures: [
+          "1. Micro Ned rig - the smallest Nedmonster or Compact Paddle Tail you carry on a 1/16oz head, dragged slowly.",
+          "2. Fin Spin or Crappie Magnet at 1/16-1/8oz - steady swim along the bank; the rod's 2g floor suits the lightest baits.",
+          "3. Weightless small stick or worm, short casts, dead slow beside cover.",
+          "4. Compare - fish the same spot with the best bait from S6 or S7 and see which rod still gets the bite."
+        ]}
+      ],
+      notes: finesseNotes('spin', [
+        {id:'note_finesse_spin_score', text:"SPINNING SCORECARD - S6 vs S7 vs S5: bites, fish, tackle lost, casting comfort, how each handled a fish in cover. Which rod would you rather hold on comp day, and which two baits go with it?"}
+      ])
+    };
+  }
+  function buildFinesseBaitcasterSeedPlan(){
+    return {
+      id: 'xfactor_finesse_cast_2026-11',
+      name: 'X-Factor Finesse Test - Baitcasters (B1, B9)',
+      date: '2026-11-08',
+      type: 'Practice',
+      conditions: "Test day 3 of 3 for the 14 Nov X-Factor comp. The two light baitcasters: B1 (Zodias, 6ft 7in, BFS, 4-15g, Zenon MG7-L) and B9 (Tatula XT 651LFB, 1.77-10.6g, Shimano SLX BFS XT, Pitbull 8 PE0.6, 8lb fluorocarbon). Casting finesse puts a bait precisely under overhangs where spinning tends to blow it off line, but light-lure backlash is the cost. Question for the day: do B1 and B9 get bites that S6, S7 and S5 did not on test day 2, and is the extra accuracy worth the backlash risk on a windy bank?",
+      setups: [
+        { code:'B1', gear:gearFor('B1',["Check brake settings before you start; a light bait can backlash on the first cast of a gust.","Spare leader material and the weights for the finesse jigs."]), f1spool:'floating', lures: [
+          "1. Floor test - 1/8oz (3.54g) Crappie Magnet with a trailer (B1's floor is 4g), skipped and cast tight to the bank.",
+          "2. Sweet spot - McArthy Stumpi (9.0g) bare, or a 1/4oz Keitech tungsten jig with a trailer (B1's field sweet spot is about 8.3g), pitched to docks, laydowns and reed edges.",
+          "3. Shaky head or small Texas-rigged creature - near wood and rocks, 6-9g total.",
+          "4. Ceiling push - Sensation Mini Trap (9.65g), the heaviest B1 bait on file, along a rocky bank."
+        ]},
+        { code:'B9', gear:gearFor('B9',["BFS reel: set the brake low-to-medium and thumb every cast; 1.77-10.6g only.","Small packs of Ned heads and weedless hooks sized for 2-4g baits."]), f1spool:'floating', lures: [
+          "1. Weightless Senko, short casts - the lightest presentation of the day; note the longest comfortable cast.",
+          "2. Ned rig - Zortex Nedmonster Power-Ned on a light head along the bottom.",
+          "3. Small paddletail - Compact Paddle Tail on a light jighead, slow roll along the edge of the reeds.",
+          "4. Untested - Zoom Super Fluke Jr or the Zoom Double Ringer weightless; do not force it into wind, note where the rod stops being comfortable."
+        ]}
+      ],
+      notes: finesseNotes('cast', [
+        {id:'note_finesse_cast_score', text:"BAITCASTER SCORECARD - B1 vs B9: bites, fish, backlashes, casting accuracy, wind limit, tackle lost."},
+        {id:'note_finesse_cast_call', text:"THE CALL - after all three test days: which rods and which two baits each go on comp day? B5 or B4 for the thick reed pockets, S6 default with S7 and S5 as swap-ins, B1 or B9 for casting accuracy. Record the reasons so they are in the app for next season."}
+      ])
+    };
+  }
   function buildXFactorCompPrepSeedPlan(){
     return {
       id: 'xfactor_compprep_2026-11',
@@ -15602,6 +15848,25 @@
   // "Untested, zero field time" on the watchlist. Whichever earns more real casts/hookups today
   // starts answering which one keeps its slot in the lineup.
   // B5 flipping/punching test (added 2026-10-19): first dedicated field test of B5 with the new bait/hook inventory.
+  // B4 added to the B5 flipping/punching test (2026-11-02): same cover, same baits, but B4 is rated
+  // 21.3-85g so the weights go up to match. Shared by the fresh-install seed and the one-time
+  // migration for browsers that already hold the plan.
+  function b4FlipTestSetup(){
+    var g = (packDefaults['B4'] || []).map(function(x){ return {text:x, checked:true}; });
+    g.push(
+      {text:"B4 weights: tungsten bullets 3/4oz (21g) and heavier, pegged. B4 is rated 21.3-85g, so the 3/8-1/2oz pegs on the B5 list are below its floor and will not load the blank.", checked:true},
+      {text:"Same hooks as the B5 list (BKK Heavy Cover Flipping 5/0, Nemesis EWG 5/0, Daichi Extra Wide Gap 4/0) - heavy wire for the heavier weights.", checked:true},
+      {text:"Line: 30lb Daiwa J-Braid X8 as spooled (a 40lb braid with a 30lb leader is planned for the next respool) - note any cutting or wind knots.", checked:true}
+    );
+    return { code:'B4', gear:g, f1spool:'floating', lures: [
+      "HEAD-TO-HEAD RULE - fish B4 in the same reed pockets, wood and shade B5 just fished, with the same baits, so the comparison is fair. Alternate rods spot by spot.",
+      "1. Texas-rigged creature - Berkley Critter Hawg or Havoc Hawk Hawg, BKK Heavy Cover 5/0, 3/4-1oz tungsten pegged. Does the heavier peg get through thicker reed than B5 did, and is it easier to extract a fish?",
+      "2. Punch rig - McArthy Tiddler / Stumpi / McCrawley on a heavy-wire flipping hook behind the heaviest tungsten you carry (1oz or more), pegged. Punch the densest mats and the thickest reed edge. Compare hook-ups and hookset feel against B5.",
+      "3. Flip jig - Keitech Tungsten Jig X-Heavy or Bass Hunter Flip Jig with a Speed Craw or Jester trailer: flip, drag, hop. This is where B4's 18lb drag and 7.0:1 retrieve should show their worth against B5's 11lb drag and 8.5:1.",
+      "4. One-handed pitching - B4 has the Quantum Accurist's Flippin' Switch and B5's Curado does not. Pitch to shade pockets and isolated stumps from 3-6m and count accurate pitches per minute on each rod.",
+      "5. Big plastic on a heavy Texas rig - Geecrack Bellows Gill 3.8 or Rapala CleanUp Craw, 3/4oz, into the deepest pockets. Same bait on B5 afterwards."
+    ]};
+  }
   function buildB5FlippingTestSeedPlan(){
     var b5Gear = (packDefaults['B5'] || []).map(function(g){ return {text:g, checked:true}; });
     b5Gear.push(
@@ -15613,10 +15878,10 @@
     );
     return {
       id: 'b5_flipping_test_2026-10-26',
-      name: 'B5 Flipping & Punching Test',
-      date: '2026-10-26',
+      name: 'B5 + B4 Flipping & Punching Test',
+      date: '2026-11-03',
       type: 'Day trip',
-      conditions: "First dedicated B5 test (Daiwa Black Series 7ft 6in Heavy + Curado M 201XG, 40lb braid). Flipping and punching are short-range, so the 14-42g rating is not a limit: go lighter or heavier as the cover demands. Target reeds, wood, overhanging trees, shade pockets and any mats. Tick the fish button in the Lures tab for every bait that catches, and note which rig and hook it was on. Prep for the 14 Nov X-Factor bank comp.",
+      conditions: "First dedicated B5 test (Daiwa Black Series 7ft 6in Heavy + Curado M 201XG, 40lb braid). Flipping and punching are short-range, so the 14-42g rating is not a limit: go lighter or heavier as the cover demands. Target reeds, wood, overhanging trees, shade pockets and any mats. Tick the fish button in the Lures tab for every bait that catches, and note which rig and hook it was on. Prep for the 14 Nov X-Factor bank comp."+" TEST DAY 1 OF 3 for the X-Factor comp prep (day 2 finesse spinning S6/S7/S5, day 3 finesse baitcasters B1/B9). B4 was added on 2026-11-02 so the two heavy rods run the same cover head-to-head.",
       setups: [
         { code:'B5', gear:b5Gear, f1spool:'floating', lures: [
           "1. Berkley MaxScent Critter Hawg (Green Pumpkin Magic) - Texas rig, BKK Heavy Cover 5/0, 3/8-1/2oz tungsten pegged. Flip into reed pockets and wood, let it fall on a controlled line, hop once, move on if nothing in 3 casts. Note: bites, hook-ups, snags.",
@@ -15627,7 +15892,8 @@
           "6. Jig trailer test - Keitech Tungsten Jig X-Heavy or Bass Hunter Flip Jig with a Speed Craw, then a Jester or McCrawley as the trailer. Flip, drag and hop. Note which trailer draws more bites.",
           "7. Yamamoto Senko 5-inch (and Fat Senko) - weightless Texas on Daichi Wide Gap 3/0 or Gamakatsu Worm 327 2/0, skipped under overhangs and dead-sticked. Backup bait for when the bite is tough.",
           "8. Frog - Sensation Hollow Frog or Booyah Poppin Pad Crasher over pads or mats, pause beside openings. Only if there is surface cover."
-        ]}
+        ]},
+        b4FlipTestSetup()
       ],
       notes: [
         {id:'note_b5test_checklist', text:"B5 TEST CHECKLIST\n[ ] Rod, reel and 40lb braid checked; leader tied for mixed cover, straight braid for thick vegetation\n[ ] Hooks and heavy tungsten weights packed (see gear list)\n[ ] Each bait above fished in at least two cover types\n[ ] Critter Hawg vs Hawk Hawg compared in the same cover\n[ ] Texas vs Jika/free rig compared with the Speed Craw\n[ ] Bellows Gill 3.8: Texas vs free rig compared\n[ ] Jig trailer compared (Speed Craw vs Jester/McCrawley)\n[ ] Fish button ticked in the Lures tab for every bait that catches\n[ ] Rod notes: hookset power, cast comfort, braid wind knots, reel handle speed (8.5:1)\n[ ] Keep the top 3 baits and rigs for the X-Factor plan on 14 Nov"}
@@ -15804,6 +16070,21 @@
     if(!plan) return;
     Object.keys(patch).forEach(function(k){ plan[k] = patch[k]; });
     plans = plans.map(function(p){ return p.id === planId ? plan : p; });
+    savePlans(plans);
+    locallyPatchedPlanIds.push(planId);
+  }
+
+
+  // One-time migration helper: runs fn(plan) once on an already-seeded gameplan, then marks the plan
+  // as freshly patched so a cloud download in the same page load cannot overwrite the change.
+  function patchPlanIfNeeded(key, planId, fn){
+    var FLAG_KEY = 'rodSetupGameplanPatch_' + key;
+    if(localStorage.getItem(FLAG_KEY)) return;
+    localStorage.setItem(FLAG_KEY, '1');
+    var plans = loadPlans();
+    var plan = plans.filter(function(p){ return p.id === planId; })[0];
+    if(!plan) return;
+    fn(plan);
     savePlans(plans);
     locallyPatchedPlanIds.push(planId);
   }
@@ -16339,6 +16620,20 @@
   seedGameplanIfNeeded('travelkit_xfactor_2026-10-16', buildTravelKitXFactorSeedPlan());
   seedGameplanIfNeeded('buffelspoort_2026-10-24', buildBuffelspoortSeedPlan());
   seedGameplanIfNeeded('xfactor_compprep_2026-11', buildXFactorCompPrepSeedPlan());
+  seedGameplanIfNeeded('xfactor_finesse_spin_2026-11', buildFinesseSpinningSeedPlan());
+  seedGameplanIfNeeded('xfactor_finesse_cast_2026-11', buildFinesseBaitcasterSeedPlan());
+  seedGameplanNotesIfNeeded('xfactor_finesse_link_v2', 'xfactor_compprep_2026-11', [
+    {id:'note_compprep_finesse_days', text:"THREE TEST DAYS (added 2026-11-02): Day 1 flipping and punching - B5 + B4 (see the B5 + B4 Flipping & Punching Test). Day 2 finesse spinning - S6, S7 and S5. Day 3 finesse baitcasters - B1 and B9. See the matching gameplans."}
+  ]);
+  patchPlanIfNeeded('b5test_add_b4_v1', 'b5_flipping_test_2026-10-26', function(plan){
+    plan.name = 'B5 + B4 Flipping & Punching Test';
+    plan.date = '2026-11-03';
+    if(String(plan.conditions||'').indexOf('TEST DAY 1 OF 3') === -1) plan.conditions = (plan.conditions || '') + " TEST DAY 1 OF 3 for the X-Factor comp prep (day 2 finesse spinning S6/S7/S5, day 3 finesse baitcasters B1/B9). B4 was added on 2026-11-02 so the two heavy rods run the same cover head-to-head.";
+    plan.setups = plan.setups || [];
+    if(!plan.setups.some(function(s){ return s.code === 'B4'; })) plan.setups.push(b4FlipTestSetup());
+    plan.notes = plan.notes || [];
+    plan.notes.unshift({id:'note_b5test_b4', text:"B4 ADDED (2026-11-02): B4 (Fate Black Gen III + Quantum Accurist 7.0:1, 18lb drag, Flippin' Switch) now runs the same cover as B5 for a direct head-to-head. Fish the same pockets with the same baits and alternate rods spot by spot. Weights go up for B4 (3/4oz and heavier - it is rated 21.3-85g). Questions: (1) which rod gets the bait into thicker cover? (2) which one pulls a fish out more reliably (B4 18lb drag and 7.0:1 against B5 11lb drag and 8.5:1)? (3) does the Flippin' Switch make B4 faster at pitching? (4) which one do you want in your hands for the X-Factor reeds? Keep the winner for the comp lineup."});
+  });
   seedGameplanNotesIfNeeded('xfactor_newhardbaits_v1', 'xfactor_compprep_2026-11', [
     {id:'note_compprep_newhard_2026-11', text:"NEW HARD BAIT TEST BLOCK (added 2026-10-19) — five new arrivals, none fished yet. Run each on at least one practice session and log it before deciding what goes in the comp bag. 1) BOOYAH BLADE 1/4oz (7.09g, white tandem blade) — rod B3 or B7. Slow-roll along reed edges and over the shallows, then try a burn in wind. Test first: it is the snag-resistant search bait and the likeliest comp staple. Keep if it draws bites from the reed line. 2) DAMIKI DEVIL SPOOK 110F (002H) and Z-STICK 115 (Beige, ZS115963) — rod B7 or B8. Walk both at first light and in calm water over the reed edges. Compare which walks cleaner, which gets more follows and which draws strikes. Take the winner to the comp and keep the other as the backup. Weigh both and send the weights so the rod tags can be finalised. 3) SEBILE CRANKSTER MR (65mm, runs 4-6ft) — rod B7, B5 or B3. Fish it over clean bottom, along drop-offs and points, and let it deflect off reed stems and rocks. Note how often it snags before deciding where it fits. 4) SHIMANO BANTAM 85 (6g floating minnow) — rod B9, S6 or S7 (light rods only). Twitch and pause for pressured or finicky fish and after a front. Low priority for the comp, so only test it if a light rod is already on the bank. LOG FOR EACH — rod, colour, retrieve, time of day, wind and clarity, follows, bites, fish landed, snags and lost baits. KEEP/DROP RULE — a bait goes into the comp bag only if it produced bites or follows in practice and did not cost you baits. Nothing is promoted on the strength of the packet alone."}
   ]);
