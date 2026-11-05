@@ -16351,6 +16351,45 @@
     gpPopulateAddSelect();
   }
 
+  // Idempotent owner fixups (2026-11-05). A OneDrive pull overwrites local plans/waters/logs with an older
+  // cloud snapshot, which silently undid the one-time migrations above (completed gameplans, removed plans,
+  // the stripped ZB setups). This re-applies their end state after every pull, and on load. Returns true if
+  // anything changed so the caller can push the fixed state back up.
+  var XF_WORKS_TEXT = 'Finesse dam: worms and grubs, Ned, wacky, drop shot and Neko. Punching, flipping and pitching does not suit it (very little water for the technique) and fast presentations did not work (owner, 2026-11-05).';
+  var XF_DEBRIEF_TEXT = "DEBRIEF (2026-11-05, X-Factor): fished the entire dam punching, flipping and pitching with B4 and B5 and caught nothing. There is very little water at X-Factor that suits the technique, and the presentation was too fast. Conclusion: X-Factor is a finesse dam (worms and grubs, Ned, wacky, drop shot, Neko). Leave B4, B5 and other fast-presentation rods at home for X-Factor. The B4 and B5 rod and reel changes are confirmed perfect. Great data even without a fish.";
+  function ensureOwnerFixups(){
+    var changed = false;
+    try {
+      var plans = loadPlans(), before = plans.length;
+      plans = plans.filter(function(p){ return p.id !== 'xfactor_compprep_2026-11'; });
+      if(plans.length !== before) changed = true;
+      plans.forEach(function(p){
+        if(p.setups){ var n = p.setups.length; p.setups = p.setups.filter(function(x){ return x.code !== 'ZB' && x.code !== 'ZB2'; }); if(p.setups.length !== n) changed = true; }
+        if(p.notes){ var m = p.notes.length; p.notes = p.notes.filter(function(x){ return x.id !== 'note_zb_baithook'; }); if(p.notes.length !== m) changed = true; }
+        if(p.id === 'b5_flipping_test_2026-10-26'){
+          if(!p.completed){ p.completed = true; changed = true; }
+          p.notes = p.notes || [];
+          if(!p.notes.some(function(x){ return x.id === 'note_b5test_debrief'; })){ p.notes.unshift({id:'note_b5test_debrief', text:XF_DEBRIEF_TEXT}); changed = true; }
+        }
+      });
+      if(changed) savePlans(plans);
+    } catch(e){}
+    function stripZb(load, save){
+      try { var m = load(), c = false; ['ZB','ZB2'].forEach(function(k){ if(k in m){ delete m[k]; c = true; } }); if(c){ save(m); changed = true; } } catch(e){}
+    }
+    stripZb(loadFieldLogRod, saveFieldLogRod); stripZb(loadUsedLog, saveUsedLog); stripZb(loadOwnedRiggedLog, saveOwnedRiggedLog); stripZb(loadNotes, saveNotes);
+    try {
+      var list = loadWaters(), wc = false;
+      list.forEach(function(w){
+        if(w.id !== 'xfactor') return;
+        if((w.worksV || 0) < 3){ w.works = XF_WORKS_TEXT; w.worksV = 3; wc = true; }
+        w.sessions = w.sessions || [];
+        if(!w.sessions.some(function(x){ return x.date === '2026-11-05'; })){ w.sessions.push({date:'2026-11-05', text:'Fished the whole dam punching, flipping and pitching with B4 and B5. Very little water suits the technique and the presentation was too fast. Caught nothing.', rod:'B4, B5', fish:'0', baits:''}); wc = true; }
+      });
+      if(wc){ saveWaters(list); changed = true; }
+    } catch(e){}
+    return changed;
+  }
   // ---------------- CLOUD SYNC (OneDrive) ----------------
   // Replaces manual Export/Import Backup with automatic sync: when signed in with Microsoft,
   // every change is pushed to castx_data.json in the user's OneDrive (Fishing folder), and on
@@ -16510,6 +16549,7 @@
       var comboMerge = mergeAdditiveMap(localComboBefore, loadComboLog(), ['count']);
       saveComboLog(comboMerge.map);
       if(comboMerge.changed) needsPush = true;
+      if(ensureOwnerFixups()) needsPush = true;
       if(needsPush) scheduleCloudPush();
       reapplyPersistedState();
       setCloudStatus('Synced from OneDrive ✓', false);
@@ -17222,6 +17262,8 @@
     "DEBRIEF (2026-10-04) — Great 2-day weekend on the boat (two grown men aboard), 40+ fish landed in total; only fish over 250g were logged as catches in the app, smaller ones weren't counted. All six Core Six rods (S5 Tiny Terror, S6, S7, B3, B7, B8) were perfect and caught loads of fish each. Boat battery: 2 days on the water finished at 62% SoC (38Ah used). Old S5 (Shimano Sienna) was sold afterwards and the Tiny Terror took the S5 code."
   ]);
   markGameplansCompletedIfNeeded('corefour_weekend_completed_2026-10-04', ['corefour_weekend_2026-10-03']);
+  ensureOwnerFixups();
+  window.__ensureOwnerFixups = ensureOwnerFixups;
 
   reapplyPersistedState();
   document.querySelectorAll('details').forEach(function(d){ d.open = false; });
