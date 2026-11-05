@@ -15793,6 +15793,71 @@
       {id:'note_finesse_'+dayKey+'_snag', text:"SNAG AWARE - X-Factor is bank only with many submerged snags. Finesse rigs on light line lose tackle fast, so note every loss and which rod and rig it came on. Land any fish quickly with a net and set the drag carefully - the comp bass are tagged."}
     ].concat(extra || []);
   }
+
+  // X-Factor pre-run and comp plans (2026-11-05). S6 and S7 only. No double quotes, backslashes, backticks or dollar-brace in the text: this sits in a template literal.
+  function buildXfPreRunSeedPlan(){
+    return {
+      id: 'xfactor_prerun_2026-11',
+      name: 'X-Factor Pre-Run (before the 14 Nov comp) - S6 + S7',
+      date: '2026-11-08',
+      type: 'Day trip',
+      conditions: "Pre-run for the 14 Nov X-Factor comp (date is a target, move it). Only two rods: S6 (7 ft 1 in Medium/Fast, 5.3-17.7g) and S7 (5 ft 6 in Light/Medium Fast, 1.77-8.86g). Goal is not to catch the most fish today. Goal is to learn the lake and to finish the day knowing which 3 baits and rigs go on each rod for the comp. Known so far: X-Factor is a finesse dam, punching and flipping did not suit it, and fast presentations did not work. Fish slow. Rigs on the list: weightless Texas, weighted Texas, wacky, Neko, Ned, Waco, wacky on a light jighead, shaky head.",
+      setups: [
+        { code:'S6', gear:gearFor('S6',["Rig before you leave: 2 or 3 Neko rigs, wacky rigs and Texas rigs tied up so you spend the day fishing, not tying.","Weights: Sensation Worm Brass bullets 1/16oz and 1/4oz, nail weights and the TroKar tool, Sensation tungsten shaky heads 3/16oz and 1/4oz.","Hooks: Varivas Mosquito Heavy Guard (0, 1/0, 2/0), BKK Weedless Wacky 1/0, Owner Jungle Wacky and Cultiva, Daichi Wide Gap 3/0, Gamakatsu Worm 327 2/0 and your 4/0 and 5/0 keeper hooks. VMC Crossover rings and pliers for wacky and Neko.","Net and a careful drag: the comp bass are tagged."]), f1spool:'floating', lures: [
+          "1. NEKO - Berkley Straight Money (Watermelon, 5 inch) or Yamamoto Yamasenko 5 inch (Purple w/ Emerald Flake, Black w/ Red Flake) with a nail weight at the nose. Drag and shake along the bottom edge of the reeds and the cover, then pause. This is S6's main job.",
+          "2. WACKY - Yamamoto Fat Senko 4 inch (Tilapia Magic) and McArthy Stumpi, wacky-rigged on an O-ring or a wacky hook. Cast, let it fall slack and count the fall. Deeper fish like slower-falling wacky rigs, so also try a slower fall with no weight.",
+          "3. TEXAS WEIGHTED - Zoom UV Speed Craw (Junebug, Watermelon Red; took 2 bass on S6 here on 24 Sep) and Yamamoto Yama Craw on a 1/16oz or 1/4oz bullet. Crawl and hop it on the bottom, short hops.",
+          "4. SHAKY HEAD - Berkley Shaky Snake or McArthy McRinger on a 3/16oz tungsten head. Dead-stick it near wood and rocks and shake it in place.",
+          "5. WEIGHTLESS TEXAS - Yamamoto Yamasenko 5 inch or Zoom Trick Worm on a 3/0 or 2/0 EWG hook, skipped short under bank cover and dead-sticked. Note whether you get more bites than on the Neko.",
+          "6. WACO RIG - Yamamoto Yamasenko 5 inch Texas-rigged on a 2/0 EWG with a 1/16oz insert weight in the middle of the body. Compare it side by side with the Neko in the same spot."
+        ]},
+        { code:'S7', gear:gearFor('S7',["Light line (4-8lb): net every fish and keep the drag set carefully.","Rig before you leave: Ned heads, light jigheads and small weedless hooks, plus 4 inch rigs with hooks 1/0 or smaller.","Hooks and heads: Eagle Claw Lazer Sharp Ned jig 1/16oz, Deep Blue mushroom Ned hooks, Varivas Mosquito #4 and 0 and 1/0, and the 1/16oz bullets and insert weights."]), f1spool:'floating', lures: [
+          "1. NED RIG - Yamamoto Ned Senko-Floater 3 inch (Baby Bass, Tilapia Magic, Electric Shad) and Yamamoto Slinko 3.25 inch on a Ned head. They float up off the bottom, so cast past the cover and let them stand. Also the Zortex Nedmonster and Yum Ned Craw as sinking comparisons.",
+          "2. WEIGHTLESS TEXAS, SMALL - Yamamoto Yamasenko 4 inch (Baby Bass, Watermelon w/ Gold and Black Flake, Pearl) on a 1/0 hook, short casts, let it fall and dead-stick.",
+          "3. WACKY ON A LIGHT JIGHEAD - Yamamoto Yamasenko 4 inch or Zoom Double Ringer 4 inch hooked wacky on a light head, 1/16oz Lazer Sharp if you have no lighter. It falls slower than a bare Texas and sits upright. Note the fall rate and bites.",
+          "4. WACO RIG, SMALL - a 4 inch Yamasenko or Tsunami Rattling Stick on a 1/0 EWG with a 1/16oz insert weight in the middle. Compare with the weightless Texas.",
+          "5. LIGHT WACKY - Yamamoto Fat Senko 4 inch or Yum 3 inch Dinger (2.8-3.0g) wacky on an O-ring, no weight.",
+          "6. SMALL GRUBS AND SWIMMER - Yum Grub 3 inch or Googan Love Grub on a 1/16oz head, and the new Yamamoto Shad Shape Swimmer 3.2 inch (untested, not yet weighed): weigh one first and check it casts on this rod."
+        ]}
+      ],
+      notes: finesseNotes('prerun', [
+        {id:'note_xfpre_goal', text:"WHAT TO WALK AWAY WITH - for each rod, your top 3 baits and rigs, in order. Also: which rod you would pick for each of weightless Texas, weighted Texas, wacky, Neko, Ned, Waco, light-jighead wacky and shaky head, and where on the lake the bites came. These feed straight into the comp plan."},
+        {id:'note_xfpre_rules', text:"SIMPLE DAY - fish slow. Give each bait and rig a fair go in a spot (about 10 to 15 casts or 5 to 10 minutes) and move on if there is no sign. Do not change three things at once: change one thing at a time so you know what worked. Tick the fish button in the Lures tab for every bait that catches."},
+        {id:'note_xfpre_season', text:"SEASON - spring and spawn: a lot of sight fishing, some fish deeper preferring slower-falling wacky rigs, later in spring fish get more aggressive. Water is crystal clear, so natural colours and light line. Fast presentations and punching and flipping did not work here (2026-11-05 test)."},
+        {id:'note_xfpre_comp', text:"COMP DETAILS - confirm the comp rules, start and finish times, size limits, scoring and tagging rules before the day. Check the weather and wind for the day and restock hooks, weights and soft plastics."}
+      ])
+    };
+  }
+  function buildXfCompSeedPlan(){
+    return {
+      id: 'xfactor_comp_2026-11-14',
+      name: 'X-Factor COMP - 14 Nov (S6 + S7)',
+      date: '2026-11-14',
+      type: 'Competition',
+      conditions: "First comp. Keep it simple: two rods, S6 and S7, a handful of baits you trust, and fish the lake, not the rods. X-Factor is a finesse dam, so everything is slow and small: Neko, wacky, Texas (weightless and weighted), Waco, Ned, wacky on a light jighead and shaky head. Leave B4, B5, B9, S5 and all fast presentations at home. After the pre-run, trim the lists below to your top 3 per rod, so the plan on the day fits on one screen.",
+      setups: [
+        { code:'S6', gear:gearFor('S6',["Pre-tie before the start: 2 Neko rigs, 2 wacky rigs and 2 Texas rigs, so a snag costs 30 seconds, not 5 minutes.","Net, pliers, scale if the rules need it, spare leader.","Careful drag, the bass are tagged."]), f1spool:'floating', lures: [
+          "A. NEKO - Berkley Straight Money or Yamamoto Yamasenko 5 inch with a nail weight. First choice on bottom edges and along cover.",
+          "B. WACKY - Yamamoto Fat Senko 4 inch (Tilapia Magic) or McArthy Stumpi on an O-ring. For sight-fishing and fish holding off the cover. Slower fall for deeper fish.",
+          "C. TEXAS WEIGHTED - Zoom UV Speed Craw on a 1/16oz or 1/4oz bullet (took 2 bass on S6 at X-Factor on 24 Sep), when you need the bottom.",
+          "D. SHAKY HEAD or WACO - Berkley Shaky Snake on a 3/16oz tungsten head near wood and rocks, or a Yamamoto Yamasenko 5 inch Waco rig. Use when the Neko stops getting bites.",
+          "E. UPDATE AFTER THE PRE-RUN - replace this line with your top bait from the test."
+        ]},
+        { code:'S7', gear:gearFor('S7',["Pre-tie before the start: 2 Ned rigs, 2 weightless Texas rigs and a light-jighead wacky.","Light line (4-8lb): net every fish and be gentle on the drag.","Small hooks and Ned heads in one pocket."]), f1spool:'floating', lures: [
+          "A. NED RIG - Yamamoto Ned Senko-Floater 3 inch or Yamamoto Slinko 3.25 inch on a Ned head. For tough bites and clear water, cast past cover and let it stand.",
+          "B. WEIGHTLESS TEXAS - Yamamoto Yamasenko 4 inch (Baby Bass or Watermelon Gold Black) on a 1/0 hook, short casts, dead-stick.",
+          "C. WACKY ON A LIGHT JIGHEAD - Yamamoto Yamasenko 4 inch or Zoom Double Ringer, a slow upright fall when the fish are shy.",
+          "D. WACO RIG, SMALL - a 4 inch Yamasenko with a 1/16oz insert weight on a 1/0 EWG, between the weightless and the Ned.",
+          "E. UPDATE AFTER THE PRE-RUN - add the new Yamamoto Shad Shape Swimmer here only if it worked in the test."
+        ]}
+      ],
+      notes: [
+        {id:'note_xfcomp_rules', text:"ON THE DAY - fish slow and small. If a spot gives no bite in 10 minutes, move. If you catch a fish, keep the same bait and rig and fish the same type of water. Change one thing at a time. Do not swap rods more than you need to: S6 is the Neko, wacky and weighted Texas rod, S7 is the Ned, weightless Texas and light wacky rod."},
+        {id:'note_xfcomp_checklist', text:"BEFORE THE START - confirm the rules, times, size limits, scoring and tagging. Check the weather and wind. Pack S6 and S7 only. Rig the first baits before launching or walking to the first spot. Water, food, hat, sunscreen. Net and scale."},
+        {id:'note_xfcomp_after', text:"AFTER THE COMP - log every fish (bait, rod, rig, spot, size) in the Lures tab and the catch log, and add a debrief note here. Mark this plan complete."}
+      ]
+    };
+  }
   function buildFinesseSpinningSeedPlan(){
     return {
       id: 'xfactor_finesse_spin_2026-11',
@@ -16860,6 +16925,8 @@
   seedGameplanIfNeeded('buffelspoort_2026-10-24', buildBuffelspoortSeedPlan());
   seedGameplanIfNeeded('xfactor_compprep_2026-11', buildXFactorCompPrepSeedPlan());
   seedGameplanIfNeeded('xfactor_finesse_spin_2026-11', buildFinesseSpinningSeedPlan());
+  seedGameplanIfNeeded('xfactor_prerun_2026-11', buildXfPreRunSeedPlan());
+  seedGameplanIfNeeded('xfactor_comp_2026-11-14', buildXfCompSeedPlan());
   seedGameplanIfNeeded('xfactor_finesse_cast_2026-11', buildFinesseBaitcasterSeedPlan());
   seedGameplanNotesIfNeeded('xfactor_finesse_link_v2', 'xfactor_compprep_2026-11', [
     {id:'note_compprep_finesse_days', text:"THREE TEST DAYS (added 2026-11-02): Day 1 flipping and punching - B5 + B4 (see the B5 + B4 Flipping & Punching Test). Day 2 finesse spinning - S6, S7 and S5. Day 3 finesse baitcasters - B1 and B9. See the matching gameplans."}
