@@ -623,7 +623,7 @@
     <div>
       <h1>CAST-<span>X</span></h1>
       <div class="subhead">Field reference &middot; Xander</div>
-      <div class="headerstats">25 rods &middot; 24 reels &middot; 50 combos &middot; updated 10 Nov 2026</div>
+      <div class="headerstats">25 rods &middot; 24 reels &middot; 50 combos &middot; updated 12 Nov 2026</div>
     </div>
     <span class="cloudSyncStatus" id="cloudSyncStatus"></span>
     <button class="cloudSignInBtn" id="cloudSignInBtn" type="button" title="Sign in with Microsoft to sync this app's data (gameplans, notes, checklists, catches) to your OneDrive — keeps every device signed in to the same account up to date automatically.">Sign in to sync</button>
@@ -718,7 +718,7 @@
       <div style="font-size:.78em;color:var(--text-dim);margin-top:2px;">Watchlist Items</div>
     </div>
       </div>
-      <div class="tagline" style="margin-top:10px;">Generated 10 Nov 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
+      <div class="tagline" style="margin-top:10px;">Generated 12 Nov 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
     </div>
     <div class="sectiontitle">Rod &amp; Reel Lineup</div>
     <details class="card" open><summary>Spinning &amp; baitcasters, light to heavy, with codes and specs</summary>
@@ -15871,6 +15871,31 @@
       ])
     };
   }
+  // Scouting trip (2026-11-13): S3 only, find where the fish are before the comp. No double quotes, backslashes, backticks or dollar-brace in the text.
+  function buildXfScoutSeedPlan(){
+    return {
+      id: 'xfactor_scout_2026-11-13',
+      name: 'X-Factor Scouting Trip - find the fish (S3)',
+      date: '2026-11-13',
+      type: 'Day trip',
+      conditions: "Scouting trip before the 14 Nov comp. One rod only: S3 (Okuma Avenger 7 ft Medium-Light spinning, 8-20g, Creed GT 1000, 15lb braid with an 8.36lb fluoro leader). S6 and S7 stay at home so nothing happens to them before the comp. Goal is NOT to test the final comp rigs (S6 and S7 already do those well). Goal is to find pockets of fish and the spots to fish on comp day. Short, close casts, about 5 to 10 minutes per spot, then move. S3 casts the rigs fine (cast as low as 4g before), so use a handful of worms from the kit, floating and sinking, and try a couple of them. Rigs: Neko, wacky, weightless Texas, weighted Texas, Ned, shaky head. Known so far: X-Factor is a finesse dam, punching and flipping did not suit it and fast presentations did not work.",
+      setups: [
+        { code:'S3', gear:gearFor('S3',["Spare 8lb-class fluoro leader and a quick FG knot check before you leave.","Hooks and weights for the rigs below: Neko and wacky hooks, Texas hooks, nail weights, 1/16oz and 1/4oz bullets, Ned and shaky heads, O-rings.","Net, pliers, scale. Careful drag, the comp bass are tagged. Phone for logging spots."]), f1spool:'floating', lures: [
+          "1. NEKO - Yamamoto Yamasenko 5 inch or Berkley Straight Money with a nail weight at the nose. Drag it along the bottom edge of cover and pause. Best on open banks.",
+          "2. WACKY - Yamamoto Fat Senko 4 inch or McArthy Stumpi on an O-ring, falling slack beside cover and over drop-offs.",
+          "3. TEXAS, WEIGHTLESS AND WEIGHTED - Yamamoto Yamasenko, Zoom Trick Worm or Zoom Speed Craw on a bullet. Weightless where there is cover, a 1/4oz bullet where you need the bottom.",
+          "4. FLOATING WORMS - Yamamoto Slinko 3.25 inch and the new Slinko-Floater 5.5 inch (Green Pumpkin / Watermelon, untested, not yet weighed): fish one Texas-rigged and one weightless, note how the floating bait fishes compared with the sinking worms in the same spot.",
+          "5. NED OR SHAKY HEAD - Yamamoto Ned Senko-Floater 3 inch or a Berkley Shaky Snake, a few casts on wood, rocks and drop-offs.",
+          "6. SWIMMER - the new Yamamoto Shad Shape Swimmer 3.2 inch (untested) on a light jighead, only if the worms are not getting bites."
+        ]}
+      ],
+      notes: [
+        {id:'note_xfscout_goal', text:"WHAT TO WALK AWAY WITH - the spots where fish were seen or caught, with the depth, cover and time, the spots that were dead, and the baits and rigs that got bites. Use the spot template below, one entry per spot. These feed straight into the comp plan (S6 + S7)."},
+        {id:'note_xfscout_template', text:"SPOT TEMPLATE - Spot (name or landmark) / Time / Wind and light / Depth / Cover or structure / Bait and rig / Bites or fish / Size / Verdict (come back on comp day: yes or no)."},
+        {id:'note_xfscout_rules', text:"HOW TO RUN IT - cover water, not rigs. Move after 5 to 10 minutes of nothing. Pick one rig per spot and change one thing at a time. Try a couple of worms from the kit, floating against sinking in the same spot, but do not work through the whole bag. Note every bite, miss and follow, even without a fish."}
+      ].concat(finesseNotes('scout', []))
+    };
+  }
   function buildXfCompSeedPlan(){
     return {
       id: 'xfactor_comp_2026-11-14',
@@ -16969,6 +16994,7 @@
   seedGameplanIfNeeded('xfactor_compprep_2026-11', buildXFactorCompPrepSeedPlan());
   seedGameplanIfNeeded('xfactor_finesse_spin_2026-11', buildFinesseSpinningSeedPlan());
   seedGameplanIfNeeded('xfactor_prerun_2026-11', buildXfPreRunSeedPlan());
+  seedGameplanIfNeeded('xfactor_scout_2026-11-13', buildXfScoutSeedPlan());
   seedGameplanIfNeeded('xfactor_comp_2026-11-14', buildXfCompSeedPlan());
   seedGameplanIfNeeded('xfactor_finesse_cast_2026-11', buildFinesseBaitcasterSeedPlan());
   seedGameplanNotesIfNeeded('xfactor_finesse_link_v2', 'xfactor_compprep_2026-11', [
