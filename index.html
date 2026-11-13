@@ -623,7 +623,7 @@
     <div>
       <h1>CAST-<span>X</span></h1>
       <div class="subhead">Field reference &middot; Xander</div>
-      <div class="headerstats">25 rods &middot; 24 reels &middot; 50 combos &middot; updated 12 Nov 2026</div>
+      <div class="headerstats">25 rods &middot; 24 reels &middot; 50 combos &middot; updated 13 Nov 2026</div>
     </div>
     <span class="cloudSyncStatus" id="cloudSyncStatus"></span>
     <button class="cloudSignInBtn" id="cloudSignInBtn" type="button" title="Sign in with Microsoft to sync this app's data (gameplans, notes, checklists, catches) to your OneDrive — keeps every device signed in to the same account up to date automatically.">Sign in to sync</button>
@@ -718,7 +718,7 @@
       <div style="font-size:.78em;color:var(--text-dim);margin-top:2px;">Watchlist Items</div>
     </div>
       </div>
-      <div class="tagline" style="margin-top:10px;">Generated 12 Nov 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
+      <div class="tagline" style="margin-top:10px;">Generated 13 Nov 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
     </div>
     <div class="sectiontitle">Rod &amp; Reel Lineup</div>
     <details class="card" open><summary>Spinning &amp; baitcasters, light to heavy, with codes and specs</summary>
@@ -16540,6 +16540,11 @@
           if(!p.completed){ p.completed = true; changed = true; }
           p.notes = p.notes || [];
           if(!p.notes.some(function(x){ return x.id === 'note_b5test_debrief'; })){ p.notes.unshift({id:'note_b5test_debrief', text:XF_DEBRIEF_TEXT}); changed = true; }
+        }
+        if(p.id === 'xfactor_scout_2026-11-13'){
+          if(!p.completed){ p.completed = true; changed = true; }
+          p.notes = p.notes || [];
+          if(!p.notes.some(function(x){ return x.id === 'note_xfscout_debrief'; })){ p.notes.unshift({id:'note_xfscout_debrief', text:'DEBRIEF 2026-11-13 - scouting trip on S3: 2 trout caught, no bass. Bass are going to be difficult for the 14 Nov comp. Add spot notes and which baits took the trout here.'}); changed = true; }
         }
       });
       if(changed) savePlans(plans);
