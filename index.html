@@ -15899,11 +15899,11 @@
   function buildXfCompSeedPlan(){
     return {
       id: 'xfactor_comp_2026-11-14',
-      rev: 4,
+      rev: 5,
       name: 'X-Factor COMP - 14 Nov (S6 + B8)',
       date: '2026-11-14',
       type: 'Competition',
-      conditions: "First comp. Two rods, four soft plastics on each, nothing else. What the 13 Nov scouting trip on S3 showed: lots of wind, trout about 5 ft deep between the bass and they took a Ned rig, and the bass chased worms, grubs and everything else you threw but no bass was caught. So the bass are there and active, the work is getting them to commit. S6 (spinning, 10lb fluoro leader) is the lighter rod: the Storm WildEye Rattling Swim Grub, a swimmer, a stick worm and a small gill. B8 (Major Craft MS-1 7 ft 3 in MH/Fast, 10.5-28g, 20lb fluoro leader, 30lb braid) is the heavier rod: the Booyah Buzz and the spinnerbait for searching, plus a bigger swimmer, the Bellows Gill and the Slinko-Floater 5.5 inch. S7 and all other rods stay at home.",
+      conditions: "First comp. Two rods, four soft plastics on each, nothing else. What the 13 Nov scouting trip on S3 showed: lots of wind, trout about 5 ft deep between the bass and they took a Ned rig, and the bass chased worms, grubs and everything else you threw but no bass was caught. So the bass are there and active, the work is getting them to commit. S6 (spinning, 10lb fluoro leader) is the lighter rod: the Storm WildEye Rattling Swim Grub, a swimmer, a stick worm and a small gill. B8 (Major Craft MS-1 7 ft 3 in MH/Fast, 10.5-28g, 20lb fluoro leader, 30lb braid) is the heavier rod: the Booyah Buzz and the spinnerbait for searching, plus a bigger swimmer, the Bellows Gill and the Slinko-Floater 5.5 inch. S7 and all other rods stay at home. S1 is a car backup only (see its entry).",
       setups: [
         { code:'S6', gear:gearFor('S6',[
           "SOFT PLASTICS (4): 1) Storm WildEye Rattling Swim Grub, 2) Yamamoto Yamasenko 5 inch, 3) Yamamoto Shad Shape Swimmer 3.2 inch, 4) Geecrack Muddy Gill 2.8 inch (#226). Pack 3 to 4 of each.",
@@ -15911,7 +15911,6 @@
           "NEKO and WACKY on the Yamasenko: TroKar finesse kit nail weights and the insertion tool, VMC Crossover rings (6mm) and VMC Crossover Pliers, Varivas Mosquito Heavy Guard hooks 1/0 and 2/0.",
           "WEIGHTLESS and LIGHT TEXAS: EWG hooks 2/0 and 3/0 from 3700 #2 (or the Daichi Wide Gap 3/0), Sensation Worm Brass bullets 1/16oz (1.8g, 8 pack) and 1/4oz (7g), plus bullet pegs.",
           "SMALL GILL (Muddy Gill 2.8 inch): Varivas Mosquito 0 or 1/0, or a Texas rig on a 1/0 or 2/0 EWG hook with the 1/16oz bullet.",
-          "SHIMANO BRENIOUS NOGARE NO TATE x3 (No.16 and No.17, 2.9g each, No.7 Lame Gold 3.6g): packed as a small shield-head backup for a light, quick-sinking finesse bite. They are below S6 5.3g minimum, so use them with a bigger soft plastic on the hook or only for short casts.",
           "Leader: 10lb fluorocarbon, re-tie the FG knot before the start. Spare spool of leader.",
           "Net, pliers, line clipper, scale if the rules need it. Careful drag, the bass are tagged."
         ]), f1spool:'floating', lures: [
@@ -15934,6 +15933,17 @@
           "3. GEECRACK BELLOWS GILL 3.8 inch (Green Pumpkin Chartreuse, about 16.8g rigged) - Texas rig on a 5/0 EWG with a twist-lock keeper and a 1/4oz bullet. Swim it near cover or drag it slowly when the bass follow and refuse the moving baits.",
           "4. YAMAMOTO SLINKO-FLOATER 5.5 inch (Green Pumpkin / Watermelon, untested, not weighed) - Texas rig or weightless on a 4/0 or 5/0 EWG. A floating bait for shallow cover and the edges of the weed. Try it only if you have a quiet moment.",
           "UPDATE AFTER TOMORROW MORNING - note the spot, the depth and the bait that gets the first bass."
+        ]}
+        ,{ code:'S1', gear:gearFor('S1',[
+          "CAR BACKUP ONLY - stays in the car, not on the bank. Take it only if the bass go shy and refuse S6 and B8, or if you want a very light bite. Check the comp rules first: some comps limit the rods you carry.",
+          "SHIMANO BRENIOUS NOGARE NO TATE x3 (No.16 and No.17 at 2.9g, No.7 Lame Gold at 3.6g): fit S1 1 to 7g range directly. Pack a few small soft plastic trailers (a 3 inch grub or Ned Senko-Floater 3 inch).",
+          "Rotary Spinners No.1 (3g) and No.2 (4g) for a stained-water flash, and the Eagle Claw Lazer Sharp Ned jig 1/16oz (1.8g) with the Yamamoto Ned Senko-Floater 3 inch or Slinko 3.25 inch.",
+          "Leader: 4lb fluorocarbon on 10lb braid, re-tie the FG knot. Keep the drag light (about 1.0 to 1.5lb) - the comp bass are tagged.",
+          "Net and pliers."
+        ]), f1spool:'floating', lures: [
+          "1. BRENIOUS NOGARE NO TATE (2.9 to 3.6g) with a small soft plastic - slow drag and hop on the bottom when the bass follow and refuse everything else.",
+          "2. NED RIG - Eagle Claw Lazer Sharp Ned jig 1/16oz with the Ned Senko-Floater 3 inch. Note: on 13 Nov the Ned caught the trout and the bass ignored it, so this is for the trout, not the bass.",
+          "3. ROTARY SPINNER No.1 or No.2 - a flash bait for stained or windy water, slow roll."
         ]}
       ],
       notes: [
@@ -16559,9 +16569,9 @@
           p.notes = p.notes || [];
           if(!p.notes.some(function(x){ return x.id === 'note_b5test_debrief'; })){ p.notes.unshift({id:'note_b5test_debrief', text:XF_DEBRIEF_TEXT}); changed = true; }
         }
-        if(p.id === 'xfactor_comp_2026-11-14' && (p.rev || 0) < 4){
+        if(p.id === 'xfactor_comp_2026-11-14' && (p.rev || 0) < 5){
           var fresh = buildXfCompSeedPlan();
-          p.name = fresh.name; p.conditions = fresh.conditions; p.setups = fresh.setups; p.notes = fresh.notes; p.rev = 4; changed = true;
+          p.name = fresh.name; p.conditions = fresh.conditions; p.setups = fresh.setups; p.notes = fresh.notes; p.rev = 5; changed = true;
         }
         if(p.id === 'xfactor_scout_2026-11-13'){
           if(!p.completed){ p.completed = true; changed = true; }
