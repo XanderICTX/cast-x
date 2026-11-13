@@ -15899,7 +15899,7 @@
   function buildXfCompSeedPlan(){
     return {
       id: 'xfactor_comp_2026-11-14',
-      rev: 3,
+      rev: 4,
       name: 'X-Factor COMP - 14 Nov (S6 + B8)',
       date: '2026-11-14',
       type: 'Competition',
@@ -15911,6 +15911,7 @@
           "NEKO and WACKY on the Yamasenko: TroKar finesse kit nail weights and the insertion tool, VMC Crossover rings (6mm) and VMC Crossover Pliers, Varivas Mosquito Heavy Guard hooks 1/0 and 2/0.",
           "WEIGHTLESS and LIGHT TEXAS: EWG hooks 2/0 and 3/0 from 3700 #2 (or the Daichi Wide Gap 3/0), Sensation Worm Brass bullets 1/16oz (1.8g, 8 pack) and 1/4oz (7g), plus bullet pegs.",
           "SMALL GILL (Muddy Gill 2.8 inch): Varivas Mosquito 0 or 1/0, or a Texas rig on a 1/0 or 2/0 EWG hook with the 1/16oz bullet.",
+          "SHIMANO BRENIOUS NOGARE NO TATE x3 (No.16 and No.17, 2.9g each, No.7 Lame Gold 3.6g): packed as a small shield-head backup for a light, quick-sinking finesse bite. They are below S6 5.3g minimum, so use them with a bigger soft plastic on the hook or only for short casts.",
           "Leader: 10lb fluorocarbon, re-tie the FG knot before the start. Spare spool of leader.",
           "Net, pliers, line clipper, scale if the rules need it. Careful drag, the bass are tagged."
         ]), f1spool:'floating', lures: [
@@ -16558,9 +16559,9 @@
           p.notes = p.notes || [];
           if(!p.notes.some(function(x){ return x.id === 'note_b5test_debrief'; })){ p.notes.unshift({id:'note_b5test_debrief', text:XF_DEBRIEF_TEXT}); changed = true; }
         }
-        if(p.id === 'xfactor_comp_2026-11-14' && (p.rev || 0) < 3){
+        if(p.id === 'xfactor_comp_2026-11-14' && (p.rev || 0) < 4){
           var fresh = buildXfCompSeedPlan();
-          p.name = fresh.name; p.conditions = fresh.conditions; p.setups = fresh.setups; p.notes = fresh.notes; p.rev = 3; changed = true;
+          p.name = fresh.name; p.conditions = fresh.conditions; p.setups = fresh.setups; p.notes = fresh.notes; p.rev = 4; changed = true;
         }
         if(p.id === 'xfactor_scout_2026-11-13'){
           if(!p.completed){ p.completed = true; changed = true; }
