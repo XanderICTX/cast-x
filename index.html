@@ -623,7 +623,7 @@
     <div>
       <h1>CAST-<span>X</span></h1>
       <div class="subhead">Field reference &middot; Xander</div>
-      <div class="headerstats">25 rods &middot; 24 reels &middot; 50 combos &middot; updated 13 Nov 2026</div>
+      <div class="headerstats">25 rods &middot; 24 reels &middot; 50 combos &middot; updated 14 Nov 2026</div>
     </div>
     <span class="cloudSyncStatus" id="cloudSyncStatus"></span>
     <button class="cloudSignInBtn" id="cloudSignInBtn" type="button" title="Sign in with Microsoft to sync this app's data (gameplans, notes, checklists, catches) to your OneDrive — keeps every device signed in to the same account up to date automatically.">Sign in to sync</button>
@@ -718,7 +718,7 @@
       <div style="font-size:.78em;color:var(--text-dim);margin-top:2px;">Watchlist Items</div>
     </div>
       </div>
-      <div class="tagline" style="margin-top:10px;">Generated 13 Nov 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
+      <div class="tagline" style="margin-top:10px;">Generated 14 Nov 2026. Rotation alerts below reflect trips/catches logged on this device.</div>
     </div>
     <div class="sectiontitle">Rod &amp; Reel Lineup</div>
     <details class="card" open><summary>Spinning &amp; baitcasters, light to heavy, with codes and specs</summary>
@@ -16559,7 +16559,7 @@
     var changed = false;
     try {
       var plans = loadPlans(), before = plans.length;
-      plans = plans.filter(function(p){ return p.id !== 'xfactor_compprep_2026-11'; });
+      plans = plans.filter(function(p){ return p.id !== 'xfactor_compprep_2026-11' && p.id !== 'xfactor_comp_2026-11-14'; });
       if(plans.length !== before) changed = true;
       plans.forEach(function(p){
         if(p.setups){ var n = p.setups.length; p.setups = p.setups.filter(function(x){ return x.code !== 'ZB' && x.code !== 'ZB2'; }); if(p.setups.length !== n) changed = true; }
